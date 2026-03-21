@@ -1,0 +1,56 @@
+[
+  {
+    "id": "alert-001",
+    "regulation_title": "NC Supreme Court Strikes Down Three CAFO Permit Conditions",
+    "regulation_id": "nc-supreme-court-cafo-2025",
+    "affected_business_ids": [
+      "e681a8a3-3ae5-4d4e-8fe7-4ff8d280dce2",
+      "37be5459-cbdc-400c-b43a-b5da38c68f66",
+      "1cde2b19-dd60-4fd0-bb0f-4d3597a477f8"
+    ],
+    "severity": "high",
+    "timestamp": "2025-11-15T14:30:00Z",
+    "description": "The NC Supreme Court ruled that three permit conditions for hog farm CAFOs are unenforceable: annual facility reporting, groundwater monitoring, and phosphorus testing requirements. Affected facilities should review their compliance obligations under the remaining permit conditions."
+  },
+  {
+    "id": "alert-002",
+    "regulation_title": "EPA Updates CAFO Nutrient Management Plan Reporting Requirements",
+    "regulation_id": "epa-cafo-nmp-2025",
+    "affected_business_ids": [
+      "5e053dcd-b4a9-463d-bc8d-2c0d8bd491b6",
+      "9c1c16b2-47f0-48b0-a428-a8c70dbc91b6",
+      "65f57072-4911-4f21-ad63-7b8a57aff05d",
+      "6c695f67-8414-4441-b3cc-7332a473d72f"
+    ],
+    "severity": "high",
+    "timestamp": "2026-03-21T20:32:17.753786+00:00",
+    "description": "EPA has updated nutrient management plan documentation and reporting requirements for Large CAFOs under 40 CFR 122.42. Facilities with more than 2,500 swine must submit updated NMPs within 180 days of the effective date."
+  },
+  {
+    "id": "alert-003",
+    "regulation_title": "NC DEQ Proposes Revised Setback Requirements for Waste Lagoons",
+    "regulation_id": "nc-deq-setback-2026",
+    "affected_business_ids": [
+      "d84b9096-2206-4ebb-8aee-89a00bf5aa5f",
+      "e79fed7a-ef73-41ce-8c84-f0b53059b015"
+    ],
+    "severity": "medium",
+    "timestamp": "2026-03-19T20:32:17.753786+00:00",
+    "description": "NC DEQ has proposed amendments to 15A NCAC 02T .1307 increasing minimum setback distances for new and expanded animal waste lagoons from 500 feet to 750 feet from property lines and occupied residences."
+  },
+  {
+    "id": "alert-004",
+    "regulation_title": "EPA Announces Enhanced CAFO Inspection Initiative for Southeast Region",
+    "regulation_id": "epa-cafo-inspection-2026",
+    "affected_business_ids": [
+      "e681a8a3-3ae5-4d4e-8fe7-4ff8d280dce2",
+      "3f77cfc4-ccac-4f5d-8f0d-8baad5825661",
+      "d84b9096-2206-4ebb-8aee-89a00bf5aa5f",
+      "8d3cad1a-848b-4fc0-97a9-7cf77ea77bc9",
+      "a4431726-4534-4c5a-9047-681c743f6fe0"
+    ],
+    "severity": "low",
+    "timestamp": "2026-03-16T20:32:17.753786+00:00",
+    "description": "EPA Region 4 has announced an expanded inspection initiative targeting CAFO facilities in NC, SC, and GA. Facilities should ensure all permits, waste management plans, and discharge monitoring reports are current and accessible."
+  }
+]
