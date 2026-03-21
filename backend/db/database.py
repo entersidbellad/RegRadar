@@ -11,7 +11,7 @@ load_dotenv()
 
 SQLITE_DB_PATH = os.getenv("SQLITE_DB_PATH", "./regradar.db")
 
-# SQL schema for all 4 tables
+# SQL schema for all 3 tables
 SCHEMA_SQL = """
 CREATE TABLE IF NOT EXISTS businesses (
     id TEXT PRIMARY KEY,
@@ -52,21 +52,9 @@ CREATE TABLE IF NOT EXISTS analyses (
     requirements_json TEXT,
     summary TEXT,
     full_response TEXT,
-    response_hash TEXT,
     created_at TEXT NOT NULL,
     FOREIGN KEY (business_id) REFERENCES businesses(id),
     FOREIGN KEY (regulation_id) REFERENCES regulations(id)
-);
-
-CREATE TABLE IF NOT EXISTS attestations (
-    id TEXT PRIMARY KEY,
-    analysis_id TEXT NOT NULL,
-    tx_signature TEXT NOT NULL,
-    explorer_url TEXT NOT NULL,
-    sha256_hash TEXT NOT NULL,
-    memo_data TEXT NOT NULL,
-    created_at TEXT NOT NULL,
-    FOREIGN KEY (analysis_id) REFERENCES analyses(id)
 );
 """
 

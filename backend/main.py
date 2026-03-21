@@ -23,7 +23,7 @@ from core.indexing import get_collection_count
 from api.routes_regulations import router as regulations_router
 from api.routes_businesses import router as businesses_router
 from api.routes_analyze import router as analyze_router
-from api.routes_attest import router as attest_router
+from api.routes_alerts import router as alerts_router
 
 
 @asynccontextmanager
@@ -75,7 +75,7 @@ app.add_middleware(
 app.include_router(regulations_router)
 app.include_router(businesses_router)
 app.include_router(analyze_router)
-app.include_router(attest_router)
+app.include_router(alerts_router)
 
 
 @app.get("/api/health")
@@ -105,10 +105,6 @@ async def health_check():
     # Check Gemini configuration
     gemini_configured = bool(os.getenv("GEMINI_API_KEY"))
 
-    # Check Solana configuration
-    solana_keypair_path = os.getenv("SOLANA_KEYPAIR_PATH", "./devnet-keypair.json")
-    solana_configured = os.path.exists(solana_keypair_path)
-
     return {
         "status": "ok" if (sqlite_ok and chromadb_ok) else "degraded",
         "sqlite": "connected" if sqlite_ok else "disconnected",
@@ -117,5 +113,4 @@ async def health_check():
             "chunks": chromadb_count,
         },
         "gemini_configured": gemini_configured,
-        "solana_configured": solana_configured,
     }

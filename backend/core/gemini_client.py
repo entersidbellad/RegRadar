@@ -6,7 +6,6 @@ Caches all responses in SQLite before returning.
 
 import os
 import json
-import hashlib
 import uuid
 from datetime import datetime, timezone
 from typing import Literal, Optional
@@ -166,12 +165,6 @@ async def analyze_compliance(
     return analysis
 
 
-def hash_analysis(analysis: ComplianceGapAnalysis) -> str:
-    """Generate a SHA256 hash of the analysis for attestation purposes."""
-    analysis_json = analysis.model_dump_json(indent=None)
-    return hashlib.sha256(analysis_json.encode()).hexdigest()
-
-
 async def check_cache(business_id: str, regulation_id: str) -> Optional[ComplianceGapAnalysis]:
     """
     Check if we already have a cached analysis for this business+regulation pair.
@@ -211,14 +204,13 @@ async def cache_analysis(
 
     analysis_id = str(uuid.uuid4())
     response_json = analysis.model_dump_json()
-    response_hash = hash_analysis(analysis)
 
     await execute(
         """INSERT INTO analyses 
            (id, business_id, regulation_id, overall_status, confidence, 
             gaps_json, actions_json, requirements_json, summary, 
-            full_response, response_hash, created_at)
-           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
+            full_response, created_at)
+           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)""",
         (
             analysis_id,
             business_id,
@@ -230,7 +222,6 @@ async def cache_analysis(
             json.dumps([r.model_dump() for r in analysis.requirements]),
             analysis.summary,
             response_json,
-            response_hash,
             datetime.now(timezone.utc).isoformat(),
         ),
     )
