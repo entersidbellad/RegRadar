@@ -110,7 +110,7 @@ async def health_check():
     solana_configured = os.path.exists(solana_keypair_path)
 
     return {
-        "status": "healthy" if (sqlite_ok and chromadb_ok) else "degraded",
+        "status": "ok" if (sqlite_ok and chromadb_ok) else "degraded",
         "sqlite": "connected" if sqlite_ok else "disconnected",
         "chromadb": {
             "status": "connected" if chromadb_ok else "disconnected",

@@ -5,7 +5,7 @@ GET /api/businesses/{id}  - Single business with analyses array
 """
 
 import json
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Query
 
 from db.database import fetch_all, fetch_one
 
@@ -36,17 +36,35 @@ def _parse_analysis(row: dict) -> dict:
 
 
 @router.get("")
-async def list_businesses():
+async def list_businesses(
+    county: str | None = Query(None, description="Filter by county name (e.g., Duplin)"),
+    status: str | None = Query(None, description="Filter by latest compliance status (compliant, non_compliant, warning, unknown)"),
+    page: int = Query(1, ge=1, description="Page number"),
+    per_page: int = Query(20, ge=1, le=100, description="Items per page"),
+):
     """
-    List all businesses with their computed latest_status.
+    List businesses with optional county/status filtering and pagination.
     The latest_status is derived from the most recent compliance analysis.
     """
+    # Build query with optional county filter
+    conditions = []
+    params: list = []
+
+    if county:
+        conditions.append("county = ?")
+        params.append(county)
+
+    where_clause = ""
+    if conditions:
+        where_clause = "WHERE " + " AND ".join(conditions)
+
     businesses = await fetch_all(
-        "SELECT * FROM businesses ORDER BY county, name"
+        f"SELECT * FROM businesses {where_clause} ORDER BY county, name",
+        tuple(params),
     )
 
     # For each business, get the most recent analysis to compute latest_status
-    result = []
+    enriched = []
     for biz in businesses:
         latest = await fetch_one(
             "SELECT overall_status FROM analyses WHERE business_id = ? ORDER BY created_at DESC LIMIT 1",
@@ -54,11 +72,22 @@ async def list_businesses():
         )
         biz_dict = dict(biz)
         biz_dict["latest_status"] = latest["overall_status"] if latest else "unknown"
-        result.append(biz_dict)
+        enriched.append(biz_dict)
+
+    # Apply status filter (post-query since latest_status is computed)
+    if status:
+        enriched = [b for b in enriched if b["latest_status"] == status]
+
+    # Pagination
+    total = len(enriched)
+    offset = (page - 1) * per_page
+    page_items = enriched[offset : offset + per_page]
 
     return {
-        "items": result,
-        "total": len(result),
+        "items": page_items,
+        "total": total,
+        "page": page,
+        "per_page": per_page,
     }
 
 

@@ -17,6 +17,8 @@ async def list_regulations(
     per_page: int = Query(20, ge=1, le=100, description="Items per page"),
     agency: str | None = Query(None, description="Filter by agency (e.g., EPA)"),
     document_type: str | None = Query(None, description="Filter by document type (e.g., RULE)"),
+    date_from: str | None = Query(None, description="Filter by publication_date >= this ISO date (e.g., 2025-06-01)"),
+    date_to: str | None = Query(None, description="Filter by publication_date <= this ISO date (e.g., 2025-12-31)"),
 ):
     """
     List regulations with pagination and optional filters.
@@ -32,6 +34,12 @@ async def list_regulations(
     if document_type:
         conditions.append("document_type = ?")
         params.append(document_type)
+    if date_from:
+        conditions.append("publication_date >= ?")
+        params.append(date_from)
+    if date_to:
+        conditions.append("publication_date <= ?")
+        params.append(date_to)
 
     where_clause = ""
     if conditions:

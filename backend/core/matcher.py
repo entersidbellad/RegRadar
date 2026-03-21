@@ -75,7 +75,7 @@ async def match_business_to_regulation(
 
     relevant_chunks = vector_search(
         query=query_text,
-        top_k=15,
+        top_k=10,
         metadata_filters={"doc_id": regulation_id},
     )
 

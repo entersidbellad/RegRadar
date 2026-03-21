@@ -11,7 +11,7 @@ import uuid
 from datetime import datetime, timezone
 from pathlib import Path
 
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, Query
 from pydantic import BaseModel
 from dotenv import load_dotenv
 
@@ -88,20 +88,20 @@ async def attest(request: AttestRequest):
             "timestamp": existing["created_at"],
         }
 
-    # 2. Compute SHA256 hash
-    full_response = analysis.get("full_response", "")
-    sha256_hash = hashlib.sha256(full_response.encode()).hexdigest()
+    # 2. Use pre-computed response_hash from analyses table; fall back to recomputing
+    sha256_hash = analysis.get("response_hash") or hashlib.sha256(
+        analysis.get("full_response", "").encode()
+    ).hexdigest()
 
-    # 3. Build memo data
-    memo_data = json.dumps({
-        "type": "regradar_compliance_attestation",
-        "analysis_id": request.analysis_id,
-        "business_id": analysis["business_id"],
-        "regulation_id": analysis["regulation_id"],
-        "status": analysis["overall_status"],
-        "sha256": sha256_hash,
-        "timestamp": datetime.now(timezone.utc).isoformat(),
-    })
+    # 3. Build pipe-delimited memo string: RegRadar|biz|reg|hash|timestamp
+    iso_timestamp = datetime.now(timezone.utc).isoformat()
+    memo_data = (
+        f"RegRadar"
+        f"|{analysis['business_id']}"
+        f"|{analysis['regulation_id']}"
+        f"|{sha256_hash}"
+        f"|{iso_timestamp}"
+    )
 
     # 4. Send Solana transaction
     try:
@@ -109,7 +109,10 @@ async def attest(request: AttestRequest):
     except Exception as e:
         raise HTTPException(
             status_code=503,
-            detail=f"Solana attestation failed: {str(e)}",
+            detail={
+                "error": f"Solana devnet unavailable: {str(e)}",
+                "cached_hash": sha256_hash,
+            },
         )
 
     explorer_url = f"https://explorer.solana.com/tx/{tx_signature}?cluster=devnet"
@@ -202,10 +205,15 @@ async def _send_solana_memo(memo_data: str) -> str:
 
 
 @router.get("/alerts")
-async def list_alerts():
+async def list_alerts(
+    since: str | None = Query(None, description="Filter alerts with timestamp >= this ISO date (e.g., 2026-01-01)"),
+):
     """
     Return pre-loaded alert data from seed files.
+    Optionally filter by timestamp using the 'since' query parameter.
     In production, this would query a real-time monitoring system.
     """
     _load_alerts()
+    if since:
+        return [a for a in _alerts if a.get("timestamp", "") >= since]
     return _alerts

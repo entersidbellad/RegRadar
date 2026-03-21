@@ -154,20 +154,55 @@ Now `POST /api/analyze` will call Gemini 2.5 Flash for compliance analysis. Free
 
 ### Step 6 (Optional): Set Up Solana Devnet
 
+**Option A — Solana CLI (if installed):**
 ```bash
-# Install Solana CLI (if not already installed)
+# Install Solana CLI
 sh -c "$(curl -sSfL https://release.anza.xyz/stable/install)"
 export PATH="$HOME/.local/share/solana/install/active_release/bin:$PATH"
 
 # Generate a devnet keypair
 solana-keygen new --outfile ./devnet-keypair.json --no-bip39-passphrase
 
-# Fund it with devnet SOL
+# Fund it (1–2 SOL, free on devnet)
 solana config set --url devnet
 solana airdrop 2 $(solana-keygen pubkey ./devnet-keypair.json) --url devnet
+solana balance $(solana-keygen pubkey ./devnet-keypair.json) --url devnet
 ```
 
-Now `POST /api/attest` will write compliance attestations to Solana devnet.
+**Option B — Python only (no CLI needed):**
+```bash
+# Generate keypair using solders (already installed)
+uv run python -c "
+from solders.keypair import Keypair
+import json
+kp = Keypair()
+print('pubkey:', kp.pubkey())
+with open('devnet-keypair.json', 'w') as f:
+    json.dump(list(bytes(kp)), f)
+print('Written to devnet-keypair.json')
+"
+
+# Fund via JSON-RPC airdrop (1 SOL = 1_000_000_000 lamports)
+uv run python -c "
+import httpx, json
+pubkey = '<YOUR_PUBKEY_FROM_ABOVE>'
+r = httpx.post('https://api.devnet.solana.com', json={
+    'jsonrpc': '2.0', 'id': 1,
+    'method': 'requestAirdrop',
+    'params': [pubkey, 1_000_000_000]
+}, timeout=30)
+print(r.json())
+"
+```
+
+> **Note:** The public devnet RPC faucet rate-limits by IP (~1 SOL/day). If you get a 429, visit [faucet.solana.com](https://faucet.solana.com) and paste your public key to get SOL via the web UI.
+
+Add to `.env`:
+```
+SOLANA_KEYPAIR_PATH=./devnet-keypair.json
+```
+
+Each memo transaction costs ~0.000005 SOL, so 1 SOL is ~200,000 attestations. Now `POST /api/attest` will write compliance attestations on-chain and return a Solana Explorer URL.
 
 ---
 
@@ -186,7 +221,7 @@ Returns status of all backend services (SQLite, ChromaDB, Gemini config, Solana 
 **Example response:**
 ```json
 {
-  "status": "healthy",
+  "status": "ok",
   "sqlite": "connected",
   "chromadb": { "status": "connected", "chunks": 7445 },
   "gemini_configured": true,
@@ -197,10 +232,19 @@ Returns status of all backend services (SQLite, ChromaDB, Gemini config, Solana 
 ### Regulations
 
 ```
-GET /api/regulations?page=1&per_page=20&agency=EPA&document_type=RULE
+GET /api/regulations?page=1&per_page=20&agency=EPA&document_type=RULE&date_from=2025-06-01&date_to=2025-12-31
 ```
 
 Paginated list of regulations (without full_text for efficiency).
+
+| Param | Type | Default | Description |
+|-------|------|---------|-------------|
+| `page` | int | 1 | Page number |
+| `per_page` | int | 20 | Items per page (max 100) |
+| `agency` | string | — | Filter by agency (e.g., `EPA`) |
+| `document_type` | string | — | Filter by type (e.g., `RULE`) |
+| `date_from` | string | — | Filter by `publication_date >= date` (ISO format) |
+| `date_to` | string | — | Filter by `publication_date <= date` (ISO format) |
 
 ```
 GET /api/regulations/{regulation_id}
@@ -211,10 +255,17 @@ Single regulation with full_text included.
 ### Businesses
 
 ```
-GET /api/businesses
+GET /api/businesses?county=Duplin&status=unknown&page=1&per_page=20
 ```
 
-All business profiles with computed `latest_status` (derived from most recent analysis).
+Business profiles with optional filtering and pagination. Each item includes a computed `latest_status` derived from the most recent compliance analysis (defaults to `"unknown"` if never analyzed).
+
+| Param | Type | Default | Description |
+|-------|------|---------|-------------|
+| `county` | string | — | Filter by NC county name (e.g., `Duplin`, `Sampson`) |
+| `status` | string | — | Filter by latest compliance status (`compliant`, `non_compliant`, `warning`, `unknown`) |
+| `page` | int | 1 | Page number |
+| `per_page` | int | 20 | Items per page (max 100) |
 
 ```
 GET /api/businesses/{business_id}
@@ -249,17 +300,50 @@ Content-Type: application/json
 { "analysis_id": "uuid-of-analysis" }
 ```
 
-Hashes the analysis and writes it to Solana devnet via SPL Memo Program. Returns transaction signature and Solana Explorer URL.
+Writes a compliance attestation on-chain to Solana devnet via the SPL Memo Program. The endpoint is **idempotent** — calling it twice with the same `analysis_id` returns the cached attestation without submitting a duplicate transaction.
+
+**Flow:**
+1. Fetch the analysis from SQLite
+2. Read the pre-computed `response_hash` (SHA-256 of the full Gemini response)
+3. Build a pipe-delimited memo string: `RegRadar|{business_id}|{regulation_id}|{sha256_hash}|{iso_timestamp}`
+4. Submit an SPL Memo Program transaction to Solana devnet signed by the server keypair
+5. Store the attestation record (tx_signature, explorer_url, sha256_hash) in SQLite
+6. Return the transaction details
+
+**Success response (200):**
+```json
+{
+  "tx_signature": "5Hg3...",
+  "explorer_url": "https://explorer.solana.com/tx/5Hg3...?cluster=devnet",
+  "sha256_hash": "abc123...",
+  "timestamp": "2026-03-21T17:00:00Z"
+}
+```
+
+**If Solana devnet is unavailable (503):**
+```json
+{
+  "detail": {
+    "error": "Solana devnet unavailable: ...",
+    "cached_hash": "abc123..."
+  }
+}
+```
+The `cached_hash` is always returned even on failure, so the frontend can display it without an on-chain record.
 
 **Requires:** `SOLANA_KEYPAIR_PATH` pointing to a funded devnet keypair.
 
 ### Alerts
 
 ```
-GET /api/alerts
+GET /api/alerts?since=2026-01-01
 ```
 
 Returns pre-loaded alert data from `../data/alerts_seed.json`. 4 demo alerts covering recent regulatory changes affecting NC CAFO facilities.
+
+| Param | Type | Default | Description |
+|-------|------|---------|-------------|
+| `since` | string | — | Filter alerts with `timestamp >= date` (ISO format) |
 
 ---
 
@@ -311,22 +395,22 @@ LangChain-based text chunking. Uses `RecursiveCharacterTextSplitter` with 800-ch
 ChromaDB vector indexing. Manages a persistent `"regulations"` collection with cosine similarity. `index_chunks()` upserts in batches of 100. `search()` accepts text queries with optional metadata filters. `delete_by_doc_id()` removes all chunks for a document.
 
 ### `core/gemini_client.py`
-Gemini 2.5 Flash integration using the `google-genai` SDK. Defines Pydantic models `ComplianceRequirement` and `ComplianceGapAnalysis` for structured JSON output. Includes the compliance analysis system prompt, prompt builder, cache check/store functions, and the main `analyze_compliance()` function.
+Gemini 2.5 Flash integration using the `google-genai` SDK. The client auto-reads `GEMINI_API_KEY` from the environment (no explicit `api_key=` parameter). Defines Pydantic models `ComplianceRequirement` and `ComplianceGapAnalysis` with `Literal` type constraints on `obligation_type` (`"mandatory"`, `"recommended"`, `"conditional"`) and `overall_status` (`"compliant"`, `"non_compliant"`, `"warning"`, `"unknown"`). Uses Gemini's native JSON mode via `response_mime_type="application/json"` and `response_schema` from `model_json_schema()`. Temperature is fixed at 0.2. Includes cache check/store functions against the SQLite analyses table and SHA-256 hashing for attestation.
 
 ### `core/matcher.py`
-Orchestration module. `match_business_to_regulation()` coordinates the full pipeline: fetch business → fetch regulation → query ChromaDB → check cache → call Gemini → cache result → return. Handles cache hits, falls back to broader search if no regulation-specific chunks found.
+Orchestration module. `match_business_to_regulation()` coordinates the full pipeline: fetch business from SQLite → fetch regulation → query ChromaDB for top 10 relevant chunks filtered by regulation_id → check cache for existing (business_id, regulation_id) pair → call Gemini → store result with SHA-256 hash in analyses table → return. Falls back to a broader unfiltered search if no regulation-specific chunks are found.
 
 ### `api/routes_regulations.py`
-`GET /api/regulations` (paginated, filterable by agency/document_type) and `GET /api/regulations/{id}` (includes full_text). Returns regulations ordered by publication date descending.
+`GET /api/regulations` (paginated, filterable by agency, document_type, date_from, date_to) and `GET /api/regulations/{id}` (includes full_text). Returns regulations ordered by publication date descending.
 
 ### `api/routes_businesses.py`
-`GET /api/businesses` (all businesses with computed `latest_status`) and `GET /api/businesses/{id}` (includes analyses array). The `latest_status` is dynamically computed from the most recent analysis record.
+`GET /api/businesses` (paginated, filterable by county and compliance status) and `GET /api/businesses/{id}` (includes analyses array). The `latest_status` is dynamically computed from the most recent analysis record; status filtering is applied post-query since it's a derived field.
 
 ### `api/routes_analyze.py`
 `POST /api/analyze` with body `{business_id, regulation_id}`. Delegates to the matcher pipeline. Returns 404 if business/regulation not found, 503 if Gemini is unavailable.
 
 ### `api/routes_attest.py`
-`POST /api/attest` with body `{analysis_id}`. Computes SHA256 hash, sends SPL Memo transaction to Solana devnet, stores attestation record. Returns existing attestation if analysis was already attested. Also serves `GET /api/alerts` from seed data.
+`POST /api/attest` with body `{analysis_id}`. Uses the pre-computed `response_hash` from the analyses table (falls back to recomputing from `full_response`). Builds a pipe-delimited memo string: `RegRadar|{business_id}|{regulation_id}|{sha256_hash}|{timestamp}`. Signs and submits an SPL Memo Program transaction to Solana devnet. Stores the attestation record (tx_signature, explorer_url, sha256_hash) in SQLite. Idempotent — returns the cached attestation if the analysis was already attested. On Solana failure, returns HTTP 503 with both `error` and `cached_hash` so the frontend can still display the hash without an on-chain record. Also serves `GET /api/alerts` from seed data with optional `since` date filtering.
 
 ---
 
