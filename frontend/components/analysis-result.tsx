@@ -1,0 +1,222 @@
+"use client";
+
+import { useState } from "react";
+import type { ComplianceGapAnalysis } from "@/lib/types";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
+import { ScrollArea } from "@/components/ui/scroll-area";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Alert, AlertDescription } from "@/components/ui/alert";
+import {
+  AlertTriangle,
+  CheckCircle2,
+  XCircle,
+  HelpCircle,
+  Target,
+  Lightbulb,
+  FileText,
+  ClipboardList,
+} from "lucide-react";
+
+// ── Status config ────────────────────────────────────────────────────────────
+
+const STATUS_CONFIG = {
+  compliant: {
+    label: "COMPLIANT",
+    icon: CheckCircle2,
+    badgeClass: "bg-green-600 text-white hover:bg-green-700 text-base px-4 py-1",
+    cardClass: "border-green-200 bg-green-50",
+    iconClass: "text-green-600",
+  },
+  warning: {
+    label: "WARNING",
+    icon: AlertTriangle,
+    badgeClass: "bg-yellow-500 text-white hover:bg-yellow-600 text-base px-4 py-1",
+    cardClass: "border-yellow-200 bg-yellow-50",
+    iconClass: "text-yellow-600",
+  },
+  non_compliant: {
+    label: "NON-COMPLIANT",
+    icon: XCircle,
+    badgeClass: "bg-red-600 text-white hover:bg-red-700 text-base px-4 py-1",
+    cardClass: "border-red-200 bg-red-50",
+    iconClass: "text-red-600",
+  },
+  unknown: {
+    label: "UNKNOWN",
+    icon: HelpCircle,
+    badgeClass: "bg-gray-500 text-white hover:bg-gray-600 text-base px-4 py-1",
+    cardClass: "border-gray-200 bg-gray-50",
+    iconClass: "text-gray-600",
+  },
+};
+
+// obligation_type badge: mandatory=red, recommended=blue, conditional=yellow
+const OBLIGATION_CLASS: Record<string, string> = {
+  mandatory: "border-red-200 bg-red-100 text-red-700",
+  recommended: "border-blue-200 bg-blue-100 text-blue-700",
+  conditional: "border-yellow-200 bg-yellow-100 text-yellow-700",
+};
+
+// ── Component ────────────────────────────────────────────────────────────────
+
+interface AnalysisResultProps {
+  analysis: ComplianceGapAnalysis;
+}
+
+export default function AnalysisResult({ analysis }: AnalysisResultProps) {
+  const status = STATUS_CONFIG[analysis.overall_status];
+  const StatusIcon = status.icon;
+
+  // Track checked state for recommended actions
+  const [checked, setChecked] = useState<Record<number, boolean>>({});
+  const toggle = (i: number) =>
+    setChecked((prev) => ({ ...prev, [i]: !prev[i] }));
+
+  return (
+    <div className="space-y-4">
+      {/* ── Overall status ── */}
+      <Card className={status.cardClass}>
+        <CardContent className="flex flex-wrap items-center gap-3 p-4">
+          <StatusIcon className={`h-6 w-6 shrink-0 ${status.iconClass}`} />
+          <Badge className={status.badgeClass}>{status.label}</Badge>
+          <span className="text-sm text-muted-foreground">
+            {(analysis.confidence_score * 100).toFixed(0)}% confidence
+          </span>
+          <span className="ml-auto text-xs text-muted-foreground">
+            {new Date(analysis.analysis_date).toLocaleDateString()}
+          </span>
+        </CardContent>
+      </Card>
+
+      {/* ── Summary callout ── */}
+      <Alert className="border-muted bg-muted/30">
+        <ClipboardList className="h-4 w-4" />
+        <AlertDescription className="text-sm leading-relaxed">
+          {analysis.summary}
+        </AlertDescription>
+      </Alert>
+
+      {/* ── Identified Gaps ── */}
+      {analysis.gaps.length > 0 && (
+        <Card className="border-red-200">
+          <CardHeader className="pb-2 pt-4 px-4">
+            <CardTitle className="flex items-center gap-2 text-sm text-red-700">
+              <Target className="h-4 w-4" />
+              Identified Gaps ({analysis.gaps.length})
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="px-4 pb-4">
+            <ul className="space-y-2">
+              {analysis.gaps.map((gap, i) => (
+                <li
+                  key={i}
+                  className="flex gap-2 rounded-md border border-red-100 bg-red-50/60 p-2 text-sm"
+                >
+                  <span className="mt-0.5 shrink-0 text-red-500">•</span>
+                  <span>{gap}</span>
+                </li>
+              ))}
+            </ul>
+          </CardContent>
+        </Card>
+      )}
+
+      {/* ── Recommended Actions (checklist) ── */}
+      {analysis.recommended_actions.length > 0 && (
+        <Card className="border-blue-200">
+          <CardHeader className="pb-2 pt-4 px-4">
+            <CardTitle className="flex items-center gap-2 text-sm text-blue-700">
+              <Lightbulb className="h-4 w-4" />
+              Recommended Actions ({analysis.recommended_actions.length})
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="px-4 pb-4">
+            <ul className="space-y-2">
+              {analysis.recommended_actions.map((action, i) => (
+                <li key={i} className="flex items-start gap-3 rounded-md border border-blue-100 bg-blue-50/60 p-2">
+                  <Checkbox
+                    id={`action-${i}`}
+                    checked={!!checked[i]}
+                    onCheckedChange={() => toggle(i)}
+                    className="mt-0.5 shrink-0"
+                  />
+                  <label
+                    htmlFor={`action-${i}`}
+                    className={`cursor-pointer text-sm leading-relaxed ${
+                      checked[i] ? "line-through text-muted-foreground" : ""
+                    }`}
+                  >
+                    {action}
+                  </label>
+                </li>
+              ))}
+            </ul>
+          </CardContent>
+        </Card>
+      )}
+
+      {/* ── Requirements ── */}
+      {analysis.requirements.length > 0 && (
+        <Card>
+          <CardHeader className="pb-2 pt-4 px-4">
+            <CardTitle className="flex items-center gap-2 text-sm">
+              <FileText className="h-4 w-4" />
+              Requirements ({analysis.requirements.length})
+            </CardTitle>
+          </CardHeader>
+          <CardContent className="space-y-3 px-4 pb-4">
+            {analysis.requirements.map((req) => (
+              <div key={req.requirement_id} className="rounded-md border p-3 space-y-2">
+                {/* Header row: section + obligation type */}
+                <div className="flex flex-wrap items-center gap-2">
+                  <code className="rounded bg-muted px-1.5 py-0.5 text-xs font-mono">
+                    {req.regulation_section}
+                  </code>
+                  <span
+                    className={`inline-flex items-center rounded-full border px-2 py-0.5 text-xs font-semibold ${
+                      OBLIGATION_CLASS[req.obligation_type] ??
+                      "border-gray-200 bg-gray-100 text-gray-700"
+                    }`}
+                  >
+                    {req.obligation_type}
+                  </span>
+                </div>
+
+                {/* Plain-language summary */}
+                <p className="text-sm font-medium leading-snug">
+                  {req.plain_language_summary}
+                </p>
+
+                <Separator />
+
+                {/* Legal text */}
+                <p className="text-xs italic text-muted-foreground leading-relaxed">
+                  {req.requirement_text}
+                </p>
+
+                {/* Deadline + penalty */}
+                {(req.deadline || req.penalty_info) && (
+                  <div className="space-y-0.5">
+                    {req.deadline && (
+                      <p className="text-xs font-medium text-red-600">
+                        Deadline:{" "}
+                        {new Date(req.deadline).toLocaleDateString()}
+                      </p>
+                    )}
+                    {req.penalty_info && (
+                      <p className="text-xs text-orange-600">
+                        Penalty: {req.penalty_info}
+                      </p>
+                    )}
+                  </div>
+                )}
+              </div>
+            ))}
+          </CardContent>
+        </Card>
+      )}
+    </div>
+  );
+}

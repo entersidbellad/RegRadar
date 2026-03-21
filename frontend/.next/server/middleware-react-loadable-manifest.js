@@ -1,0 +1,1 @@
+self.__REACT_LOADABLE_MANIFEST="{\"app/page.tsx -> @/components/nc-map\":{\"id\":\"app/page.tsx -> @/components/nc-map\",\"files\":[\"static/css/_app-pages-browser_components_nc-map_tsx.css\",\"static/chunks/_app-pages-browser_components_nc-map_tsx.js\"]}}"
