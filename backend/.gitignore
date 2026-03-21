@@ -1,0 +1,21 @@
+# Virtual environment
+.venv/
+
+# Python bytecode
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Environment variables - NEVER commit secrets
+.env
+
+# Generated databases and vector stores
+regradar.db
+chroma_data/
+
+# Solana private key - NEVER commit
+devnet-keypair.json
+
+# macOS
+.DS_Store

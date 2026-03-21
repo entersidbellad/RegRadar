@@ -1,0 +1,22 @@
+[project]
+name = "regradar-backend"
+version = "0.1.0"
+description = "AI-powered environmental compliance monitoring backend for NC hog farm CAFOs"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "aiosqlite>=0.22.1",
+    "beautifulsoup4>=4.14.3",
+    "chromadb>=1.5.5",
+    "fastapi>=0.135.1",
+    "google-genai>=1.68.0",
+    "httpx>=0.28.1",
+    "langchain-text-splitters>=1.1.1",
+    "pydantic>=2.12.5",
+    "pymupdf4llm>=1.27.2.2",
+    "python-dotenv>=1.2.2",
+    "sentence-transformers>=5.3.0",
+    "solana>=0.36.11",
+    "solders>=0.27.1",
+    "uvicorn[standard]>=0.42.0",
+]
