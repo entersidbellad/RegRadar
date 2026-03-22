@@ -19,6 +19,8 @@ export interface Business {
 export interface BusinessListResponse {
   items: Business[];
   total: number;
+  page?: number;
+  per_page?: number;
 }
 
 // ─── Regulation ──────────────────────────────────────────────────────────────
@@ -80,6 +82,7 @@ export interface ComplianceGapAnalysis {
   gaps: string[];
   recommended_actions: string[];
   summary: string;
+  analysis_id?: string;
 }
 
 // ─── Alert ───────────────────────────────────────────────────────────────────

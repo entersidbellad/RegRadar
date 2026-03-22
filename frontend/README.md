@@ -29,20 +29,57 @@ bun run dev
 ```
 The app starts on [http://localhost:3000](http://localhost:3000).
 
-**To use mock data without a backend**, the default `.env.local` has `NEXT_PUBLIC_USE_MOCKS=true` already set. To switch to the real backend API:
+The app is now configured to connect to the **live backend** by default (`NEXT_PUBLIC_USE_MOCKS=false`). The backend must be running at `http://localhost:8000` and seeded before the frontend will show real data.
+
+**To run with the live backend:**
+
+```bash
+# 1. Start the backend (in a separate terminal)
+cd backend
+source .venv/bin/activate
+uv run python -m db.seed          # seed SQLite + ChromaDB (first time only)
+uv run uvicorn main:app --reload --port 8000
+
+# 2. Start the frontend
+cd frontend
+bun run dev
+```
+
+**To fall back to mock data** (no backend required):
 
 ```bash
 # Edit .env.local
-NEXT_PUBLIC_API_URL=http://localhost:8000
-NEXT_PUBLIC_USE_MOCKS=false
+NEXT_PUBLIC_USE_MOCKS=true
 ```
 
 ## Environment Variables
 
-| Variable | Default | Description |
+| Variable | Value | Description |
 |---|---|---|
-| `NEXT_PUBLIC_API_URL` | `http://localhost:8000` | Backend API base URL |
-| `NEXT_PUBLIC_USE_MOCKS` | `true` | Set to `true` to use hardcoded mock data instead of the backend |
+| `NEXT_PUBLIC_API_URL` | `http://localhost:8000` | Backend FastAPI base URL |
+| `NEXT_PUBLIC_USE_MOCKS` | `false` | Set to `true` to use hardcoded mock data without a backend |
+
+## Backend Integration
+
+The frontend connects to the FastAPI backend over HTTP. All API calls go through `lib/api.ts` which prepends `NEXT_PUBLIC_API_URL` to every request.
+
+### Confirmed working endpoints
+
+| Endpoint | Frontend function | Notes |
+|---|---|---|
+| `GET /api/regulations` | `fetchRegulations()` | Returns paginated list with `{ items, total, page, per_page }` |
+| `GET /api/businesses` | `fetchBusinesses()` | Returns `{ items, total, page, per_page }`; `latest_status` is computed server-side from most recent analysis |
+| `GET /api/businesses/{id}` | `fetchBusinessDetail()` | Returns business with `analyses[]` array; JSON fields pre-parsed |
+| `POST /api/analyze` | `runAnalysis()` | Sends `{ business_id, regulation_id }`; runs Gemini 2.5 Flash via backend; response cached in SQLite |
+| `GET /api/alerts` | `fetchAlerts()` | Returns raw array from `data/alerts_seed.json` |
+| `GET /api/health` | — | Backend health check (not called by frontend directly) |
+
+### Known field differences (handled)
+
+- `GET /api/businesses` returns extra `page`/`per_page` fields — typed as optional in `BusinessListResponse`
+- `POST /api/analyze` returns an extra `analysis_id` field — typed as optional in `ComplianceGapAnalysis`
+- `GET /api/regulations` returns extra `cfr_references` and `ingested_at` fields — ignored by TypeScript (no type change needed)
+- Past analyses on `GET /api/businesses/{id}` have `confidence` (not `confidence_score`) and `*_json` fields that are pre-parsed objects — the frontend only displays `summary` and `overall_status` from these, so no impact
 
 ## Project Structure
 
