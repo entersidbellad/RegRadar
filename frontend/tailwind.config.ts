@@ -52,6 +52,21 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        sidebar: {
+          DEFAULT: "hsl(var(--sidebar-bg))",
+          foreground: "hsl(var(--sidebar-fg))",
+          active: "hsl(var(--sidebar-active))",
+        },
+        status: {
+          compliant: "hsl(var(--status-compliant))",
+          warning: "hsl(var(--status-warning))",
+          noncompliant: "hsl(var(--status-noncompliant))",
+          unknown: "hsl(var(--status-unknown))",
+        },
+        terracotta: {
+          DEFAULT: "#b45309",
+          hover: "#d97706",
+        },
       },
       borderRadius: {
         lg: "var(--radius)",

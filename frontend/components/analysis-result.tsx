@@ -25,38 +25,37 @@ const STATUS_CONFIG = {
   compliant: {
     label: "COMPLIANT",
     icon: CheckCircle2,
-    badgeClass: "bg-green-600 text-white hover:bg-green-700 text-base px-4 py-1",
-    cardClass: "border-green-200 bg-green-50",
-    iconClass: "text-green-600",
+    badgeClass: "bg-green-700 text-white hover:bg-green-800 text-base px-4 py-1",
+    cardClass: "border-green-200 dark:border-green-900 bg-green-50 dark:bg-green-950/30",
+    iconClass: "text-green-700 dark:text-green-400",
   },
   warning: {
     label: "WARNING",
     icon: AlertTriangle,
-    badgeClass: "bg-yellow-500 text-white hover:bg-yellow-600 text-base px-4 py-1",
-    cardClass: "border-yellow-200 bg-yellow-50",
-    iconClass: "text-yellow-600",
+    badgeClass: "bg-amber-600 text-white hover:bg-amber-700 text-base px-4 py-1",
+    cardClass: "border-amber-200 dark:border-amber-900 bg-amber-50 dark:bg-amber-950/30",
+    iconClass: "text-amber-600 dark:text-amber-400",
   },
   non_compliant: {
     label: "NON-COMPLIANT",
     icon: XCircle,
-    badgeClass: "bg-red-600 text-white hover:bg-red-700 text-base px-4 py-1",
-    cardClass: "border-red-200 bg-red-50",
-    iconClass: "text-red-600",
+    badgeClass: "bg-red-700 text-white hover:bg-red-800 text-base px-4 py-1",
+    cardClass: "border-red-200 dark:border-red-900 bg-red-50 dark:bg-red-950/30",
+    iconClass: "text-red-700 dark:text-red-400",
   },
   unknown: {
     label: "UNKNOWN",
     icon: HelpCircle,
-    badgeClass: "bg-gray-500 text-white hover:bg-gray-600 text-base px-4 py-1",
-    cardClass: "border-gray-200 bg-gray-50",
-    iconClass: "text-gray-600",
+    badgeClass: "bg-stone-500 text-white hover:bg-stone-600 text-base px-4 py-1",
+    cardClass: "border-stone-200 dark:border-stone-800 bg-stone-50 dark:bg-stone-950/30",
+    iconClass: "text-stone-500 dark:text-stone-400",
   },
 };
 
-// obligation_type badge: mandatory=red, recommended=blue, conditional=yellow
 const OBLIGATION_CLASS: Record<string, string> = {
-  mandatory: "border-red-200 bg-red-100 text-red-700",
-  recommended: "border-blue-200 bg-blue-100 text-blue-700",
-  conditional: "border-yellow-200 bg-yellow-100 text-yellow-700",
+  mandatory: "border-red-200 dark:border-red-900 bg-red-100 dark:bg-red-950/40 text-red-800 dark:text-red-300",
+  recommended: "border-green-200 dark:border-green-900 bg-green-100 dark:bg-green-950/40 text-green-800 dark:text-green-300",
+  conditional: "border-amber-200 dark:border-amber-900 bg-amber-100 dark:bg-amber-950/40 text-amber-800 dark:text-amber-300",
 };
 
 // ── Component ────────────────────────────────────────────────────────────────
@@ -100,9 +99,9 @@ export default function AnalysisResult({ analysis }: AnalysisResultProps) {
 
       {/* ── Identified Gaps ── */}
       {analysis.gaps.length > 0 && (
-        <Card className="border-red-200">
+        <Card className="border-red-200 dark:border-red-900">
           <CardHeader className="pb-2 pt-4 px-4">
-            <CardTitle className="flex items-center gap-2 text-sm text-red-700">
+            <CardTitle className="flex items-center gap-2 text-sm text-red-700 dark:text-red-400">
               <Target className="h-4 w-4" />
               Identified Gaps ({analysis.gaps.length})
             </CardTitle>
@@ -112,9 +111,9 @@ export default function AnalysisResult({ analysis }: AnalysisResultProps) {
               {analysis.gaps.map((gap, i) => (
                 <li
                   key={i}
-                  className="flex gap-2 rounded-md border border-red-100 bg-red-50/60 p-2 text-sm"
+                  className="flex gap-2 rounded-md border border-red-100 dark:border-red-900 bg-red-50/60 dark:bg-red-950/30 p-2 text-sm"
                 >
-                  <span className="mt-0.5 shrink-0 text-red-500">•</span>
+                  <span className="mt-0.5 shrink-0 text-red-500 dark:text-red-400">•</span>
                   <span>{gap}</span>
                 </li>
               ))}
@@ -125,9 +124,9 @@ export default function AnalysisResult({ analysis }: AnalysisResultProps) {
 
       {/* ── Recommended Actions (checklist) ── */}
       {analysis.recommended_actions.length > 0 && (
-        <Card className="border-blue-200">
+        <Card className="border-blue-200 dark:border-blue-900">
           <CardHeader className="pb-2 pt-4 px-4">
-            <CardTitle className="flex items-center gap-2 text-sm text-blue-700">
+            <CardTitle className="flex items-center gap-2 text-sm text-blue-700 dark:text-blue-400">
               <Lightbulb className="h-4 w-4" />
               Recommended Actions ({analysis.recommended_actions.length})
             </CardTitle>
@@ -135,7 +134,7 @@ export default function AnalysisResult({ analysis }: AnalysisResultProps) {
           <CardContent className="px-4 pb-4">
             <ul className="space-y-2">
               {analysis.recommended_actions.map((action, i) => (
-                <li key={i} className="flex items-start gap-3 rounded-md border border-blue-100 bg-blue-50/60 p-2">
+                <li key={i} className="flex items-start gap-3 rounded-md border border-blue-100 dark:border-blue-900 bg-blue-50/60 dark:bg-blue-950/30 p-2">
                   <Checkbox
                     id={`action-${i}`}
                     checked={!!checked[i]}
@@ -177,7 +176,7 @@ export default function AnalysisResult({ analysis }: AnalysisResultProps) {
                   <span
                     className={`inline-flex items-center rounded-full border px-2 py-0.5 text-xs font-semibold ${
                       OBLIGATION_CLASS[req.obligation_type] ??
-                      "border-gray-200 bg-gray-100 text-gray-700"
+                      "border-gray-200 dark:border-gray-800 bg-gray-100 dark:bg-gray-900/40 text-gray-700 dark:text-gray-400"
                     }`}
                   >
                     {req.obligation_type}
@@ -200,13 +199,13 @@ export default function AnalysisResult({ analysis }: AnalysisResultProps) {
                 {(req.deadline || req.penalty_info) && (
                   <div className="space-y-0.5">
                     {req.deadline && (
-                      <p className="text-xs font-medium text-red-600">
+                      <p className="text-xs font-medium text-red-600 dark:text-red-400">
                         Deadline:{" "}
                         {new Date(req.deadline).toLocaleDateString()}
                       </p>
                     )}
                     {req.penalty_info && (
-                      <p className="text-xs text-orange-600">
+                      <p className="text-xs text-orange-600 dark:text-orange-400">
                         Penalty: {req.penalty_info}
                       </p>
                     )}

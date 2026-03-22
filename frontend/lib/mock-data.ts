@@ -4,6 +4,8 @@ import type {
   Alert,
   ComplianceGapAnalysis,
   Analysis,
+  ComplianceTrendPoint,
+  UpcomingDeadline,
 } from "./types";
 
 // ─── Mock Businesses (10 NC CAFO facilities in Duplin / Sampson counties) ────
@@ -375,6 +377,62 @@ export function getMockBusinessDetail(id: string): Business | undefined {
     analyses: mockAnalyses.filter((a) => a.business_id === id),
   };
 }
+
+// ─── Mock compliance trend (6 months) ────────────────────────────────────────
+
+export const mockComplianceTrend: ComplianceTrendPoint[] = [
+  { month: "Aug 2025", compliant: 5, warning: 2, non_compliant: 1, unknown: 2 },
+  { month: "Sep 2025", compliant: 5, warning: 3, non_compliant: 1, unknown: 1 },
+  { month: "Oct 2025", compliant: 4, warning: 3, non_compliant: 2, unknown: 1 },
+  { month: "Nov 2025", compliant: 4, warning: 2, non_compliant: 2, unknown: 2 },
+  { month: "Dec 2025", compliant: 3, warning: 3, non_compliant: 2, unknown: 2 },
+  { month: "Jan 2026", compliant: 3, warning: 3, non_compliant: 2, unknown: 2 },
+];
+
+// ─── Mock upcoming deadlines ────────────────────────────────────────────────
+
+export const mockDeadlines: UpcomingDeadline[] = [
+  {
+    id: "dl-001",
+    business_name: "Prestage Farms - Sampson East",
+    business_id: "biz-002",
+    regulation_section: "40 CFR 412.31(a)",
+    description: "Update nutrient management plan to revised nitrogen limits",
+    due_date: "2026-04-15",
+  },
+  {
+    id: "dl-002",
+    business_name: "Prestage Farms - Sampson East",
+    business_id: "biz-002",
+    regulation_section: "40 CFR 412.37",
+    description: "Submit 2025 annual soil and manure nutrient analysis",
+    due_date: "2026-04-30",
+  },
+  {
+    id: "dl-003",
+    business_name: "Smithfield Hog Production - Rose Hill",
+    business_id: "biz-003",
+    regulation_section: "NC DEQ 15A NCAC 02T",
+    description: "Complete lagoon liner integrity test (6 months overdue)",
+    due_date: "2026-05-01",
+  },
+  {
+    id: "dl-004",
+    business_name: "Duplin County Swine Co-op",
+    business_id: "biz-008",
+    regulation_section: "40 CFR 122.23(d)(1)",
+    description: "File updated NPDES permit application for expanded capacity",
+    due_date: "2026-06-15",
+  },
+  {
+    id: "dl-005",
+    business_name: "Maxwell Foods Inc - Clinton",
+    business_id: "biz-005",
+    regulation_section: "EPCRA §302",
+    description: "Register for air emission reporting under CERCLA reinstatement",
+    due_date: "2026-07-01",
+  },
+];
 
 // ─── Timer-simulated alert (fires after 60s on the alerts page) ──────────────
 

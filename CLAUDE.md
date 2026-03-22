@@ -33,18 +33,30 @@ regradar/
       e681a8a33ae5_E8_26620.json  # Calvin L. Rouse Farm × E8-26620
   frontend/                 # Next.js 14 frontend
     app/
-      layout.tsx              # Sidebar nav + header shell
-      page.tsx                # Dashboard: regulation feed + NC map
-      alerts/page.tsx         # Alerts view with timer simulation
+      layout.tsx              # Root layout: sidebar nav + command search
+      page.tsx                # Landing / impact page (public)
+      dashboard/page.tsx      # Executive dashboard: KPIs, map, charts, timeline
+      alerts/page.tsx         # Alerts view with severity filtering
+      facilities/page.tsx     # Facility table with search/sort
+      facilities/[id]/page.tsx # Individual facility detail page
+      regulations/page.tsx    # Regulation browser with search/filter
+      reports/page.tsx        # Report generation and CSV export
     components/
       nc-map.tsx              # React Leaflet map (MUST be "use client")
-      reg-feed.tsx            # Regulation card list
+      sidebar-nav.tsx         # Client sidebar with dark mode toggle
+      command-search.tsx      # Cmd+K global search palette
+      kpi-cards.tsx           # Dashboard KPI cards
+      regulation-timeline.tsx # Regulation effective date timeline
+      compliance-charts.tsx   # Donut chart for compliance distribution
+      recent-alerts.tsx       # Dashboard alert summary
+      facilities-table.tsx    # Sortable/filterable facility table
       business-detail.tsx     # Slide-over Sheet with facility info
       analysis-result.tsx     # ComplianceGapAnalysis renderer
     lib/
       api.ts                  # Fetch wrapper for backend API
-      mock-data.ts            # Hardcoded mock data matching API shapes
+      mock-data.ts            # Hardcoded mock data (unused when USE_MOCKS=false)
       types.ts                # TypeScript interfaces for all API responses
+      nc-boundary.ts          # NC state boundary GeoJSON coordinates
   prompts/                  # Gemini prompt engineering workspace
     pyproject.toml            # uv project config (google-genai, pydantic)
     system_prompts.py         # Source of truth for prompt templates
@@ -57,6 +69,8 @@ regradar/
     cafo_facilities.geojson   # 2,307 NC CAFO facilities from NC DEQ ArcGIS
     alerts_seed.json          # 4 demo alerts
     task1.py – task5.py       # Data collection and validation scripts
+  backend/scripts/
+    batch_analyze.py          # Pre-cache all facility analyses via Gemini
 ```
 
 ## Task Runner (justfile)
@@ -451,11 +465,14 @@ After running `just seed`:
 | Federal Register API fetch | LIVE | `data/task1.py` fetches real rules by document ID. No auth needed. |
 | Gemini compliance analysis | LIVE | Two-pass (extract → gap analysis). Cached in SQLite + file cache. |
 | ChromaDB semantic search | LIVE | Real `all-MiniLM-L6-v2` embeddings + vector search. |
-| Dashboard + map UI | LIVE | Real data from backend API when `USE_MOCKS=false`. |
+| Dashboard + map UI | LIVE | Real data from backend API (`USE_MOCKS=false`). |
+| Compliance distribution | LIVE | Derived from `latest_status` computed from analyses table. |
+| Regulation timeline | LIVE | Sorted from real regulation `effective_date` / `publication_date`. |
 | Pre-generated analysis cache | FILE CACHE | `backend/cached_responses/` serves instantly, no Gemini call. |
+| Batch analysis cache | SQLITE | Run `scripts/batch_analyze.py` to pre-cache all 15 facilities. |
 | NC DEQ CAFO data | PRE-LOADED | Downloaded GeoJSON, not live API. |
 | Business profiles | PRE-LOADED | 15 curated entries from NC DEQ permit data. |
-| Alert "live monitoring" | SIMULATED | 60-second timer in frontend surfaces a pre-loaded alert. |
+| Alert "live monitoring" | UI INDICATOR | Green pulse shows concept; alerts come from backend seed data. |
 | Email/SMS notifications | UI ONLY | Toast in frontend, no actual delivery. |
 
 ## Known Test Data

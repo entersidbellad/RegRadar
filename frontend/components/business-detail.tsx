@@ -206,8 +206,8 @@ export default function BusinessDetail({
             </Button>
 
             {analysisError && (
-              <div className="rounded-md border border-red-200 bg-red-50 p-3">
-                <p className="text-sm text-red-700">{analysisError}</p>
+              <div className="rounded-md border border-red-200 dark:border-red-900 bg-red-50 dark:bg-red-950/30 p-3">
+                <p className="text-sm text-red-700 dark:text-red-400">{analysisError}</p>
                 <Button
                   variant="outline"
                   size="sm"

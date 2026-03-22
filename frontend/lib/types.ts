@@ -35,6 +35,9 @@ export interface Regulation {
   abstract: string;
   raw_text_url?: string | null;
   full_text?: string;
+  cfr_references?: string[];
+  ingested_at?: string;
+  cafo_tier?: string;
 }
 
 export interface RegulationListResponse {
@@ -95,4 +98,23 @@ export interface Alert {
   severity: "high" | "medium" | "low";
   timestamp: string;
   description: string;
+}
+
+// ─── Dashboard mock types ───────────────────────────────────────────────────
+
+export interface ComplianceTrendPoint {
+  month: string;
+  compliant: number;
+  warning: number;
+  non_compliant: number;
+  unknown: number;
+}
+
+export interface UpcomingDeadline {
+  id: string;
+  business_name: string;
+  business_id: string;
+  regulation_section: string;
+  description: string;
+  due_date: string;
 }

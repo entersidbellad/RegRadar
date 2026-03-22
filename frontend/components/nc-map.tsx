@@ -1,17 +1,16 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { MapContainer, TileLayer, CircleMarker, Popup, Tooltip } from "react-leaflet";
+import { MapContainer, TileLayer, CircleMarker, Popup, Tooltip, Polygon } from "react-leaflet";
 import type { Business } from "@/lib/types";
+import { NC_BOUNDARY } from "@/lib/nc-boundary";
 import "leaflet/dist/leaflet.css";
 
-// ── Status colors ─────────────────────────────────────────────────────────────
-
 const STATUS_COLORS: Record<Business["latest_status"], string> = {
-  compliant:     "#22c55e",
-  warning:       "#eab308",
-  non_compliant: "#ef4444",
-  unknown:       "#9ca3af",
+  compliant:     "#16a34a",
+  warning:       "#d97706",
+  non_compliant: "#dc2626",
+  unknown:       "#78716c",
 };
 
 const STATUS_LABELS: Record<Business["latest_status"], string> = {
@@ -21,16 +20,11 @@ const STATUS_LABELS: Record<Business["latest_status"], string> = {
   unknown:       "Unknown",
 };
 
-// ── Props ─────────────────────────────────────────────────────────────────────
-
 interface NCMapProps {
   businesses: Business[];
   onMarkerClick: (business: Business) => void;
-  /** IDs of businesses to highlight (from alert navigation) */
   highlightedIds?: string[];
 }
-
-// ── Component ─────────────────────────────────────────────────────────────────
 
 export default function NCMap({
   businesses,
@@ -59,13 +53,24 @@ export default function NCMap({
       scrollWheelZoom
     >
       <TileLayer
-        attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        attribution='&copy; <a href="https://carto.com/attributions">CARTO</a>'
+        url="https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png"
+      />
+
+      <Polygon
+        positions={NC_BOUNDARY}
+        pathOptions={{
+          color: "#2d5016",
+          weight: 2,
+          opacity: 0.6,
+          fillColor: "#2d5016",
+          fillOpacity: 0.04,
+          dashArray: "6 4",
+        }}
       />
 
       {businesses.map((biz) => {
         const isHighlighted = highlightedIds.includes(biz.id);
-        // Highlighted markers: forced red, larger, thicker border
         const fillColor = isHighlighted ? "#ef4444" : STATUS_COLORS[biz.latest_status];
         const radius    = isHighlighted ? 12 : 8;
         const weight    = isHighlighted ? 3  : 2;
@@ -81,20 +86,17 @@ export default function NCMap({
               weight,
               opacity: 0.95,
               fillOpacity: isHighlighted ? 0.85 : 0.6,
-              // SVG transition on color change
               className: isHighlighted ? "leaflet-highlighted-marker" : undefined,
             }}
             eventHandlers={{ click: () => onMarkerClick(biz) }}
           >
-            {/* Hover tooltip showing business name */}
             <Tooltip direction="top" offset={[0, -radius]} sticky={false}>
               <span className="text-xs font-medium">{biz.name}</span>
               {isHighlighted && (
-                <span className="ml-1 text-xs text-red-600 font-semibold">⚠ Alert</span>
+                <span className="ml-1 text-xs text-red-600 font-semibold">&bull; Alert</span>
               )}
             </Tooltip>
 
-            {/* Click popup with detail summary */}
             <Popup minWidth={200}>
               <div className="space-y-1 py-1">
                 <p className="font-semibold text-sm leading-tight">{biz.name}</p>
@@ -110,7 +112,7 @@ export default function NCMap({
                 </span>
                 {isHighlighted && (
                   <p className="text-xs font-medium text-red-600 pt-1">
-                    ⚠ Affected by active alert
+                    Affected by active alert
                   </p>
                 )}
               </div>
