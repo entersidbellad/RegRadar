@@ -1,0 +1,110 @@
+{
+  "business_id": "e681a8a3-3ae5-4d4e-8fe7-4ff8d280dce2",
+  "regulation_id": "2025-16868",
+  "gap_analysis": {
+    "business_name": "Calvin L. Rouse Farm",
+    "business_id": "AWS310410",
+    "regulation_name": "N/A",
+    "regulation_id": "N/A",
+    "analysis_date": "2024-07-30",
+    "overall_status": "unknown",
+    "confidence_score": 1.0,
+    "requirements": [],
+    "gaps": [],
+    "recommended_actions": [],
+    "summary": "No specific compliance requirements were provided for analysis against the Calvin L. Rouse Farm's profile. Therefore, a compliance posture cannot be determined at this time. Please provide the relevant regulatory requirements to proceed with an assessment."
+  },
+  "requirements": [],
+  "alert_classifications": [
+    {
+      "business_id": "e681a8a3-3ae5-4d4e-8fe7-4ff8d280dce2",
+      "affected": false,
+      "severity": "low",
+      "reason": "This regulation is a withdrawal of a proposed rule for the Meat and Poultry Products Point Source Category, meaning no new effluent limitations guidelines are being finalized for this hog farm."
+    },
+    {
+      "business_id": "37be5459-cbdc-400c-b43a-b5da38c68f66",
+      "affected": false,
+      "severity": "low",
+      "reason": "This regulation is a withdrawal of a proposed rule for the Meat and Poultry Products Point Source Category, meaning no new effluent limitations guidelines are being finalized for this hog farm."
+    },
+    {
+      "business_id": "1cde2b19-dd60-4fd0-bb0f-4d3597a477f8",
+      "affected": false,
+      "severity": "low",
+      "reason": "This regulation is a withdrawal of a proposed rule for the Meat and Poultry Products Point Source Category, meaning no new effluent limitations guidelines are being finalized for this hog farm."
+    },
+    {
+      "business_id": "6e252de9-55c6-4760-b91a-7f86aacba4f9",
+      "affected": false,
+      "severity": "low",
+      "reason": "This regulation is a withdrawal of a proposed rule for the Meat and Poultry Products Point Source Category, meaning no new effluent limitations guidelines are being finalized for this hog farm."
+    },
+    {
+      "business_id": "5e053dcd-b4a9-463d-bc8d-2c0d8bd491b6",
+      "affected": false,
+      "severity": "low",
+      "reason": "This regulation is a withdrawal of a proposed rule for the Meat and Poultry Products Point Source Category, meaning no new effluent limitations guidelines are being finalized for this hog farm."
+    },
+    {
+      "business_id": "9c1c16b2-47f0-48b0-a428-a8c70dbc91b6",
+      "affected": false,
+      "severity": "low",
+      "reason": "This regulation is a withdrawal of a proposed rule for the Meat and Poultry Products Point Source Category, meaning no new effluent limitations guidelines are being finalized for this hog farm."
+    },
+    {
+      "business_id": "65f57072-4911-4f21-ad63-7b8a57aff05d",
+      "affected": false,
+      "severity": "low",
+      "reason": "This regulation is a withdrawal of a proposed rule for the Meat and Poultry Products Point Source Category, meaning no new effluent limitations guidelines are being finalized for this hog farm."
+    },
+    {
+      "business_id": "6c695f67-8414-4441-b3cc-7332a473d72f",
+      "affected": false,
+      "severity": "low",
+      "reason": "This regulation is a withdrawal of a proposed rule for the Meat and Poultry Products Point Source Category, meaning no new effluent limitations guidelines are being finalized for this hog farm."
+    },
+    {
+      "business_id": "d86503ce-7aeb-42ce-9025-20c9bcd479b7",
+      "affected": false,
+      "severity": "low",
+      "reason": "This regulation is a withdrawal of a proposed rule for the Meat and Poultry Products Point Source Category, meaning no new effluent limitations guidelines are being finalized for this hog farm."
+    },
+    {
+      "business_id": "482a7f47-14d9-42d1-9c1c-058bda7ea206",
+      "affected": false,
+      "severity": "low",
+      "reason": "This regulation is a withdrawal of a proposed rule for the Meat and Poultry Products Point Source Category, meaning no new effluent limitations guidelines are being finalized for this hog farm."
+    },
+    {
+      "business_id": "3f77cfc4-ccac-4f5d-8f0d-8baad5825661",
+      "affected": false,
+      "severity": "low",
+      "reason": "This regulation is a withdrawal of a proposed rule for the Meat and Poultry Products Point Source Category, meaning no new effluent limitations guidelines are being finalized for this hog farm."
+    },
+    {
+      "business_id": "d84b9096-2206-4ebb-8aee-89a00bf5aa5f",
+      "affected": false,
+      "severity": "low",
+      "reason": "This regulation is a withdrawal of a proposed rule for the Meat and Poultry Products Point Source Category, meaning no new effluent limitations guidelines are being finalized for this hog farm."
+    },
+    {
+      "business_id": "e79fed7a-ef73-41ce-8c84-f0b53059b015",
+      "affected": false,
+      "severity": "low",
+      "reason": "This regulation is a withdrawal of a proposed rule for the Meat and Poultry Products Point Source Category, meaning no new effluent limitations guidelines are being finalized for this hog farm."
+    },
+    {
+      "business_id": "a4431726-4534-4c5a-9047-681c743f6fe0",
+      "affected": false,
+      "severity": "low",
+      "reason": "This regulation is a withdrawal of a proposed rule for the Meat and Poultry Products Point Source Category, meaning no new effluent limitations guidelines are being finalized for this hog farm."
+    },
+    {
+      "business_id": "8d3cad1a-848b-4fc0-97a9-7cf77ea77bc9",
+      "affected": false,
+      "severity": "low",
+      "reason": "This regulation is a withdrawal of a proposed rule for the Meat and Poultry Products Point Source Category, meaning no new effluent limitations guidelines are being finalized for this hog farm."
+    }
+  ]
+}
