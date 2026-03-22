@@ -24,24 +24,24 @@ import {
 const SEVERITY_CONFIG = {
   high: {
     label: "High",
-    variant: "destructive" as const,
+    badgeClass: "bg-red-600 text-white hover:bg-red-700 border-red-600",
     border: "border-l-red-500",
     bg: "bg-red-50/40 dark:bg-red-950/30",
     dot: "bg-red-500",
   },
   medium: {
     label: "Medium",
-    variant: "secondary" as const,
-    border: "border-l-amber-500",
-    bg: "bg-amber-50/40 dark:bg-amber-950/30",
-    dot: "bg-amber-500",
+    badgeClass: "bg-orange-500 text-white hover:bg-orange-600 border-orange-500",
+    border: "border-l-orange-500",
+    bg: "bg-orange-50/40 dark:bg-orange-950/30",
+    dot: "bg-orange-500",
   },
   low: {
     label: "Low",
-    variant: "outline" as const,
-    border: "border-l-blue-500",
-    bg: "bg-blue-50/40 dark:bg-blue-950/30",
-    dot: "bg-blue-500",
+    badgeClass: "bg-yellow-500 text-white hover:bg-yellow-600 border-yellow-500",
+    border: "border-l-yellow-500",
+    bg: "bg-yellow-50/40 dark:bg-yellow-950/30",
+    dot: "bg-yellow-500",
   },
 };
 
@@ -185,7 +185,7 @@ export default function AlertsPage() {
                       <CardTitle className="text-base font-semibold leading-snug flex-1">
                         {alert.regulation_title}
                       </CardTitle>
-                      <Badge variant={sev.variant} className="shrink-0">
+                      <Badge className={`shrink-0 ${sev.badgeClass}`}>
                         {sev.label} Severity
                       </Badge>
                     </div>

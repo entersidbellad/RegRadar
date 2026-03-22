@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import type { Business, Regulation, ComplianceGapAnalysis } from "@/lib/types";
 import {
   Sheet,
@@ -12,7 +12,6 @@ import {
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { Skeleton } from "@/components/ui/skeleton";
 import {
   Select,
   SelectContent,
@@ -27,9 +26,13 @@ import {
   Tractor,
   BarChart3,
   Loader2,
+  Zap,
+  Clock,
 } from "lucide-react";
 import { runAnalysis } from "@/lib/api";
 import AnalysisResult from "./analysis-result";
+
+const CORE_REG_ID = "E8-26620";
 
 const STATUS_LABELS: Record<string, string> = {
   compliant: "Compliant",
@@ -48,6 +51,47 @@ const STATUS_VARIANTS: Record<
   unknown: "outline",
 };
 
+function AnalysisProgress() {
+  const [elapsed, setElapsed] = useState(0);
+  const estimatedTotal = 180;
+
+  useEffect(() => {
+    const interval = setInterval(() => setElapsed((e) => e + 1), 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  const pct = Math.min((elapsed / estimatedTotal) * 100, 95);
+  const remaining = Math.max(estimatedTotal - elapsed, 5);
+
+  const stage =
+    elapsed < 30
+      ? "Retrieving regulation text..."
+      : elapsed < 90
+        ? "Extracting compliance requirements..."
+        : elapsed < 150
+          ? "Analyzing facility against requirements..."
+          : "Finalizing gap analysis...";
+
+  return (
+    <div className="rounded-lg border border-border/60 bg-muted/30 p-4 space-y-3">
+      <div className="flex items-center gap-2 text-sm font-medium">
+        <Loader2 className="h-4 w-4 animate-spin text-primary" />
+        AI Compliance Analysis Running
+      </div>
+      <div className="h-2 w-full rounded-full bg-muted overflow-hidden">
+        <div
+          className="h-full rounded-full bg-primary transition-all duration-1000 ease-out"
+          style={{ width: `${pct}%` }}
+        />
+      </div>
+      <div className="flex items-center justify-between text-xs text-muted-foreground">
+        <span>{stage}</span>
+        <span>~{remaining}s remaining</span>
+      </div>
+    </div>
+  );
+}
+
 interface BusinessDetailProps {
   business: Business | null;
   regulations: Regulation[];
@@ -61,11 +105,12 @@ export default function BusinessDetail({
   open,
   onClose,
 }: BusinessDetailProps) {
-  const [selectedRegId, setSelectedRegId] = useState<string>("");
+  const [selectedRegId, setSelectedRegId] = useState<string>(CORE_REG_ID);
   const [analyzing, setAnalyzing] = useState(false);
   const [analysisResult, setAnalysisResult] =
     useState<ComplianceGapAnalysis | null>(null);
   const [analysisError, setAnalysisError] = useState<string | null>(null);
+  const [wasFast, setWasFast] = useState(false);
 
   const handleAnalyze = async () => {
     if (!business || !selectedRegId) return;
@@ -73,10 +118,13 @@ export default function BusinessDetail({
     setAnalyzing(true);
     setAnalysisError(null);
     setAnalysisResult(null);
+    setWasFast(false);
+    const start = Date.now();
 
     try {
       const result = await runAnalysis(business.id, selectedRegId);
       setAnalysisResult(result);
+      setWasFast(Date.now() - start < 3000);
     } catch (err) {
       setAnalysisError(
         err instanceof Error ? err.message : "Analysis failed"
@@ -89,14 +137,16 @@ export default function BusinessDetail({
   const handleOpenChange = (isOpen: boolean) => {
     if (!isOpen) {
       onClose();
-      // Reset state when closing
-      setSelectedRegId("");
+      setSelectedRegId(CORE_REG_ID);
       setAnalysisResult(null);
       setAnalysisError(null);
+      setWasFast(false);
     }
   };
 
   if (!business) return null;
+
+  const isCachedReg = selectedRegId === CORE_REG_ID;
 
   return (
     <Sheet open={open} onOpenChange={handleOpenChange}>
@@ -109,7 +159,6 @@ export default function BusinessDetail({
         </SheetHeader>
 
         <div className="mt-6 space-y-6">
-          {/* Facility Info */}
           <div className="grid grid-cols-2 gap-4">
             <InfoRow
               icon={<Hash className="h-4 w-4" />}
@@ -142,7 +191,6 @@ export default function BusinessDetail({
 
           <Separator />
 
-          {/* Compliance History */}
           {business.analyses && business.analyses.length > 0 && (
             <div>
               <h3 className="flex items-center gap-2 text-sm font-semibold mb-3">
@@ -174,7 +222,6 @@ export default function BusinessDetail({
             </div>
           )}
 
-          {/* Analyze Section */}
           <div className="space-y-3">
             <h3 className="text-sm font-semibold">Run Compliance Analysis</h3>
             <Select value={selectedRegId} onValueChange={setSelectedRegId}>
@@ -182,13 +229,29 @@ export default function BusinessDetail({
                 <SelectValue placeholder="Select a regulation..." />
               </SelectTrigger>
               <SelectContent>
-                {regulations.map((reg) => (
+                {[...regulations]
+                  .sort((a, b) => (a.id === CORE_REG_ID ? -1 : b.id === CORE_REG_ID ? 1 : 0))
+                  .map((reg) => (
                   <SelectItem key={reg.id} value={reg.id}>
-                    <span className="line-clamp-1">{reg.title}</span>
+                    <span className="flex items-center gap-1.5">
+                      {reg.id === CORE_REG_ID ? (
+                        <Zap className="h-3 w-3 shrink-0 text-green-600" />
+                      ) : (
+                        <Clock className="h-3 w-3 shrink-0 text-muted-foreground" />
+                      )}
+                      <span className="line-clamp-1">{reg.title}</span>
+                    </span>
                   </SelectItem>
                 ))}
               </SelectContent>
             </Select>
+
+            {!isCachedReg && !analyzing && (
+              <p className="flex items-center gap-1.5 text-xs text-amber-600 dark:text-amber-400">
+                <Clock className="h-3 w-3" />
+                This regulation is not pre-cached. Analysis may take 2-3 minutes.
+              </p>
+            )}
 
             <Button
               className="w-full"
@@ -201,7 +264,10 @@ export default function BusinessDetail({
                   Analyzing...
                 </>
               ) : (
-                "Analyze Compliance"
+                <>
+                  {isCachedReg && <Zap className="mr-2 h-4 w-4" />}
+                  Analyze Compliance
+                </>
               )}
             </Button>
 
@@ -220,17 +286,18 @@ export default function BusinessDetail({
             )}
           </div>
 
-          {/* Analysis Result */}
-          {analyzing && (
-            <div className="space-y-3">
-              <Skeleton className="h-20 w-full" />
-              <Skeleton className="h-32 w-full" />
-              <Skeleton className="h-24 w-full" />
-            </div>
-          )}
+          {analyzing && <AnalysisProgress />}
 
           {analysisResult && !analyzing && (
-            <AnalysisResult analysis={analysisResult} />
+            <>
+              {wasFast && (
+                <div className="flex items-center gap-1.5 text-xs text-green-600 dark:text-green-400">
+                  <Zap className="h-3 w-3" />
+                  Returned from cache — instant response
+                </div>
+              )}
+              <AnalysisResult analysis={analysisResult} />
+            </>
           )}
         </div>
       </SheetContent>

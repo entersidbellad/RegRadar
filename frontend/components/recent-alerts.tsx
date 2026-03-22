@@ -7,10 +7,10 @@ import { Button } from "@/components/ui/button";
 import { Bell, ArrowRight } from "lucide-react";
 import type { Alert as AlertType } from "@/lib/types";
 
-const SEVERITY_VARIANT: Record<string, "destructive" | "secondary" | "outline"> = {
-  high: "destructive",
-  medium: "secondary",
-  low: "outline",
+const SEVERITY_CLASS: Record<string, string> = {
+  high: "bg-red-600 text-white hover:bg-red-700 border-red-600",
+  medium: "bg-orange-500 text-white hover:bg-orange-600 border-orange-500",
+  low: "bg-yellow-500 text-white hover:bg-yellow-600 border-yellow-500",
 };
 
 interface RecentAlertsProps {
@@ -56,7 +56,7 @@ export default function RecentAlerts({ alerts }: RecentAlertsProps) {
                   affected
                 </p>
               </div>
-              <Badge variant={SEVERITY_VARIANT[alert.severity]} className="shrink-0 text-xs">
+              <Badge className={`shrink-0 text-xs ${SEVERITY_CLASS[alert.severity] ?? ""}`}>
                 {alert.severity}
               </Badge>
             </div>
