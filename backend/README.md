@@ -7,7 +7,7 @@ AI-powered environmental compliance monitoring backend for North Carolina hog fa
 This backend provides a complete API for:
 
 - **Regulation ingestion and search** — EPA regulations from the Federal Register are stored, chunked, and vector-indexed for semantic search
-- **Compliance gap analysis** — Gemini 2.5 Flash analyzes a business facility against regulations, producing structured compliance assessments
+- **Compliance gap analysis** — Gemini 2.5 Flash runs a two-pass analysis (extract requirements, then gap analysis) against regulations, producing structured compliance assessments
 - **Business and alert management** — CRUD-style endpoints for facility profiles and compliance alerts
 
 ### Architecture
@@ -24,11 +24,17 @@ main.py                    FastAPI app entrypoint, CORS, lifespan, route mountin
 │   ├── extraction.py           Text extraction from HTML, URLs, and PDFs
 │   ├── chunking.py             LangChain RecursiveCharacterTextSplitter (800/150)
 │   ├── indexing.py             ChromaDB embedding + semantic search
-│   ├── gemini_client.py        Gemini 2.5 Flash structured JSON output
-│   └── matcher.py              Orchestrates business-to-regulation analysis pipeline
+│   ├── gemini_client.py        Gemini 2.5 Flash two-pass analysis pipeline
+│   ├── matcher.py              Orchestrates: file cache → SQLite cache → Gemini
+│   ├── system_prompts.py       3 prompt templates (copied from prompts/)
+│   └── prompt_builder.py       Prompt assembly functions (copied from prompts/)
 ├── db/
 │   ├── database.py             SQLite schema, async helpers via aiosqlite
 │   └── seed.py                 Loads seed data from ../data/ into SQLite + ChromaDB
+├── cached_responses/            Pre-generated Gemini analysis responses
+│   └── e681a8a33ae5_E8_26620.json  Calvin L. Rouse Farm × E8-26620
+├── scripts/
+│   └── list_regs.py            Helper for `just list-regs`
 ├── pyproject.toml              uv project config with all dependencies
 └── .env.example                Environment variable template
 ```
@@ -40,8 +46,13 @@ main.py                    FastAPI app entrypoint, CORS, lifespan, route mountin
 3. **Chunking** — Text is split into 800-char chunks with 150-char overlap using LangChain
 4. **Indexing** — Chunks are embedded with `sentence-transformers/all-MiniLM-L6-v2` (384 dims) and stored in ChromaDB
 5. **Search** — Semantic similarity search with metadata filtering (by regulation ID, agency)
-6. **Analysis** — Gemini 2.5 Flash receives business profile + relevant chunks → structured `ComplianceGapAnalysis`
-7. **Caching** — Every Gemini response is cached in SQLite before returning
+6. **Analysis (Two-Pass):**
+   - **Pass 1:** Gemini extracts all compliance requirements from regulation full text → `list[ComplianceRequirement]`
+   - **Pass 2:** Gemini matches extracted requirements against business profile → `ComplianceGapAnalysis`
+7. **Caching (Three-Tier):**
+   - **File cache:** Pre-generated JSON in `backend/cached_responses/` — instant, no API call
+   - **SQLite cache:** Previous results in `analyses` table — fast, no API call
+   - **Live Gemini:** Two API calls, 30-60s — result cached in SQLite for next time
 
 ### Database Schema
 
@@ -55,11 +66,12 @@ main.py                    FastAPI app entrypoint, CORS, lifespan, route mountin
 
 ### Seeded Data
 
-After running the seed script, the database contains:
-- **12 EPA regulations** from the Federal Register (real rules fetched from the FR API)
-- **15 NC hog farm facilities** sampled from NC DEQ CAFO permit data (Duplin, Sampson, Bladen, Wayne, Robeson counties)
-- **7,445 text chunks** indexed in ChromaDB for semantic search
+After running `just seed`, the database contains:
+- **9 CAFO-relevant EPA regulations** fetched by targeted document ID from the Federal Register API (5 core CAFO rules under 40 CFR 122/412, 4 secondary rules affecting farms)
+- **15 NC hog farm facilities** sampled from NC DEQ CAFO permit data (Duplin 6, Sampson 5, Bladen 2, Wayne 1, Robeson 1)
+- **~3,538 text chunks** indexed in ChromaDB for semantic search
 - **4 demo alerts** covering NC Supreme Court rulings, EPA CAFO updates, lagoon setbacks, and inspection initiatives
+- **1 file-cached analysis** for Calvin L. Rouse Farm × E8-26620 (76 requirements, 7 gaps)
 
 ---
 
@@ -121,9 +133,9 @@ uv run python -m db.seed
 
 This will:
 1. Create SQLite tables (businesses, regulations, analyses)
-2. Load 12 regulations from `../data/regulations_seed.json`
+2. Load 9 CAFO-relevant regulations from `../data/regulations_seed.json`
 3. Load 15 business profiles from `../data/business_profiles.json`
-4. Extract text from HTML, chunk into 800-char segments, and index 7,445 chunks into ChromaDB
+4. Extract text from HTML, chunk into 800-char segments, and index ~3,538 chunks into ChromaDB
 
 The first run downloads the `all-MiniLM-L6-v2` embedding model (~90MB). Subsequent runs skip already-seeded records.
 
@@ -163,7 +175,7 @@ Returns status of all backend services (SQLite, ChromaDB, Gemini config).
 {
   "status": "ok",
   "sqlite": "connected",
-  "chromadb": { "status": "connected", "chunks": 7445 },
+  "chromadb": { "status": "connected", "chunks": 3538 },
   "gemini_configured": true
 }
 ```
@@ -218,15 +230,16 @@ Single business with all analyses attached.
 POST /api/analyze
 Content-Type: application/json
 
-{ "business_id": "e681a8a3-...", "regulation_id": "2025-10542" }
+{ "business_id": "e681a8a3-...", "regulation_id": "E8-26620" }
 ```
 
 Runs the full compliance pipeline:
-1. Checks SQLite cache for existing analysis
-2. Queries ChromaDB for relevant regulation chunks (filtered by regulation_id)
-3. Sends business profile + chunks to Gemini 2.5 Flash
-4. Caches result in SQLite
-5. Returns structured `ComplianceGapAnalysis`
+1. Checks file cache (`backend/cached_responses/`) for pre-generated analysis
+2. Checks SQLite cache for existing analysis
+3. Queries ChromaDB for relevant regulation chunks (filtered by regulation_id)
+4. Runs two-pass Gemini analysis (extract requirements → gap analysis)
+5. Caches result in SQLite
+6. Returns structured `ComplianceGapAnalysis`
 
 **Requires:** `GEMINI_API_KEY` environment variable.
 
@@ -291,10 +304,16 @@ LangChain-based text chunking. Uses `RecursiveCharacterTextSplitter` with 800-ch
 ChromaDB vector indexing. Manages a persistent `"regulations"` collection with cosine similarity. `index_chunks()` upserts in batches of 100. `search()` accepts text queries with optional metadata filters. `delete_by_doc_id()` removes all chunks for a document.
 
 ### `core/gemini_client.py`
-Gemini 2.5 Flash integration using the `google-genai` SDK. The client auto-reads `GEMINI_API_KEY` from the environment (no explicit `api_key=` parameter). Defines Pydantic models `ComplianceRequirement` and `ComplianceGapAnalysis` with `Literal` type constraints on `obligation_type` (`"mandatory"`, `"recommended"`, `"conditional"`) and `overall_status` (`"compliant"`, `"non_compliant"`, `"warning"`, `"unknown"`). Uses Gemini's native JSON mode via `response_mime_type="application/json"` and `response_schema` from `model_json_schema()`. Temperature is fixed at 0.2. Includes `check_cache()` and `cache_analysis()` to read/write the SQLite analyses table.
+Gemini 2.5 Flash integration using the `google-genai` SDK. The client auto-reads `GEMINI_API_KEY` from the environment (no explicit `api_key=` parameter). Defines Pydantic models `ComplianceRequirement` and `ComplianceGapAnalysis` with `Literal` type constraints on `obligation_type` (`"mandatory"`, `"recommended"`, `"conditional"`) and `overall_status` (`"compliant"`, `"non_compliant"`, `"warning"`, `"unknown"`). Uses Gemini's native JSON mode via `response_mime_type="application/json"` and `response_schema` from `model_json_schema()`. Temperature is fixed at 0.2. Implements a **two-pass analysis**: Pass 1 extracts compliance requirements from the regulation's full text via `build_extraction_prompt()`, Pass 2 runs gap analysis against the business profile via `build_gap_analysis_prompt()`. Both passes use the prompt templates from `core/prompt_builder.py`. Includes `check_cache()` and `cache_analysis()` to read/write the SQLite analyses table.
+
+### `core/system_prompts.py`
+Three Gemini system prompt constants: `SYSTEM_PROMPT_EXTRACT` (requirement extraction), `SYSTEM_PROMPT_GAP_ANALYSIS` (facility-specific gap analysis), and `SYSTEM_PROMPT_ALERT_CLASSIFICATION` (regulation impact classification). **Copied from `prompts/system_prompts.py` — keep in sync.**
+
+### `core/prompt_builder.py`
+Prompt assembly functions: `build_extraction_prompt()`, `build_gap_analysis_prompt()`, `build_alert_classification_prompt()`. Includes `_strip_html()` to clean Federal Register HTML and `_format_business_profile()` for consistent facility formatting. All builders return `(system_instruction, user_message)` tuples with instructions placed AFTER document context per Gemini best practice. **Copied from `prompts/prompt_builder.py` — keep in sync. Note: import path differs (`from core.system_prompts` vs `from system_prompts`).**
 
 ### `core/matcher.py`
-Orchestration module. `match_business_to_regulation()` coordinates the full pipeline: fetch business from SQLite → fetch regulation → query ChromaDB for top 10 relevant chunks filtered by regulation_id → check cache for existing (business_id, regulation_id) pair → call Gemini → store result in analyses table → return. Falls back to a broader unfiltered search if no regulation-specific chunks are found.
+Orchestration module. `match_business_to_regulation()` coordinates the full pipeline with a **three-tier cache**: (1) file cache in `backend/cached_responses/` returns pre-generated analyses instantly with `analysis_id="file-cache"`, (2) SQLite cache checks the `analyses` table, (3) live Gemini two-pass analysis. Falls back to a broader unfiltered ChromaDB search if no regulation-specific chunks are found.
 
 ### `api/routes_regulations.py`
 `GET /api/regulations` (paginated, filterable by agency, document_type, date_from, date_to) and `GET /api/regulations/{id}` (includes full_text). Returns regulations ordered by publication date descending.

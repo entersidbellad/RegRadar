@@ -31,12 +31,19 @@ The app starts on [http://localhost:3000](http://localhost:3000).
 
 The app is now configured to connect to the **live backend** by default (`NEXT_PUBLIC_USE_MOCKS=false`). The backend must be running at `http://localhost:8000` and seeded before the frontend will show real data.
 
-**To run with the live backend:**
+**To run with the live backend (recommended — use `just` from repo root):**
+
+```bash
+just setup          # install all dependencies (first time)
+just seed           # seed SQLite + ChromaDB (first time)
+just dev            # starts backend (:8000) + frontend (:3000) in parallel
+```
+
+Or manually:
 
 ```bash
 # 1. Start the backend (in a separate terminal)
 cd backend
-source .venv/bin/activate
 uv run python -m db.seed          # seed SQLite + ChromaDB (first time only)
 uv run uvicorn main:app --reload --port 8000
 
