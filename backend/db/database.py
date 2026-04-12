@@ -1,15 +1,33 @@
 """
 SQLite database module using aiosqlite.
 Provides async database initialization, connection management, and helper functions.
+Uses connection pooling for better performance.
 """
 
 import os
 import aiosqlite
+from contextlib import asynccontextmanager
 from dotenv import load_dotenv
 
 load_dotenv()
 
 SQLITE_DB_PATH = os.getenv("SQLITE_DB_PATH", "./regradar.db")
+
+# Module-level connection pool (created on first use)
+_pool: aiosqlite.Connection | None = None
+
+
+async def _get_pool_connection() -> aiosqlite.Connection:
+    """Get or create a pooled database connection."""
+    global _pool
+    if _pool is None:
+        _pool = await aiosqlite.connect(SQLITE_DB_PATH)
+        _pool.row_factory = aiosqlite.Row
+        await _pool.execute("PRAGMA journal_mode=WAL")
+        await _pool.execute("PRAGMA foreign_keys=ON")
+        # Enable automatic retries for busy/locked scenarios
+        await _pool.execute("PRAGMA busy_timeout=5000")  # 5 second timeout
+    return _pool
 
 # SQL schema for all 3 tables
 SCHEMA_SQL = """
@@ -59,65 +77,62 @@ CREATE TABLE IF NOT EXISTS analyses (
 """
 
 
+@asynccontextmanager
 async def get_db() -> aiosqlite.Connection:
-    """Get an async SQLite database connection."""
-    db = await aiosqlite.connect(SQLITE_DB_PATH)
-    db.row_factory = aiosqlite.Row
-    await db.execute("PRAGMA journal_mode=WAL")
-    await db.execute("PRAGMA foreign_keys=ON")
-    return db
+    """Get an async SQLite database connection from the pool.
+    
+    Usage:
+        async with get_db() as db:
+            ...
+    """
+    db = await _get_pool_connection()
+    try:
+        yield db
+    except Exception:
+        # Rollback on error
+        await db.rollback()
+        raise
 
 
 async def init_db():
     """Initialize the database by creating all tables if they don't exist."""
-    db = await get_db()
-    try:
+    async with get_db() as db:
         await db.executescript(SCHEMA_SQL)
         await db.commit()
-    finally:
-        await db.close()
 
 
 async def fetch_one(query: str, params: tuple = ()) -> dict | None:
-    """Execute a query and return a single row as a dict, or None."""
-    db = await get_db()
-    try:
+    """Execute a query and return a single row as a dict, or None.
+    Uses connection pooling for better performance."""
+    async with get_db() as db:
         cursor = await db.execute(query, params)
         row = await cursor.fetchone()
         if row is None:
             return None
         return dict(row)
-    finally:
-        await db.close()
 
 
 async def fetch_all(query: str, params: tuple = ()) -> list[dict]:
-    """Execute a query and return all rows as a list of dicts."""
-    db = await get_db()
-    try:
+    """Execute a query and return all rows as a list of dicts.
+    Uses connection pooling for better performance."""
+    async with get_db() as db:
         cursor = await db.execute(query, params)
         rows = await cursor.fetchall()
         return [dict(row) for row in rows]
-    finally:
-        await db.close()
 
 
 async def execute(query: str, params: tuple = ()) -> int:
-    """Execute an INSERT/UPDATE/DELETE and return the number of affected rows."""
-    db = await get_db()
-    try:
+    """Execute an INSERT/UPDATE/DELETE and return the number of affected rows.
+    Uses connection pooling for better performance."""
+    async with get_db() as db:
         cursor = await db.execute(query, params)
         await db.commit()
         return cursor.rowcount
-    finally:
-        await db.close()
 
 
 async def execute_many(query: str, params_list: list[tuple]) -> None:
-    """Execute a query with multiple parameter sets."""
-    db = await get_db()
-    try:
+    """Execute a query with multiple parameter sets.
+    Uses connection pooling for better performance."""
+    async with get_db() as db:
         await db.executemany(query, params_list)
         await db.commit()
-    finally:
-        await db.close()

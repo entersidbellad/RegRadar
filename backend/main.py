@@ -62,11 +62,12 @@ app = FastAPI(
     lifespan=lifespan,
 )
 
-# CORS middleware - allow all origins per spec
+# CORS middleware - allow all origins for API access
+# Note: allow_credentials=False because wildcard origins with credentials is a security risk
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["*"],
-    allow_credentials=True,
+    allow_credentials=False,  # Security: never allow credentials with wildcard origins
     allow_methods=["*"],
     allow_headers=["*"],
 )
@@ -84,13 +85,17 @@ async def health_check():
     Health check endpoint.
     Returns the status of all backend services.
     """
+    import logging
+    logger = logging.getLogger(__name__)
+    
     # Check SQLite
     sqlite_ok = False
     try:
         from db.database import fetch_one
         result = await fetch_one("SELECT 1 as ok")
         sqlite_ok = result is not None
-    except Exception:
+    except Exception as e:
+        logger.error(f"Health check: SQLite connection failed: {e}")
         pass
 
     # Check ChromaDB
@@ -99,7 +104,8 @@ async def health_check():
     try:
         chromadb_count = get_collection_count()
         chromadb_ok = True
-    except Exception:
+    except Exception as e:
+        logger.error(f"Health check: ChromaDB connection failed: {e}")
         pass
 
     # Check Gemini configuration

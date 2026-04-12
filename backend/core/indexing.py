@@ -5,9 +5,13 @@ Uses sentence-transformers/all-MiniLM-L6-v2 for 384-dimensional embeddings.
 """
 
 import os
+import logging
+import threading
 import chromadb
 from chromadb.utils.embedding_functions import SentenceTransformerEmbeddingFunction
 from dotenv import load_dotenv
+
+logger = logging.getLogger(__name__)
 
 load_dotenv()
 
@@ -15,9 +19,10 @@ CHROMA_PERSIST_DIR = os.getenv("CHROMA_PERSIST_DIR", "./chroma_data")
 COLLECTION_NAME = "regulations"
 EMBEDDING_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
 
-# Module-level singleton
+# Module-level singleton with thread-safe initialization
 _client: chromadb.ClientAPI | None = None
 _collection: chromadb.Collection | None = None
+_lock = threading.Lock()
 
 
 def _get_embedding_function() -> SentenceTransformerEmbeddingFunction:
@@ -28,23 +33,31 @@ def _get_embedding_function() -> SentenceTransformerEmbeddingFunction:
 
 
 def get_client() -> chromadb.ClientAPI:
-    """Get or create the ChromaDB persistent client."""
+    """Get or create the ChromaDB persistent client.
+    Thread-safe singleton pattern."""
     global _client
     if _client is None:
-        _client = chromadb.PersistentClient(path=CHROMA_PERSIST_DIR)
+        with _lock:
+            # Double-check pattern to avoid race conditions
+            if _client is None:
+                _client = chromadb.PersistentClient(path=CHROMA_PERSIST_DIR)
     return _client
 
 
 def get_collection() -> chromadb.Collection:
-    """Get or create the regulations collection."""
+    """Get or create the regulations collection.
+    Thread-safe singleton pattern."""
     global _collection
     if _collection is None:
-        client = get_client()
-        _collection = client.get_or_create_collection(
-            name=COLLECTION_NAME,
-            embedding_function=_get_embedding_function(),
-            metadata={"hnsw:space": "cosine"},
-        )
+        with _lock:
+            # Double-check pattern to avoid race conditions
+            if _collection is None:
+                client = get_client()
+                _collection = client.get_or_create_collection(
+                    name=COLLECTION_NAME,
+                    embedding_function=_get_embedding_function(),
+                    metadata={"hnsw:space": "cosine"},
+                )
     return _collection
 
 
@@ -149,5 +162,6 @@ def get_collection_count() -> int:
     try:
         collection = get_collection()
         return collection.count()
-    except Exception:
+    except Exception as e:
+        logger.error(f"Failed to get collection count: {e}")
         return 0

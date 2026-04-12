@@ -12,6 +12,8 @@ Caches all responses in SQLite before returning.
 import os
 import json
 import uuid
+import logging
+import asyncio
 from datetime import datetime, timezone
 from typing import Literal, Optional
 
@@ -19,6 +21,9 @@ from pydantic import BaseModel, Field
 from dotenv import load_dotenv
 
 load_dotenv()
+
+# Configure logging for this module
+logger = logging.getLogger(__name__)
 
 GEMINI_MODEL = "gemini-2.5-flash"
 
@@ -78,27 +83,35 @@ def _get_client():
     return genai.Client()
 
 
-def _call_gemini(
+async def _call_gemini(
     client,
     system_instruction: str,
     user_message: str,
     response_schema: dict,
 ) -> dict:
-    """Make a single structured Gemini call. Returns parsed JSON dict."""
-    response = client.models.generate_content(
-        model=GEMINI_MODEL,
-        contents=user_message,
-        config={
-            "system_instruction": system_instruction,
-            "response_mime_type": "application/json",
-            "response_schema": response_schema,
-            "temperature": 0.2,
-        },
-    )
-    text = response.text
-    if not text:
-        raise RuntimeError("Gemini returned an empty response")
-    return json.loads(text)
+    """Make a single structured Gemini call. Returns parsed JSON dict.
+    
+    Note: This runs the blocking Gemini API call in a thread pool to avoid
+    blocking the async event loop.
+    """
+    def _generate():
+        response = client.models.generate_content(
+            model=GEMINI_MODEL,
+            contents=user_message,
+            config={
+                "system_instruction": system_instruction,
+                "response_mime_type": "application/json",
+                "response_schema": response_schema,
+                "temperature": 0.2,
+            },
+        )
+        text = response.text
+        if not text:
+            raise RuntimeError("Gemini returned an empty response")
+        return json.loads(text)
+    
+    # Run the blocking Gemini call in a thread pool
+    return await asyncio.to_thread(_generate)
 
 
 async def analyze_compliance(
@@ -132,7 +145,7 @@ async def analyze_compliance(
     # ------------------------------------------------------------------
     sys_extract, user_extract = build_extraction_prompt(full_text)
 
-    raw_extraction = _call_gemini(
+    raw_extraction = await _call_gemini(
         client,
         system_instruction=sys_extract,
         user_message=user_extract,
@@ -142,11 +155,13 @@ async def analyze_compliance(
 
     # Validate requirements through Pydantic
     validated_requirements = []
-    for req in requirements_list:
+    for i, req in enumerate(requirements_list):
         try:
             validated_requirements.append(ComplianceRequirement(**req))
-        except Exception:
-            pass  # Skip malformed requirements
+        except Exception as e:
+            # Log validation errors for debugging, but continue processing valid requirements
+            logger.warning(f"Skipping malformed requirement {i}: {e}")
+            continue
 
     requirements_json = json.dumps(
         [r.model_dump() for r in validated_requirements], indent=2
@@ -160,7 +175,7 @@ async def analyze_compliance(
         business_profile=business,
     )
 
-    raw_gap = _call_gemini(
+    raw_gap = await _call_gemini(
         client,
         system_instruction=sys_gap,
         user_message=user_gap,
@@ -196,7 +211,11 @@ async def check_cache(business_id: str, regulation_id: str) -> Optional[Complian
         try:
             data = json.loads(row["full_response"])
             return ComplianceGapAnalysis(**data)
-        except Exception:
+        except json.JSONDecodeError as e:
+            logger.warning(f"Failed to parse cached analysis JSON for {business_id}/{regulation_id}: {e}")
+            return None
+        except Exception as e:
+            logger.error(f"Validation error loading cached analysis for {business_id}/{regulation_id}: {e}")
             return None
 
     return None

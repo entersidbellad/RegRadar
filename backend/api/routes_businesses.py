@@ -58,21 +58,29 @@ async def list_businesses(
     if conditions:
         where_clause = "WHERE " + " AND ".join(conditions)
 
-    businesses = await fetch_all(
-        f"SELECT * FROM businesses {where_clause} ORDER BY county, name",
-        tuple(params),
-    )
+    # Use a LEFT JOIN to get the latest analysis status in a single query
+    # This avoids the N+1 query problem when listing many businesses
+    query = f"""
+        SELECT 
+            b.*,
+            a.overall_status as latest_status
+        FROM businesses b
+        LEFT JOIN (
+            SELECT business_id, overall_status,
+                   ROW_NUMBER() OVER (PARTITION BY business_id ORDER BY created_at DESC) as rn
+            FROM analyses
+        ) a ON b.id = a.business_id AND a.rn = 1
+        {where_clause}
+        ORDER BY b.county, b.name
+    """
+    businesses = await fetch_all(query, tuple(params))
 
-    # For each business, get the most recent analysis to compute latest_status
-    enriched = []
-    for biz in businesses:
-        latest = await fetch_one(
-            "SELECT overall_status FROM analyses WHERE business_id = ? ORDER BY created_at DESC LIMIT 1",
-            (biz["id"],),
-        )
-        biz_dict = dict(biz)
-        biz_dict["latest_status"] = latest["overall_status"] if latest else "unknown"
-        enriched.append(biz_dict)
+    # Businesses now include latest_status from the JOIN
+    enriched = [dict(biz) for biz in businesses]
+    # Ensure latest_status is never None (shouldn't happen with COALESCE, but safety check)
+    for biz in enriched:
+        if biz.get("latest_status") is None:
+            biz["latest_status"] = "unknown"
 
     # Apply status filter (post-query since latest_status is computed)
     if status:
