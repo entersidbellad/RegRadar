@@ -86,6 +86,14 @@ export default function FacilityDetailPage() {
     load();
   }, [id]);
 
+  async function refreshBusiness() {
+    try {
+      setBusiness(await fetchBusinessDetail(id));
+    } catch {
+      // Keep showing the last loaded details; the analysis itself already succeeded.
+    }
+  }
+
   if (loading) {
     return (
       <div className="space-y-6 p-6">
@@ -309,6 +317,7 @@ export default function FacilityDetailPage() {
         regulations={regulations}
         open={analysisOpen}
         onClose={() => setAnalysisOpen(false)}
+        onAnalysisComplete={refreshBusiness}
       />
     </div>
   );

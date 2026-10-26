@@ -58,6 +58,12 @@ const OBLIGATION_CLASS: Record<string, string> = {
   conditional: "border-amber-200 dark:border-amber-900 bg-amber-100 dark:bg-amber-950/40 text-amber-800 dark:text-amber-300",
 };
 
+// LLM output mixes ISO dates with free text like "180 days prior to commencing operation".
+function formatDateOrText(value: string): string {
+  const date = new Date(value);
+  return Number.isNaN(date.getTime()) ? value : date.toLocaleDateString();
+}
+
 // ── Component ────────────────────────────────────────────────────────────────
 
 interface AnalysisResultProps {
@@ -84,7 +90,7 @@ export default function AnalysisResult({ analysis }: AnalysisResultProps) {
             {(analysis.confidence_score * 100).toFixed(0)}% confidence
           </span>
           <span className="ml-auto text-xs text-muted-foreground">
-            {new Date(analysis.analysis_date).toLocaleDateString()}
+            {formatDateOrText(analysis.analysis_date)}
           </span>
         </CardContent>
       </Card>
@@ -201,7 +207,7 @@ export default function AnalysisResult({ analysis }: AnalysisResultProps) {
                     {req.deadline && (
                       <p className="text-xs font-medium text-red-600 dark:text-red-400">
                         Deadline:{" "}
-                        {new Date(req.deadline).toLocaleDateString()}
+                        {formatDateOrText(req.deadline)}
                       </p>
                     )}
                     {req.penalty_info && (

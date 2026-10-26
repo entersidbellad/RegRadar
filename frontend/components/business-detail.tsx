@@ -103,6 +103,7 @@ interface BusinessDetailProps {
   regulations: Regulation[];
   open: boolean;
   onClose: () => void;
+  onAnalysisComplete?: () => void;
 }
 
 export default function BusinessDetail({
@@ -110,6 +111,7 @@ export default function BusinessDetail({
   regulations,
   open,
   onClose,
+  onAnalysisComplete,
 }: BusinessDetailProps) {
   const [selectedRegId, setSelectedRegId] = useState<string>(CORE_REG_ID);
   const [analyzing, setAnalyzing] = useState(false);
@@ -131,6 +133,7 @@ export default function BusinessDetail({
       const result = await runAnalysis(business.id, selectedRegId);
       setAnalysisResult(result);
       setWasFast(Date.now() - start < 3000);
+      onAnalysisComplete?.();
     } catch (err) {
       setAnalysisError(
         err instanceof Error ? err.message : "Analysis failed"
