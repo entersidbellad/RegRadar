@@ -4,8 +4,9 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import dynamic from "next/dynamic";
-import type { Business, Alert as AlertType } from "@/lib/types";
-import { fetchBusinessDetail, fetchAlerts } from "@/lib/api";
+import type { Business, Regulation, Alert as AlertType } from "@/lib/types";
+import { fetchBusinessDetail, fetchAlerts, fetchRegulations, DEMO_MODE } from "@/lib/api";
+import BusinessDetail from "@/components/business-detail";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -19,6 +20,7 @@ import {
   ShieldCheck,
   ShieldAlert,
   ShieldQuestion,
+  Zap,
 } from "lucide-react";
 
 const NCMap = dynamic(() => import("@/components/nc-map"), {
@@ -59,18 +61,22 @@ export default function FacilityDetailPage() {
 
   const [business, setBusiness] = useState<Business | null>(null);
   const [alerts, setAlerts] = useState<AlertType[]>([]);
+  const [regulations, setRegulations] = useState<Regulation[]>([]);
+  const [analysisOpen, setAnalysisOpen] = useState(false);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     async function load() {
       try {
-        const [biz, allAlerts] = await Promise.all([
+        const [biz, allAlerts, regRes] = await Promise.all([
           fetchBusinessDetail(id),
           fetchAlerts(),
+          fetchRegulations(),
         ]);
         setBusiness(biz);
         setAlerts(allAlerts.filter((a) => a.affected_business_ids.includes(id)));
+        setRegulations(regRes.items);
       } catch (err) {
         setError(err instanceof Error ? err.message : "Failed to load facility");
       } finally {
@@ -140,9 +146,15 @@ export default function FacilityDetailPage() {
             </span>
           </div>
         </div>
-        <div className={`flex items-center gap-2 rounded-lg border px-3 py-2 ${status.badge}`}>
-          <StatusIcon className={`h-5 w-5 ${status.iconColor}`} />
-          <span className="text-sm font-semibold">{status.label}</span>
+        <div className="flex items-center gap-3">
+          <div className={`flex items-center gap-2 rounded-lg border px-3 py-2 ${status.badge}`}>
+            <StatusIcon className={`h-5 w-5 ${status.iconColor}`} />
+            <span className="text-sm font-semibold">{status.label}</span>
+          </div>
+          <Button className="gap-1.5" onClick={() => setAnalysisOpen(true)}>
+            <Zap className="h-4 w-4" />
+            Run Analysis
+          </Button>
         </div>
       </div>
 
@@ -284,11 +296,20 @@ export default function FacilityDetailPage() {
               No compliance analyses yet
             </p>
             <p className="mt-1 text-xs text-muted-foreground/70">
-              Run an analysis from the regulations page to check this facility.
+              {DEMO_MODE
+                ? "Live Gemini analysis runs in the full local version of RegRadar."
+                : "Use Run Analysis above to check this facility against a regulation."}
             </p>
           </CardContent>
         </Card>
       )}
+
+      <BusinessDetail
+        business={business}
+        regulations={regulations}
+        open={analysisOpen}
+        onClose={() => setAnalysisOpen(false)}
+      />
     </div>
   );
 }

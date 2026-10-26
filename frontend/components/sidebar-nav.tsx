@@ -16,7 +16,7 @@ import {
   Sun,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { fetchAlerts } from "@/lib/api";
+import { fetchAlerts, DEMO_MODE } from "@/lib/api";
 
 const NAV_ITEMS = [
   { href: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
@@ -114,6 +114,14 @@ export default function SidebarNav() {
           <p className="mt-0.5 text-xs text-sidebar-foreground/50">
             Duplin &amp; Sampson Counties
           </p>
+          {DEMO_MODE && (
+            <p
+              className="mt-2 inline-flex rounded bg-white/10 px-1.5 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-green-300"
+              title="Static seed data; no backend or live Gemini calls"
+            >
+              Demo mode &middot; seed data
+            </p>
+          )}
         </div>
       </div>
     </>

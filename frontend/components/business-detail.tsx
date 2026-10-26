@@ -28,8 +28,14 @@ import {
   Loader2,
   Zap,
   Clock,
+  Info,
 } from "lucide-react";
-import { runAnalysis } from "@/lib/api";
+import {
+  runAnalysis,
+  DEMO_MODE,
+  DEMO_LIVE_ANALYSIS_NOTE,
+  hasDemoAnalysis,
+} from "@/lib/api";
 import AnalysisResult from "./analysis-result";
 
 const CORE_REG_ID = "E8-26620";
@@ -146,7 +152,10 @@ export default function BusinessDetail({
 
   if (!business) return null;
 
-  const isCachedReg = selectedRegId === CORE_REG_ID;
+  const isCached = (regId: string) =>
+    DEMO_MODE ? hasDemoAnalysis(business.id, regId) : regId === CORE_REG_ID;
+  const isCachedReg = isCached(selectedRegId);
+  const liveAnalysisUnavailable = DEMO_MODE && !isCachedReg;
 
   return (
     <Sheet open={open} onOpenChange={handleOpenChange}>
@@ -230,11 +239,11 @@ export default function BusinessDetail({
               </SelectTrigger>
               <SelectContent>
                 {[...regulations]
-                  .sort((a, b) => (a.id === CORE_REG_ID ? -1 : b.id === CORE_REG_ID ? 1 : 0))
+                  .sort((a, b) => Number(isCached(b.id)) - Number(isCached(a.id)))
                   .map((reg) => (
                   <SelectItem key={reg.id} value={reg.id}>
                     <span className="flex items-center gap-1.5">
-                      {reg.id === CORE_REG_ID ? (
+                      {isCached(reg.id) ? (
                         <Zap className="h-3 w-3 shrink-0 text-green-600" />
                       ) : (
                         <Clock className="h-3 w-3 shrink-0 text-muted-foreground" />
@@ -246,16 +255,24 @@ export default function BusinessDetail({
               </SelectContent>
             </Select>
 
-            {!isCachedReg && !analyzing && (
-              <p className="flex items-center gap-1.5 text-xs text-amber-600 dark:text-amber-400">
-                <Clock className="h-3 w-3" />
-                This regulation is not pre-cached. Analysis may take 2-3 minutes.
+            {liveAnalysisUnavailable ? (
+              <p className="flex items-start gap-1.5 rounded-md border border-border/60 bg-muted/40 p-2.5 text-xs text-muted-foreground">
+                <Info className="mt-0.5 h-3 w-3 shrink-0" />
+                {DEMO_LIVE_ANALYSIS_NOTE}
               </p>
+            ) : (
+              !isCachedReg &&
+              !analyzing && (
+                <p className="flex items-center gap-1.5 text-xs text-amber-600 dark:text-amber-400">
+                  <Clock className="h-3 w-3" />
+                  This regulation is not pre-cached. Analysis may take 2-3 minutes.
+                </p>
+              )
             )}
 
             <Button
               className="w-full"
-              disabled={!selectedRegId || analyzing}
+              disabled={!selectedRegId || analyzing || liveAnalysisUnavailable}
               onClick={handleAnalyze}
             >
               {analyzing ? (

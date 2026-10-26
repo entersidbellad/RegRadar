@@ -1,0 +1,440 @@
+{
+  "businesses": [
+    {
+      "id": "e681a8a3-3ae5-4d4e-8fe7-4ff8d280dce2",
+      "name": "Calvin L. Rouse Farm",
+      "permit_number": "AWS310410",
+      "naics_code": "112210",
+      "county": "Duplin",
+      "latitude": 35.116106959000035,
+      "longitude": -77.95360236699997,
+      "operation_type": "Swine State COC",
+      "head_count": 2883,
+      "permit_type": "general",
+      "created_at": "2026-03-21T20:31:54.860039+00:00",
+      "latest_status": "warning"
+    },
+    {
+      "id": "37be5459-cbdc-400c-b43a-b5da38c68f66",
+      "name": "Kornegay Farms",
+      "permit_number": "AWS310442",
+      "naics_code": "112210",
+      "county": "Duplin",
+      "latitude": 35.10140695800004,
+      "longitude": -77.88560234599998,
+      "operation_type": "Swine State COC",
+      "head_count": 3395,
+      "permit_type": "general",
+      "created_at": "2026-03-21T20:31:54.860316+00:00",
+      "latest_status": "unknown"
+    },
+    {
+      "id": "1cde2b19-dd60-4fd0-bb0f-4d3597a477f8",
+      "name": "Waters Farm 1-5  M&M Rivenbark",
+      "permit_number": "AWS310035",
+      "naics_code": "112210",
+      "county": "Duplin",
+      "latitude": 34.873306899000056,
+      "longitude": -78.15000241399997,
+      "operation_type": "Swine State COC",
+      "head_count": 3452,
+      "permit_type": "general",
+      "created_at": "2026-03-21T20:31:54.860326+00:00",
+      "latest_status": "unknown"
+    },
+    {
+      "id": "6e252de9-55c6-4760-b91a-7f86aacba4f9",
+      "name": "Nobles Farm",
+      "permit_number": "AWS310437",
+      "naics_code": "112210",
+      "county": "Duplin",
+      "latitude": 34.85420691000007,
+      "longitude": -77.70080227699998,
+      "operation_type": "Swine State COC",
+      "head_count": 4569,
+      "permit_type": "general",
+      "created_at": "2026-03-21T20:31:54.860333+00:00",
+      "latest_status": "unknown"
+    },
+    {
+      "id": "5e053dcd-b4a9-463d-bc8d-2c0d8bd491b6",
+      "name": "W.D. Thigpen Farm",
+      "permit_number": "AWS310489",
+      "naics_code": "112210",
+      "county": "Duplin",
+      "latitude": 34.92780692600007,
+      "longitude": -77.70220228099998,
+      "operation_type": "Swine State COC",
+      "head_count": 4965,
+      "permit_type": "general",
+      "created_at": "2026-03-21T20:31:54.860339+00:00",
+      "latest_status": "unknown"
+    },
+    {
+      "id": "9c1c16b2-47f0-48b0-a428-a8c70dbc91b6",
+      "name": "Sullivan Farm",
+      "permit_number": "AWS310838",
+      "naics_code": "112210",
+      "county": "Duplin",
+      "latitude": 35.106906958000025,
+      "longitude": -77.93060235999997,
+      "operation_type": "Swine State COC",
+      "head_count": 2608,
+      "permit_type": "general",
+      "created_at": "2026-03-21T20:31:54.860344+00:00",
+      "latest_status": "unknown"
+    },
+    {
+      "id": "65f57072-4911-4f21-ad63-7b8a57aff05d",
+      "name": "Reeves & Reeves, Inc.",
+      "permit_number": "AWS820233",
+      "naics_code": "112210",
+      "county": "Sampson",
+      "latitude": 34.82396487900007,
+      "longitude": -78.44164149999995,
+      "operation_type": "Swine State COC",
+      "head_count": 4798,
+      "permit_type": "general",
+      "created_at": "2026-03-21T20:31:54.860350+00:00",
+      "latest_status": "unknown"
+    },
+    {
+      "id": "6c695f67-8414-4441-b3cc-7332a473d72f",
+      "name": "Ellwell Lake",
+      "permit_number": "AWS820156",
+      "naics_code": "112210",
+      "county": "Sampson",
+      "latitude": 34.824503879000076,
+      "longitude": -78.43589049799994,
+      "operation_type": "Swine State COC",
+      "head_count": 3314,
+      "permit_type": "general",
+      "created_at": "2026-03-21T20:31:54.860355+00:00",
+      "latest_status": "unknown"
+    },
+    {
+      "id": "d86503ce-7aeb-42ce-9025-20c9bcd479b7",
+      "name": "Young Nursery #1 & #2",
+      "permit_number": "AWS820679",
+      "naics_code": "112210",
+      "county": "Sampson",
+      "latitude": 34.669605853000064,
+      "longitude": -78.18812741599999,
+      "operation_type": "Swine State COC",
+      "head_count": 4732,
+      "permit_type": "general",
+      "created_at": "2026-03-21T20:31:54.860360+00:00",
+      "latest_status": "unknown"
+    },
+    {
+      "id": "482a7f47-14d9-42d1-9c1c-058bda7ea206",
+      "name": "3111",
+      "permit_number": "AWS820340",
+      "naics_code": "112210",
+      "county": "Sampson",
+      "latitude": 35.085883944000045,
+      "longitude": -78.20659444199998,
+      "operation_type": "Swine State COC",
+      "head_count": 4218,
+      "permit_type": "general",
+      "created_at": "2026-03-21T20:31:54.860365+00:00",
+      "latest_status": "unknown"
+    },
+    {
+      "id": "3f77cfc4-ccac-4f5d-8f0d-8baad5825661",
+      "name": "J. Sullivan & Son Farm",
+      "permit_number": "AWS820282",
+      "naics_code": "112210",
+      "county": "Sampson",
+      "latitude": 35.20057296900006,
+      "longitude": -78.19199344299994,
+      "operation_type": "Swine State COC",
+      "head_count": 3402,
+      "permit_type": "general",
+      "created_at": "2026-03-21T20:31:54.860370+00:00",
+      "latest_status": "unknown"
+    },
+    {
+      "id": "d84b9096-2206-4ebb-8aee-89a00bf5aa5f",
+      "name": "P-14C",
+      "permit_number": "AWS090214",
+      "naics_code": "112210",
+      "county": "Bladen",
+      "latitude": 34.80948186300003,
+      "longitude": -78.80021860799997,
+      "operation_type": "Swine State COC",
+      "head_count": 1919,
+      "permit_type": "general",
+      "created_at": "2026-03-21T20:31:54.860376+00:00",
+      "latest_status": "unknown"
+    },
+    {
+      "id": "e79fed7a-ef73-41ce-8c84-f0b53059b015",
+      "name": "Farm 91 / Farm 3091",
+      "permit_number": "AWS090011",
+      "naics_code": "112210",
+      "county": "Bladen",
+      "latitude": 34.52449281200006,
+      "longitude": -78.47492449499998,
+      "operation_type": "Swine State COC",
+      "head_count": 2206,
+      "permit_type": "general",
+      "created_at": "2026-03-21T20:31:54.860381+00:00",
+      "latest_status": "unknown"
+    },
+    {
+      "id": "a4431726-4534-4c5a-9047-681c743f6fe0",
+      "name": "Piggybank Sow",
+      "permit_number": "AWS960096",
+      "naics_code": "112210",
+      "county": "Wayne",
+      "latitude": 35.31049599700003,
+      "longitude": -78.09069441799994,
+      "operation_type": "Swine State COC",
+      "head_count": 1569,
+      "permit_type": "general",
+      "created_at": "2026-03-21T20:31:54.860386+00:00",
+      "latest_status": "unknown"
+    },
+    {
+      "id": "8d3cad1a-848b-4fc0-97a9-7cf77ea77bc9",
+      "name": "Farm 5579",
+      "permit_number": "AWS780009",
+      "naics_code": "112210",
+      "county": "Robeson",
+      "latitude": 34.65285381000007,
+      "longitude": -79.36338376899994,
+      "operation_type": "Swine State COC",
+      "head_count": 1013,
+      "permit_type": "general",
+      "created_at": "2026-03-21T20:31:54.860391+00:00",
+      "latest_status": "unknown"
+    }
+  ],
+  "regulations": [
+    {
+      "id": "E8-26620",
+      "title": "Revised National Pollutant Discharge Elimination System Permit Regulation and Effluent Limitations Guidelines for Concentrated Animal Feeding Operations in Response to the Waterkeeper Decision",
+      "agency": "EPA",
+      "document_type": "Rule",
+      "publication_date": "2008-11-20",
+      "effective_date": "2008-12-22",
+      "abstract": "Under the Federal Water Pollution Control Act (Clean Water Act or CWA), EPA is revising the National Pollutant Discharge Elimination System (NPDES) permitting requirements and Effluent Limitations Guidelines and Standards (ELGs) for concentrated animal feeding operations (CAFOs) in response to the order issued by the U.S. Court of Appeals for the Second Circuit in Waterkeeper Alliance et al. v. EPA, 399 F.3d 486 (2d Cir. 2005). This final rule responds to the court order while furthering the statutory goal of restoring and maintaining the nation's water quality by ensuring that CAFOs properly manage manure generated by their operations. This final rule revises several aspects of EPA's current regulations governing discharges from CAFOs. EPA is modifying the requirement to apply for a permit by specifying that an owner or operator of a CAFO that discharges or proposes to discharge must apply for an NPDES permit. The final rule also includes an option for an unpermitted CAFO to certify to the permitting authority that the CAFO does not discharge or propose to discharge. In addition, EPA is clarifying how the agricultural stormwater discharge exemption criteria are interpreted for unpermitted Large CAFOs. EPA is also requiring CAFOs seeking permit coverage to submit their nutrient management plans (NMPs) with their applications for individual permits or notices of intent to be authorized under general permits. Permitting authorities are required to review the NMPs and provide the public with an opportunity for meaningful public review and comment. Permitting authorities are also required to incorporate terms of NMPs as NPDES permit conditions. Additionally, this action removes the provision that allowed CAFOs to use a 100-year, 24-hour containment structure to fulfill the no discharge requirement for new source swine, poultry, and veal calf operations. Instead, this action authorizes permit writers, upon request by swine, poultry, and veal calf CAFOs that are new sources, to establish best management practice no discharge effluent limitations when the facility demonstrates that it has designed an open containment system that will comply with the no discharge requirements. This final rule also responds to the court's remand orders regarding water quality-based effluent limitations (WQBELs) and pathogens. EPA is clarifying that WQBELs may be required in permits with respect to production area discharges and discharges from land application areas that are not exempt as agricultural stormwater. Finally, EPA is making the finding that the best conventional technology (BCT) limitations established in 2003 also apply to fecal coliform.",
+      "raw_text_url": "https://www.federalregister.gov/documents/full_text/text/2008/11/20/E8-26620.txt",
+      "cfr_references": [
+        "40 CFR 9",
+        "40 CFR 122",
+        "40 CFR 412"
+      ],
+      "cafo_tier": "core",
+      "ingested_at": "2026-03-22T00:48:02.384470+00:00"
+    },
+    {
+      "id": "03-3074",
+      "title": "National Pollutant Discharge Elimination System Permit Regulation and Effluent Limitation Guidelines and Standards for Concentrated Animal Feeding Operations (CAFOs)",
+      "agency": "EPA",
+      "document_type": "Rule",
+      "publication_date": "2003-02-12",
+      "effective_date": "2003-04-14",
+      "abstract": "Today's final rule revises and clarifies the Environmental Protection Agency's (EPA) regulatory requirements for concentrated animal feeding operations (CAFOs) under the Clean Water Act. This final rule will ensure that CAFOs take appropriate actions to manage manure effectively in order to protect the nation's water quality. Despite substantial improvements in the nation's water quality since the inception of the Clean Water Act, nearly 40 percent of the Nation's assessed waters show impairments from a wide range of sources. Improper management of manure from CAFOs is among the many contributors to remaining water quality problems. Improperly managed manure has caused serious acute and chronic water quality problems throughout the United States. Today's action strengthens the existing regulatory program for CAFOs. The rule revises two sections of the Code of Federal Regulations (CFR), the National Pollutant Discharge Elimination System (NPDES) permitting requirements for CAFOs (Sec. 122) and the Effluent Limitations Guidelines and Standards (ELGs) for CAFOs (Sec. 412). The rule establishes a mandatory duty for all CAFOs to apply for an NPDES permit and to develop and implement a nutrient management plan. The effluent guidelines being finalized today establish performance expectations for existing and new sources to ensure appropriate storage of manure, as well as expectations for proper land application practices at the CAFO. The required nutrient management plan would identify the site-specific actions to be taken by the CAFO to ensure proper and effective manure and wastewater management, including compliance with the Effluent Limitation Guidelines. Both sections of the rule also contain new regulatory requirements for dry-litter chicken operations. This improved regulatory program is also designed to support and complement the array of voluntary and other programs implemented by the United States Department of Agriculture (USDA), EPA and the States that help the vast majority of smaller animal feeding operations not addressed by this rule. This rule is an integral part of an overall federal strategy to support a vibrant agriculture economy while at the same time taking important steps to ensure that all animal feeding operations manage their manure properly and protect water quality. EPA believes that these regulations will substantially benefit human health and the environment by assuring that an estimated 15,500 CAFOs effectively manage the 300 million tons of manure that they produce annually. The rule also acknowledges the States' flexibility and range of tools to assist small and medium-size AFOs.",
+      "raw_text_url": "https://www.federalregister.gov/documents/full_text/text/2003/02/12/03-3074.txt",
+      "cfr_references": [
+        "40 CFR 9",
+        "40 CFR 122",
+        "40 CFR 123",
+        "40 CFR 412"
+      ],
+      "cafo_tier": "core",
+      "ingested_at": "2026-03-22T00:48:02.888050+00:00"
+    },
+    {
+      "id": "2012-18378",
+      "title": "National Pollutant Discharge Elimination System Permit Regulation for Concentrated Animal Feeding Operations: Removal of Vacated Elements in Response to 2011 Court Decision",
+      "agency": "EPA",
+      "document_type": "Rule",
+      "publication_date": "2012-07-30",
+      "effective_date": "2012-07-30",
+      "abstract": "The EPA is amending its regulations to eliminate the requirement that an owner or operator of a Concentrated Animal Feeding Operation (CAFO) that \"proposes to discharge\" must apply for a National Pollutant Discharge Elimination System (NPDES) Permit. This rulemaking also removes the voluntary certification option for unpermitted CAFOs because removal of the \"propose to discharge\" requirement renders the certification option unnecessary. Its purpose had been to allow CAFO owners and operators to certify that they were not violating the requirement that owners or operators of CAFOs that propose to discharge must seek permit coverage. Both of these provisions were included in the EPA's rulemaking entitled \"Revised National Pollutant Discharge Elimination System Permit Regulation and Effluent Limitations Guidelines for Concentrated Animal Feeding Operations in Response to the Waterkeeper Decision,\" (the 2008 CAFO Rule).",
+      "raw_text_url": "https://www.federalregister.gov/documents/full_text/text/2012/07/30/2012-18378.txt",
+      "cfr_references": [
+        "40 CFR 122"
+      ],
+      "cafo_tier": "core",
+      "ingested_at": "2026-03-22T00:48:03.151069+00:00"
+    },
+    {
+      "id": "E7-14258",
+      "title": "Revised Compliance Dates Under the National Pollutant Discharge Elimination System Permit Regulations and Effluent Limitations Guidelines and Standards for Concentrated Animal Feeding Operations",
+      "agency": "EPA",
+      "document_type": "Rule",
+      "publication_date": "2007-07-24",
+      "effective_date": "2007-07-24",
+      "abstract": "This rule extends certain compliance dates in the National Pollutant Discharge Elimination System (NPDES) permitting requirements and Effluent Limitations Guidelines and Standards (ELGs) for concentrated animal feeding operations (CAFOs) while EPA works to complete rulemaking to respond to the decision of the U.S. Court of Appeals for the Second Circuit in Waterkeeper Alliance et al. v. EPA, 399 F.3d 486 (2nd Cir. 2005). The sole purpose of this rule is to address timing issues associated with the Agency's response to the Waterkeeper decision. This final rule revises the dates established in the 2003 CAFO rule and later modified by a rule published in the Federal Register on February 10, 2006, by which facilities newly defined as CAFOs are required to seek permit coverage and by which all permitted CAFOs are required to develop and implement their nutrient management plans (NMPs). EPA is extending the date by which operations defined as CAFOs as of April 14, 2003, that were not defined as CAFOs prior to that date, must seek NPDES permit coverage, from July 31, 2007, to February 27, 2009. EPA is also amending the date by which operations that become defined as CAFOs after April 14, 2003, due to operational changes that would not have made them a CAFO prior to April 14, 2003, and that are not new sources, must seek NPDES permit coverage, from July 31, 2007, to February 27, 2009. Finally, EPA is extending the deadline by which permitted CAFOs are required to develop and implement NMPs, from July 31, 2007, to February 27, 2009.",
+      "raw_text_url": "https://www.federalregister.gov/documents/full_text/text/2007/07/24/E7-14258.txt",
+      "cfr_references": [
+        "40 CFR 122",
+        "40 CFR 412"
+      ],
+      "cafo_tier": "core",
+      "ingested_at": "2026-03-22T00:48:03.387129+00:00"
+    },
+    {
+      "id": "06-1240",
+      "title": "Revised Compliance Dates for National Pollutant Discharge Elimination System Permit Regulation and Effluent Limitation Guidelines for Concentrated Animal Feeding Operations",
+      "agency": "EPA",
+      "document_type": "Rule",
+      "publication_date": "2006-02-10",
+      "effective_date": "2006-02-10",
+      "abstract": "Today's rule extends certain compliance dates in the National Pollutant Discharge Elimination System (NPDES) permitting requirements and Effluent Limitations Guidelines and Standards (ELGs) for concentrated animal feeding operations (CAFOs) in conjunction with EPA's efforts to respond to the order issued by the Second Circuit Court of Appeals in Waterkeeper Alliance et al. v. EPA, 399 F.3d 486 (2nd Cir. 2005). The purpose of today's rule is to address timing issues associated with the Agency's response to the Waterkeeper decision. This final rule revises dates established in the 2003 CAFO rule, issued on February 12, 2003, by which facilities newly defined as CAFOs were required to seek permit coverage and by which all CAFOs were required to have nutrient management plans (NMPs) developed and implemented. EPA is extending the date by which operations defined as CAFOs as of April 14, 2003, who were not defined as CAFOs prior to that date, must seek NPDES permit coverage, from February 13, 2006, to July 31, 2007. EPA is also amending the date by which operations that become defined as CAFOs after April 14, 2003, due to operational changes that would not have made them a CAFO prior to April 14, 2003, and that are not new sources, must seek NPDES permit coverage, from April 13, 2006, to July 31, 2007. Finally, EPA is extending the deadline by which CAFOs are required to develop and implement NMPs, from December 31, 2006, to July 31, 2007. This rule revises all references to the date by which NMPs must be developed and implemented currently in the 2003 CAFO rule.",
+      "raw_text_url": "https://www.federalregister.gov/documents/full_text/text/2006/02/10/06-1240.txt",
+      "cfr_references": [
+        "40 CFR 122",
+        "40 CFR 412"
+      ],
+      "cafo_tier": "core",
+      "ingested_at": "2026-03-22T00:48:03.647830+00:00"
+    },
+    {
+      "id": "E8-30003",
+      "title": "CERCLA/EPCRA Administrative Reporting Exemption for Air Releases of Hazardous Substances From Animal Waste at Farms",
+      "agency": "EPA",
+      "document_type": "Rule",
+      "publication_date": "2008-12-18",
+      "effective_date": "2009-01-20",
+      "abstract": "This final rule provides an administrative reporting exemption from particular notification requirements under the Comprehensive Environmental Response, Compensation, and Liability Act of 1980, as amended. In addition, this final rule provides a limited administrative reporting exemption in certain cases from requirements under the Emergency Planning and Community Right-to-Know Act, also known as Title III of the Superfund Amendments and Reauthorization Act. Specifically, the administrative reporting exemption applies to releases of hazardous substances to the air that meet or exceed their reportable quantity where the source of those hazardous substances is animal waste at farms. Nothing in this final rule changes the notification requirements if hazardous substances are released to the air from any source other than animal waste at farms (e.g., ammonia tanks), or if any hazardous substances from animal waste are released to any other environmental media, (e.g., soil, ground water, or surface water) when the release of those hazardous substances is at or above its reportable quantity. Also, the administrative reporting exemption under section 103 of the Comprehensive Environmental Response, Compensation, and Liability Act, does not limit any of the Agency's other authorities under the Comprehensive Environmental Response, Compensation, and Liability Act sections 104 (response authorities), 106 (abatement actions), 107 (liability), or any other provisions of the Comprehensive Emergency Response, Compensation, and Liability Act or the Emergency Planning and Community Right to Know Act. Accordingly, EPA believes this administrative reporting exemption not only leaves in place important Agency response authorities that can be used to protect human health and the environment if needed, but also is consistent with the Agency's goal to reduce reporting burden, particularly considering that Federal, State or local response officials are unlikely to respond to notifications of air releases of hazardous substances from animal waste at farms.",
+      "raw_text_url": "https://www.federalregister.gov/documents/full_text/text/2008/12/18/E8-30003.txt",
+      "cfr_references": [
+        "40 CFR 302",
+        "40 CFR 355"
+      ],
+      "cafo_tier": "secondary",
+      "ingested_at": "2026-03-22T00:48:03.895627+00:00"
+    },
+    {
+      "id": "2019-12411",
+      "title": "Amendment to Emergency Release Notification Regulations on Reporting Exemption for Air Emissions From Animal Waste at Farms; Emergency Planning and Community Right-to-Know Act",
+      "agency": "EPA",
+      "document_type": "Rule",
+      "publication_date": "2019-06-13",
+      "effective_date": "2019-07-15",
+      "abstract": "The Environmental Protection Agency (EPA or the Agency) is amending the release notification regulations under the Emergency Planning and Community Right-to-Know Act (EPCRA) to add the reporting exemption for air emissions from animal waste at farms provided in section 103(e) of the Comprehensive Environmental Response, Compensation and Liability Act (CERCLA). In addition, EPA is adding definitions of \"animal waste\" and \"farm\" to the EPCRA regulations to delineate the scope of this reporting exemption. This amendment maintains consistency between the emergency release notification requirements of EPCRA and CERCLA in accordance with the statutory text, framework and legislative history of EPCRA, and is consistent with the Agency's prior regulatory actions.",
+      "raw_text_url": "https://www.federalregister.gov/documents/full_text/text/2019/06/13/2019-12411.txt",
+      "cfr_references": [
+        "40 CFR 355"
+      ],
+      "cafo_tier": "secondary",
+      "ingested_at": "2026-03-22T00:48:04.313192+00:00"
+    },
+    {
+      "id": "2022-28595",
+      "title": "Revised Definition of “Waters of the United States”",
+      "agency": "EPA",
+      "document_type": "Rule",
+      "publication_date": "2023-01-18",
+      "effective_date": "2023-03-20",
+      "abstract": "The Environmental Protection Agency (EPA) and the Department of the Army (\"the agencies\") are finalizing a rule defining the scope of waters protected under the Clean Water Act. In developing this rule, the agencies considered the text of the relevant provisions of the Clean Water Act and the statute as a whole, the scientific record, relevant Supreme Court case law, and the agencies' experience and technical expertise after more than 45 years of implementing the longstanding pre-2015 regulations defining \"waters of the United States.\" This final rule advances the objective of the Clean Water Act and ensures critical protections for the nation's vital water resources, which support public health, environmental protection, agricultural activity, and economic growth across the United States.",
+      "raw_text_url": "https://www.federalregister.gov/documents/full_text/text/2023/01/18/2022-28595.txt",
+      "cfr_references": [
+        "33 CFR 328",
+        "40 CFR 120"
+      ],
+      "cafo_tier": "secondary",
+      "ingested_at": "2026-03-22T00:48:05.348344+00:00"
+    },
+    {
+      "id": "2020-21446",
+      "title": "NPDES Electronic Reporting Rule-Phase 2 Extension",
+      "agency": "EPA",
+      "document_type": "Rule",
+      "publication_date": "2020-11-02",
+      "effective_date": "2021-01-04",
+      "abstract": "The Environmental Protection Agency (EPA) is publishing this final rule to postpone the compliance deadlines for implementation of Phase 2 of the National Pollutant Discharge Elimination System (NPDES) Electronic Reporting Rule (\"NPDES eRule\"). The NPDES eRule requires EPA and states to modernize Clean Water Act (CWA) reporting. This final rule also provides states with additional flexibility to request additional time as needed. Further, this final rule promulgates clarifying changes to the NPDES eRule and eliminates some duplicative or outdated reporting requirements. Taken together, these changes are designed to save the NPDES authorized programs considerable resources, make reporting easier for NPDES-regulated entities, streamline permit renewals, ensure full exchange of NPDES program data between states and EPA, enhance public transparency, improve environmental decision- making, and protect human health and the environment.",
+      "raw_text_url": "https://www.federalregister.gov/documents/full_text/text/2020/11/02/2020-21446.txt",
+      "cfr_references": [
+        "40 CFR 9",
+        "40 CFR 122",
+        "40 CFR 123",
+        "40 CFR 127",
+        "40 CFR 403",
+        "40 CFR 503"
+      ],
+      "cafo_tier": "secondary",
+      "ingested_at": "2026-03-22T00:48:05.734311+00:00"
+    }
+  ],
+  "alerts": [
+    {
+      "id": "alert-001",
+      "regulation_title": "NC Supreme Court Strikes Down Three CAFO Permit Conditions",
+      "regulation_id": "nc-supreme-court-cafo-2025",
+      "affected_business_ids": [
+        "1cde2b19-dd60-4fd0-bb0f-4d3597a477f8",
+        "e681a8a3-3ae5-4d4e-8fe7-4ff8d280dce2",
+        "37be5459-cbdc-400c-b43a-b5da38c68f66"
+      ],
+      "severity": "high",
+      "timestamp": "2025-11-15T14:30:00Z",
+      "description": "The NC Supreme Court ruled that three permit conditions for hog farm CAFOs are unenforceable: annual facility reporting, groundwater monitoring, and phosphorus testing requirements. Affected facilities should review their compliance obligations under the remaining permit conditions."
+    },
+    {
+      "id": "alert-002",
+      "regulation_title": "EPA Updates CAFO Nutrient Management Plan Reporting Requirements",
+      "regulation_id": "epa-cafo-nmp-2025",
+      "affected_business_ids": [
+        "5e053dcd-b4a9-463d-bc8d-2c0d8bd491b6",
+        "9c1c16b2-47f0-48b0-a428-a8c70dbc91b6",
+        "6c695f67-8414-4441-b3cc-7332a473d72f",
+        "65f57072-4911-4f21-ad63-7b8a57aff05d"
+      ],
+      "severity": "high",
+      "timestamp": "2026-03-21T20:32:17.753786+00:00",
+      "description": "EPA has updated nutrient management plan documentation and reporting requirements for Large CAFOs under 40 CFR 122.42. Facilities with more than 2,500 swine must submit updated NMPs within 180 days of the effective date."
+    },
+    {
+      "id": "alert-003",
+      "regulation_title": "NC DEQ Proposes Revised Setback Requirements for Waste Lagoons",
+      "regulation_id": "nc-deq-setback-2026",
+      "affected_business_ids": [
+        "e79fed7a-ef73-41ce-8c84-f0b53059b015",
+        "d84b9096-2206-4ebb-8aee-89a00bf5aa5f"
+      ],
+      "severity": "medium",
+      "timestamp": "2026-03-19T20:32:17.753786+00:00",
+      "description": "NC DEQ has proposed amendments to 15A NCAC 02T .1307 increasing minimum setback distances for new and expanded animal waste lagoons from 500 feet to 750 feet from property lines and occupied residences."
+    },
+    {
+      "id": "alert-004",
+      "regulation_title": "EPA Announces Enhanced CAFO Inspection Initiative for Southeast Region",
+      "regulation_id": "epa-cafo-inspection-2026",
+      "affected_business_ids": [
+        "3f77cfc4-ccac-4f5d-8f0d-8baad5825661",
+        "a4431726-4534-4c5a-9047-681c743f6fe0",
+        "8d3cad1a-848b-4fc0-97a9-7cf77ea77bc9",
+        "e681a8a3-3ae5-4d4e-8fe7-4ff8d280dce2",
+        "d84b9096-2206-4ebb-8aee-89a00bf5aa5f"
+      ],
+      "severity": "low",
+      "timestamp": "2026-03-16T20:32:17.753786+00:00",
+      "description": "EPA Region 4 has announced an expanded inspection initiative targeting CAFO facilities in NC, SC, and GA. Facilities should ensure all permits, waste management plans, and discharge monitoring reports are current and accessible."
+    }
+  ],
+  "analyses": [
+    {
+      "id": "file-cache-e681a8a33ae5_E8_26620",
+      "business_id": "e681a8a3-3ae5-4d4e-8fe7-4ff8d280dce2",
+      "regulation_id": "E8-26620",
+      "overall_status": "warning",
+      "confidence": 0.75,
+      "summary": "Calvin L. Rouse Farm, a Large Swine CAFO with a general NPDES permit, appears generally compliant with federal permitting requirements. However, several areas require verification, including permit renewal status, NMP update procedures, and the presence of required depth markers on impoundments. While annual reporting and phosphorus testing requirements were struck down by the NC Supreme Court, voluntary compliance is advisable for robust environmental management and liability protection.",
+      "created_at": "2026-03-22T01:27:26.000Z"
+    }
+  ],
+  "cachedAnalyses": [
+    {
+      "business_id": "e681a8a3-3ae5-4d4e-8fe7-4ff8d280dce2",
+      "business_name": "Calvin L. Rouse Farm",
+      "regulation_id": "E8-26620",
+      "path": "/demo/analyses/e681a8a33ae5_E8_26620.json"
+    }
+  ]
+}
