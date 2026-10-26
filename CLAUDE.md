@@ -54,7 +54,7 @@ regradar/
       analysis-result.tsx     # ComplianceGapAnalysis renderer
     lib/
       api.ts                  # Fetch wrapper for backend API
-      mock-data.ts            # Hardcoded mock data (unused when USE_MOCKS=false)
+      mock-data.ts            # Demo-mode data from lib/demo-data.json (generated from data/ by `bun run demo-data`)
       types.ts                # TypeScript interfaces for all API responses
       nc-boundary.ts          # NC state boundary GeoJSON coordinates
   prompts/                  # Gemini prompt engineering workspace
