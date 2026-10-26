@@ -22,7 +22,7 @@ backend_dir = Path(__file__).parent.parent
 if str(backend_dir) not in sys.path:
     sys.path.insert(0, str(backend_dir))
 
-from db.database import init_db, get_db
+from db.database import init_db, get_db, close_db
 from core.extraction import extract_text_from_html
 from core.chunking import chunk_document
 from core.indexing import index_chunks, get_collection_count
@@ -221,5 +221,12 @@ async def run_seed():
     print("=" * 60)
 
 
+async def main():
+    try:
+        await run_seed()
+    finally:
+        await close_db()
+
+
 if __name__ == "__main__":
-    asyncio.run(run_seed())
+    asyncio.run(main())

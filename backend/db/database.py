@@ -79,6 +79,15 @@ async def _get_pool_connection() -> aiosqlite.Connection:
         await _pool.execute("PRAGMA busy_timeout=5000")  # 5 second timeout
     return _pool
 
+
+async def close_db():
+    """Close the pooled connection. Its aiosqlite worker thread is non-daemon,
+    so scripts hang on exit until this is called."""
+    global _pool
+    if _pool is not None:
+        await _pool.close()
+        _pool = None
+
 # SQL schema for all 3 tables
 SCHEMA_SQL = """
 CREATE TABLE IF NOT EXISTS businesses (
