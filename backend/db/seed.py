@@ -44,8 +44,7 @@ async def seed_regulations():
 
     print(f"  Found {len(regulations)} regulations in seed file")
 
-    db = await get_db()
-    try:
+    async with get_db() as db:
         inserted = 0
         skipped = 0
         for reg in regulations:
@@ -88,8 +87,6 @@ async def seed_regulations():
         await db.commit()
         print(f"  Inserted {inserted} regulations ({skipped} already existed)")
         return regulations
-    finally:
-        await db.close()
 
 
 async def seed_businesses():
@@ -105,8 +102,7 @@ async def seed_businesses():
 
     print(f"  Found {len(businesses)} business profiles in seed file")
 
-    db = await get_db()
-    try:
+    async with get_db() as db:
         inserted = 0
         skipped = 0
         for biz in businesses:
@@ -143,8 +139,6 @@ async def seed_businesses():
 
         await db.commit()
         print(f"  Inserted {inserted} businesses ({skipped} already existed)")
-    finally:
-        await db.close()
 
 
 def index_regulation_chunks(regulations: list[dict]):
