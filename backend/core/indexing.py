@@ -22,7 +22,8 @@ EMBEDDING_MODEL = "sentence-transformers/all-MiniLM-L6-v2"
 # Module-level singleton with thread-safe initialization
 _client: chromadb.ClientAPI | None = None
 _collection: chromadb.Collection | None = None
-_lock = threading.Lock()
+# Reentrant: get_collection() holds the lock while calling get_client().
+_lock = threading.RLock()
 
 
 def _get_embedding_function() -> SentenceTransformerEmbeddingFunction:
