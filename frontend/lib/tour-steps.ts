@@ -8,6 +8,8 @@ export interface TourStep {
   target?: string;
   title: string;
   body: string;
+  /** Extra "At IDC:" line shown only in IDC mode (?for=idc). */
+  idc?: string;
   /** UI actions needed to reveal the target: click `click` until `until` exists. */
   prepare?: { click: string; until: string }[];
   /** The step lives inside the facility analysis panel, so keep it open. */
@@ -37,6 +39,7 @@ export const TOUR_STEPS: TourStep[] = [
     target: '[data-tour="kpis"]',
     title: "What RegRadar watches",
     body: "15 real hog farms from North Carolina's permit records and the 9 federal EPA rules that apply to them. These cards give the big picture: farms monitored, farms needing attention, open alerts and rules tracked.",
+    idc: "the same watcher tracks news and moves from P1 partners.",
   },
   {
     id: "map",
@@ -97,6 +100,7 @@ export const TOUR_STEPS: TourStep[] = [
     inPanel: true,
     title: "The risk level",
     body: "\"Needs review\" means the farm looks mostly in line, but some requirements can't be confirmed from its records. The counts show how much there is to look at, and the AI says how confident it is.",
+    idc: "inbound partner requests scored against IDC's qualification rules.",
   },
   {
     id: "gaps",
@@ -115,6 +119,7 @@ export const TOUR_STEPS: TourStep[] = [
     inPanel: true,
     title: "What to do next",
     body: "The gaps turn into a checklist the farm can work through and tick off.",
+    idc: "per-partner follow-ups, CRM fixes and a weekly leadership brief.",
   },
   {
     id: "requirements",
@@ -124,6 +129,7 @@ export const TOUR_STEPS: TourStep[] = [
     inPanel: true,
     title: "The rule, in plain English",
     body: "Every requirement the AI found, with the exact legal citation, a plain-English summary, and any deadline or penalty. This rule produced 76 of them.",
+    idc: "every partner signal is summarized with a link to its source.",
   },
   {
     id: "done",
@@ -132,5 +138,6 @@ export const TOUR_STEPS: TourStep[] = [
     inPanel: true,
     title: "That's the whole flow",
     body: "A rule changes, the affected farms are flagged, and each one gets a plain-English to-do list. In the full local version the AI runs live for any farm and rule. Reopen this tour any time with \"Take the tour\".",
+    idc: "a person approves before anything is sent or changed.",
   },
 ];
