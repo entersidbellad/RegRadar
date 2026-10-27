@@ -1,0 +1,17 @@
+{
+ "business_id": "65f57072-4911-4f21-ad63-7b8a57aff05d",
+ "regulation_id": "2026-11327",
+ "gap_analysis": {
+  "business_name": "Reeves & Reeves, Inc.",
+  "business_id": "65f57072-4911-4f21-ad63-7b8a57aff05d",
+  "regulation_name": "Proposed Revisions to the National Handbook of Conservation Practices",
+  "regulation_id": "2026-11327",
+  "analysis_date": "2026-10-27T03:39:28.434918+00:00",
+  "overall_status": "compliant",
+  "confidence_score": 0.9,
+  "requirements": [],
+  "gaps": [],
+  "recommended_actions": [],
+  "summary": "Not applicable: This notice proposes revisions to voluntary NRCS conservation practice standards and does not directly create new regulatory obligations for this facility."
+ }
+}

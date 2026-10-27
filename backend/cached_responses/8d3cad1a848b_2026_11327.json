@@ -1,0 +1,17 @@
+{
+ "business_id": "8d3cad1a-848b-4fc0-97a9-7cf77ea77bc9",
+ "regulation_id": "2026-11327",
+ "gap_analysis": {
+  "business_name": "Farm 5579",
+  "business_id": "8d3cad1a-848b-4fc0-97a9-7cf77ea77bc9",
+  "regulation_name": "Proposed Revisions to the National Handbook of Conservation Practices",
+  "regulation_id": "2026-11327",
+  "analysis_date": "2026-10-27T03:39:28.434918+00:00",
+  "overall_status": "compliant",
+  "confidence_score": 0.9,
+  "requirements": [],
+  "gaps": [],
+  "recommended_actions": [],
+  "summary": "Not applicable: This notice proposes revisions to voluntary NRCS conservation practice standards and does not directly create new regulatory obligations for this facility."
+ }
+}

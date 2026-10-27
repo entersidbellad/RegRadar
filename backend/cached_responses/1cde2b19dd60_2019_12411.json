@@ -1,0 +1,49 @@
+{
+ "business_id": "1cde2b19-dd60-4fd0-bb0f-4d3597a477f8",
+ "regulation_id": "2019-12411",
+ "gap_analysis": {
+  "business_name": "Waters Farm 1-5  M&M Rivenbark",
+  "business_id": "1cde2b19-dd60-4fd0-bb0f-4d3597a477f8",
+  "regulation_name": "Amendment to Emergency Release Notification Regulations on Reporting Exemption for Air Emissions From Animal Waste at Farms; Emergency Planning and Community Right-to-Know Act",
+  "regulation_id": "2019-12411",
+  "analysis_date": "2026-10-27T03:41:52.014703+00:00",
+  "overall_status": "compliant",
+  "confidence_score": 0.95,
+  "requirements": [
+   {
+    "requirement_id": "REQ-CERCLA-103",
+    "regulation_section": "CERCLA section 103 (cited in Preamble Section I.D)",
+    "requirement_text": "Section 103 of CERCLA requires the person in charge of a vessel or facility to immediately notify the National Response Center (NRC) when there is a release of a hazardous substance, as defined under CERCLA section 101(14), in an amount equal to or greater than the reportable quantity for that substance within a 24-hour period.",
+    "plain_language_summary": "If your farm has a release of a hazardous substance (such as a manure lagoon spill into water) that meets or exceeds the reportable quantity within a 24-hour period, you must immediately notify the National Response Center. Note that air emissions from animal waste are exempt from this requirement.",
+    "obligation_type": "conditional",
+    "applicable_industries": [
+     "111",
+     "112",
+     "112210"
+    ],
+    "deadline": "Immediately upon a release meeting or exceeding the reportable quantity within a 24-hour period",
+    "penalty_info": null
+   },
+   {
+    "requirement_id": "REQ-EPCRA-304",
+    "regulation_section": "EPCRA section 304 (cited in Preamble Section I.D and IV)",
+    "requirement_text": "EPCRA section 304 requires owners or operators of certain facilities to immediately notify state and local authorities when there is a release of an extremely hazardous substance (EHS), as defined under EPCRA section 302, or of a CERCLA hazardous substance in an amount equal to or greater than the reportable quantity for that substance within a 24-hour period... For example, a release from animal waste into water (e.g., a lagoon breach) or a release from an anhydrous ammonia storage tank into the air might trigger reporting requirements if the release exceeds the applicable reportable quantities.",
+    "plain_language_summary": "If your farm has a release of a hazardous substance into water (like a lagoon breach) or a non-waste release into the air (like an ammonia tank leak) that meets or exceeds the reportable quantity within a 24-hour period, you must immediately notify state and local authorities. Air emissions directly from animal waste are exempt.",
+    "obligation_type": "conditional",
+    "applicable_industries": [
+     "111",
+     "112",
+     "112210"
+    ],
+    "deadline": "Immediately upon a release meeting or exceeding the reportable quantity within a 24-hour period",
+    "penalty_info": null
+   }
+  ],
+  "gaps": [],
+  "recommended_actions": [
+   "Develop and maintain a spill response plan detailing contact information for the National Response Center and local authorities.",
+   "Ensure staff at the 3452-head facility are trained to recognize and immediately report lagoon breaches or non-waste hazardous spills (e.g., ammonia)."
+  ],
+  "summary": "Waters Farm 1-5 M&M Rivenbark is currently compliant with CERCLA and EPCRA reporting requirements, as there are no active hazardous substance releases reported for this 3452-head swine facility. The facility must remain prepared to immediately notify the National Response Center and local authorities if a lagoon breach or other reportable spill occurs."
+ }
+}
