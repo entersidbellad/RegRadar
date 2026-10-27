@@ -13,6 +13,8 @@ import { usePathname, useRouter } from "next/navigation";
 import { ArrowLeft, ArrowRight, Loader2, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import HowItWorks from "@/components/how-it-works";
+import IdcPlan from "@/components/idc-plan";
+import { readIdcMode } from "@/lib/idc-mode";
 import { TOUR_STEPS } from "@/lib/tour-steps";
 
 const STORAGE_KEY = "regradar-tour";
@@ -198,6 +200,8 @@ export function TourProvider({ children }: { children: React.ReactNode }) {
   // Tagged with its step so the first render of a new step never reuses the previous step's target.
   const [resolved, setResolved] = useState<{ step: number; session: number; el: HTMLElement | null } | null>(null);
   const [overview, setOverview] = useState<"tour" | "standalone" | null>(null);
+  const [idc, setIdc] = useState(false);
+  const [idcPlan, setIdcPlan] = useState(false);
   const runRef = useRef(0);
   const ready = resolved !== null && resolved.step === stepIndex && resolved.session === session;
   const target = ready ? resolved.el : null;
@@ -210,11 +214,13 @@ export function TourProvider({ children }: { children: React.ReactNode }) {
 
   const start = useCallback(() => {
     stopSteps();
+    setIdcPlan(false);
     setOverview("tour");
   }, [stopSteps]);
 
   const showOverview = useCallback(() => {
     stopSteps();
+    setIdcPlan(false);
     setOverview("standalone");
   }, [stopSteps]);
 
@@ -236,9 +242,17 @@ export function TourProvider({ children }: { children: React.ReactNode }) {
 
   const next = useCallback(() => {
     if (stepIndex === null) return;
-    if (stepIndex >= TOUR_STEPS.length - 1) end();
-    else setStepIndex(stepIndex + 1);
-  }, [stepIndex, end]);
+    if (stepIndex >= TOUR_STEPS.length - 1) {
+      end();
+      if (idc) setIdcPlan(true);
+    } else setStepIndex(stepIndex + 1);
+  }, [stepIndex, end, idc]);
+
+  const closeIdcPlan = useCallback(() => setIdcPlan(false), []);
+
+  useEffect(() => {
+    setIdc(readIdcMode());
+  }, [pathname]);
 
   const back = useCallback(() => {
     if (stepIndex !== null && stepIndex > 0) setStepIndex(stepIndex - 1);
@@ -293,12 +307,14 @@ export function TourProvider({ children }: { children: React.ReactNode }) {
   }, [stepIndex, next, back, end]);
 
   return (
-    <TourContext.Provider value={{ start, showOverview, active: stepIndex !== null || overview !== null }}>
+    <TourContext.Provider value={{ start, showOverview, active: stepIndex !== null || overview !== null || idcPlan }}>
       {children}
       {overview !== null && <HowItWorks mode={overview} onStart={beginSteps} onClose={closeOverview} />}
+      {idcPlan && <IdcPlan onClose={closeIdcPlan} />}
       {stepIndex !== null && (
         <TourOverlay
           stepIndex={stepIndex}
+          idc={idc}
           target={target}
           ready={ready}
           onNext={next}
@@ -312,6 +328,7 @@ export function TourProvider({ children }: { children: React.ReactNode }) {
 
 interface TourOverlayProps {
   stepIndex: number;
+  idc: boolean;
   target: HTMLElement | null;
   ready: boolean;
   onNext: () => void;
@@ -319,7 +336,7 @@ interface TourOverlayProps {
   onSkip: () => void;
 }
 
-function TourOverlay({ stepIndex, target, ready, onNext, onBack, onSkip }: TourOverlayProps) {
+function TourOverlay({ stepIndex, idc, target, ready, onNext, onBack, onSkip }: TourOverlayProps) {
   const step = TOUR_STEPS[stepIndex];
   const isLast = stepIndex === TOUR_STEPS.length - 1;
   const cardRef = useRef<HTMLDivElement>(null);
@@ -449,6 +466,11 @@ function TourOverlay({ stepIndex, target, ready, onNext, onBack, onSkip }: TourO
           <p id="tour-body" className="mt-1.5 text-sm leading-relaxed text-muted-foreground">
             {step.body}
           </p>
+          {idc && step.idc && (
+            <p className="mt-2 border-l-2 border-primary/50 pl-2.5 text-sm leading-snug text-muted-foreground dark:border-green-400/50">
+              <span className="font-semibold text-primary dark:text-green-400">At IDC:</span> {step.idc}
+            </p>
+          )}
         </div>
         <div className="flex items-center justify-between gap-2 border-t border-border/60 bg-muted/30 px-5 py-3">
           {isLast ? (
