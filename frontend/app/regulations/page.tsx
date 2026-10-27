@@ -106,7 +106,7 @@ export default function RegulationsPage() {
         <div>
           <h1 className="text-2xl font-bold text-foreground">Regulations</h1>
           <p className="text-sm text-muted-foreground">
-            Federal and state environmental regulations for CAFO operations
+            Federal EPA rules that affect hog farms and other animal feeding operations
           </p>
         </div>
       </div>

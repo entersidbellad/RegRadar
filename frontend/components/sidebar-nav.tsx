@@ -112,7 +112,7 @@ export default function SidebarNav() {
             NC CAFO Compliance Monitor
           </p>
           <p className="mt-0.5 text-xs text-sidebar-foreground/50">
-            Duplin &amp; Sampson Counties
+            Eastern North Carolina
           </p>
           {DEMO_MODE && (
             <p
@@ -132,7 +132,8 @@ export default function SidebarNav() {
       {/* Mobile hamburger */}
       <button
         onClick={() => setMobileOpen(true)}
-        className="fixed left-3 top-3 z-50 rounded-md bg-sidebar p-2 text-sidebar-foreground shadow-lg md:hidden"
+        aria-label="Open navigation"
+        className="fixed left-3 top-2.5 z-50 rounded-md bg-sidebar p-2 text-sidebar-foreground shadow-lg md:hidden"
       >
         <Menu className="h-5 w-5" />
       </button>

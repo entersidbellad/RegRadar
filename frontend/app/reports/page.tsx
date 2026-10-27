@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import type { Business, Alert as AlertType } from "@/lib/types";
 import { fetchBusinesses, fetchAlerts } from "@/lib/api";
+import { STATUS_LABELS } from "@/lib/status";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -21,13 +22,6 @@ function downloadCSV(filename: string, headers: string[], rows: string[][]) {
   a.click();
   URL.revokeObjectURL(url);
 }
-
-const STATUS_LABELS: Record<string, string> = {
-  compliant: "Compliant",
-  warning: "Warning",
-  non_compliant: "Non-Compliant",
-  unknown: "Unknown",
-};
 
 export default function ReportsPage() {
   const [businesses, setBusinesses] = useState<Business[]>([]);

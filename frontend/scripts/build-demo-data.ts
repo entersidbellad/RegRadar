@@ -76,12 +76,15 @@ for (const file of readdirSync(CACHE_DIR).filter((f) => f.endsWith(".json")).sor
     throw new Error(`${file}: business ${cached.business_id} is not in business_profiles.json`);
   }
 
-  // The model echoes the permit number / CFR parts into these fields; the API
-  // contract expects the actual business and regulation IDs.
+  const createdAt = lastCommitDate(sourcePath) ?? new Date(cached.gap_analysis.analysis_date).toISOString();
+
+  // The model echoes the permit number / CFR parts into these fields and makes
+  // up analysis_date; use the real IDs and the date the response was produced.
   const analysis: ComplianceGapAnalysis = {
     ...cached.gap_analysis,
     business_id: cached.business_id,
     regulation_id: cached.regulation_id,
+    analysis_date: createdAt,
     analysis_id: "file-cache",
   };
   writeFileSync(join(ANALYSES_OUT_DIR, file), JSON.stringify(analysis));
@@ -93,7 +96,7 @@ for (const file of readdirSync(CACHE_DIR).filter((f) => f.endsWith(".json")).sor
     overall_status: analysis.overall_status,
     confidence: analysis.confidence_score,
     summary: analysis.summary,
-    created_at: lastCommitDate(sourcePath) ?? new Date(analysis.analysis_date).toISOString(),
+    created_at: createdAt,
   });
   cachedAnalyses.push({
     business_id: cached.business_id,

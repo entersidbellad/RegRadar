@@ -6,6 +6,8 @@ import Link from "next/link";
 import dynamic from "next/dynamic";
 import type { Business, Regulation, Alert as AlertType } from "@/lib/types";
 import { fetchBusinessDetail, fetchAlerts, fetchRegulations, DEMO_MODE } from "@/lib/api";
+import { mockCachedAnalyses } from "@/lib/mock-data";
+import { STATUS_LABELS } from "@/lib/status";
 import BusinessDetail from "@/components/business-detail";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -30,25 +32,25 @@ const NCMap = dynamic(() => import("@/components/nc-map"), {
 
 const STATUS_CONFIG = {
   compliant: {
-    label: "Compliant",
+    label: STATUS_LABELS.compliant,
     badge: "bg-green-100 dark:bg-green-950/40 text-green-800 dark:text-green-300 border-green-200 dark:border-green-900",
     icon: ShieldCheck,
     iconColor: "text-green-600 dark:text-green-400",
   },
   warning: {
-    label: "Warning",
+    label: STATUS_LABELS.warning,
     badge: "bg-amber-100 dark:bg-amber-950/40 text-amber-800 dark:text-amber-300 border-amber-200 dark:border-amber-900",
     icon: ShieldAlert,
     iconColor: "text-amber-600 dark:text-amber-400",
   },
   non_compliant: {
-    label: "Non-Compliant",
+    label: STATUS_LABELS.non_compliant,
     badge: "bg-red-100 dark:bg-red-950/40 text-red-800 dark:text-red-300 border-red-200 dark:border-red-900",
     icon: ShieldAlert,
     iconColor: "text-red-600 dark:text-red-400",
   },
   unknown: {
-    label: "Unknown",
+    label: STATUS_LABELS.unknown,
     badge: "bg-gray-100 dark:bg-gray-900/40 text-gray-600 dark:text-gray-400 border-gray-200 dark:border-gray-800",
     icon: ShieldQuestion,
     iconColor: "text-gray-500 dark:text-gray-400",
@@ -122,6 +124,9 @@ export default function FacilityDetailPage() {
 
   const status = STATUS_CONFIG[business.latest_status];
   const StatusIcon = status.icon;
+  const featuredDemo = mockCachedAnalyses.find((c) => c.business_id !== business.id);
+  const regulationTitle = (regulationId: string) =>
+    regulations.find((r) => r.id === regulationId)?.title ?? regulationId;
 
   return (
     <div className="space-y-6 p-6">
@@ -136,7 +141,7 @@ export default function FacilityDetailPage() {
       </div>
 
       {/* Header */}
-      <div className="flex flex-wrap items-start justify-between gap-4">
+      <div data-tour="facility-header" className="flex flex-wrap items-start justify-between gap-4">
         <div>
           <h1 className="text-2xl font-bold text-foreground">{business.name}</h1>
           <div className="mt-1 flex flex-wrap items-center gap-3 text-sm text-muted-foreground">
@@ -159,7 +164,7 @@ export default function FacilityDetailPage() {
             <StatusIcon className={`h-5 w-5 ${status.iconColor}`} />
             <span className="text-sm font-semibold">{status.label}</span>
           </div>
-          <Button className="gap-1.5" onClick={() => setAnalysisOpen(true)}>
+          <Button data-tour="run-analysis" className="gap-1.5" onClick={() => setAnalysisOpen(true)}>
             <Zap className="h-4 w-4" />
             Run Analysis
           </Button>
@@ -234,7 +239,7 @@ export default function FacilityDetailPage() {
                         {alert.description}
                       </p>
                     </div>
-                    <Badge className={sevColors[alert.severity]}>
+                    <Badge className={`shrink-0 capitalize ${sevColors[alert.severity]}`}>
                       {alert.severity}
                     </Badge>
                   </div>
@@ -273,7 +278,12 @@ export default function FacilityDetailPage() {
                         <td className="px-3 py-2 whitespace-nowrap text-muted-foreground">
                           {new Date(a.created_at).toLocaleDateString()}
                         </td>
-                        <td className="px-3 py-2 font-medium">{a.regulation_id}</td>
+                        <td className="px-3 py-2">
+                          <p className="max-w-xs truncate font-medium" title={regulationTitle(a.regulation_id)}>
+                            {regulationTitle(a.regulation_id)}
+                          </p>
+                          <p className="text-xs text-muted-foreground">{a.regulation_id}</p>
+                        </td>
                         <td className="px-3 py-2">
                           <span className={`inline-flex items-center gap-1.5 rounded-full border px-2 py-0.5 text-xs font-semibold ${aStatus.badge}`}>
                             {aStatus.label}
@@ -300,14 +310,21 @@ export default function FacilityDetailPage() {
         <Card className="border-border/60">
           <CardContent className="py-12 text-center">
             <ShieldQuestion className="mx-auto h-10 w-10 text-muted-foreground/40" />
-            <p className="mt-3 text-sm font-medium text-muted-foreground">
-              No compliance analyses yet
+            <p className="mt-3 text-sm font-medium text-foreground">
+              This farm hasn&rsquo;t been analyzed yet
             </p>
-            <p className="mt-1 text-xs text-muted-foreground/70">
+            <p className="mx-auto mt-1 max-w-md text-xs text-muted-foreground">
               {DEMO_MODE
-                ? "Live Gemini analysis runs in the full local version of RegRadar."
-                : "Use Run Analysis above to check this facility against a regulation."}
+                ? "Live AI analysis runs in the full local version of RegRadar. This demo includes one saved analysis."
+                : "Use Run Analysis above to check this farm against a regulation."}
             </p>
+            {DEMO_MODE && featuredDemo && (
+              <Button variant="outline" size="sm" className="mt-4" asChild>
+                <Link href={`/facilities/${featuredDemo.business_id}`}>
+                  See the analysis for {featuredDemo.business_name}
+                </Link>
+              </Button>
+            )}
           </CardContent>
         </Card>
       )}

@@ -15,20 +15,7 @@ import {
 } from "recharts";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import type { Business, ComplianceTrendPoint } from "@/lib/types";
-
-const STATUS_COLORS: Record<string, string> = {
-  compliant: "#16a34a",
-  warning: "#d97706",
-  non_compliant: "#dc2626",
-  unknown: "#78716c",
-};
-
-const STATUS_LABELS: Record<string, string> = {
-  compliant: "Compliant",
-  warning: "Warning",
-  non_compliant: "Non-Compliant",
-  unknown: "Unknown",
-};
+import { STATUS_COLORS, STATUS_LABELS } from "@/lib/status";
 
 interface DonutChartProps {
   businesses: Business[];
@@ -44,9 +31,9 @@ export function ComplianceDonut({ businesses }: DonutChartProps) {
   );
 
   const data = Object.entries(counts).map(([status, count]) => ({
-    name: STATUS_LABELS[status] || status,
+    name: STATUS_LABELS[status as Business["latest_status"]] ?? status,
     value: count,
-    color: STATUS_COLORS[status] || "#78716c",
+    color: STATUS_COLORS[status as Business["latest_status"]] ?? "#78716c",
   }));
 
   return (
@@ -156,7 +143,7 @@ export function ComplianceTrend({ trend }: TrendChartProps) {
               <Line
                 type="monotone"
                 dataKey="warning"
-                name="Warning"
+                name={STATUS_LABELS.warning}
                 stroke="#d97706"
                 strokeWidth={2}
                 dot={{ r: 3 }}
@@ -164,7 +151,7 @@ export function ComplianceTrend({ trend }: TrendChartProps) {
               <Line
                 type="monotone"
                 dataKey="non_compliant"
-                name="Non-Compliant"
+                name={STATUS_LABELS.non_compliant}
                 stroke="#dc2626"
                 strokeWidth={2}
                 dot={{ r: 3 }}

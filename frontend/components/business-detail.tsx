@@ -36,16 +36,10 @@ import {
   DEMO_LIVE_ANALYSIS_NOTE,
   hasDemoAnalysis,
 } from "@/lib/api";
+import { STATUS_LABELS } from "@/lib/status";
 import AnalysisResult from "./analysis-result";
 
 const CORE_REG_ID = "E8-26620";
-
-const STATUS_LABELS: Record<string, string> = {
-  compliant: "Compliant",
-  warning: "Warning",
-  non_compliant: "Non-Compliant",
-  unknown: "Unknown",
-};
 
 const STATUS_VARIANTS: Record<
   string,
@@ -162,7 +156,14 @@ export default function BusinessDetail({
 
   return (
     <Sheet open={open} onOpenChange={handleOpenChange}>
-      <SheetContent side="right" className="w-full sm:max-w-lg overflow-y-auto">
+      <SheetContent
+        side="right"
+        className="w-full sm:max-w-lg overflow-y-auto"
+        onInteractOutside={(e) => {
+          // Clicking the guided tour's card shouldn't dismiss the panel it is explaining.
+          if ((e.target as Element | null)?.closest?.("[data-tour-ui]")) e.preventDefault();
+        }}
+      >
         <SheetHeader>
           <SheetTitle className="text-xl">{business.name}</SheetTitle>
           <SheetDescription>
@@ -234,8 +235,14 @@ export default function BusinessDetail({
             </div>
           )}
 
-          <div className="space-y-3">
-            <h3 className="text-sm font-semibold">Run Compliance Analysis</h3>
+          <div data-tour="analysis-form" className="space-y-3">
+            <div>
+              <h3 className="text-sm font-semibold">Run Compliance Analysis</h3>
+              <p className="mt-0.5 text-xs text-muted-foreground">
+                Pick a rule. The AI reads the full rule and checks it against this farm&rsquo;s
+                permit, size and type of operation.
+              </p>
+            </div>
             <Select value={selectedRegId} onValueChange={setSelectedRegId}>
               <SelectTrigger>
                 <SelectValue placeholder="Select a regulation..." />
@@ -274,6 +281,7 @@ export default function BusinessDetail({
             )}
 
             <Button
+              data-tour="analyze-button"
               className="w-full"
               disabled={!selectedRegId || analyzing || liveAnalysisUnavailable}
               onClick={handleAnalyze}
@@ -313,7 +321,9 @@ export default function BusinessDetail({
               {wasFast && (
                 <div className="flex items-center gap-1.5 text-xs text-green-600 dark:text-green-400">
                   <Zap className="h-3 w-3" />
-                  Returned from cache — instant response
+                  {DEMO_MODE
+                    ? "Saved result: the AI produced this analysis earlier, so it loads instantly."
+                    : "Returned from cache — instant response"}
                 </div>
               )}
               <AnalysisResult analysis={analysisResult} />

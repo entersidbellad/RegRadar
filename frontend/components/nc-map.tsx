@@ -4,21 +4,8 @@ import { useEffect, useState } from "react";
 import { MapContainer, TileLayer, CircleMarker, Popup, Tooltip, Polygon } from "react-leaflet";
 import type { Business } from "@/lib/types";
 import { NC_BOUNDARY } from "@/lib/nc-boundary";
+import { STATUS_COLORS, STATUS_LABELS } from "@/lib/status";
 import "leaflet/dist/leaflet.css";
-
-const STATUS_COLORS: Record<Business["latest_status"], string> = {
-  compliant:     "#16a34a",
-  warning:       "#d97706",
-  non_compliant: "#dc2626",
-  unknown:       "#78716c",
-};
-
-const STATUS_LABELS: Record<Business["latest_status"], string> = {
-  compliant:     "Compliant",
-  warning:       "Warning",
-  non_compliant: "Non-Compliant",
-  unknown:       "Unknown",
-};
 
 interface NCMapProps {
   businesses: Business[];
@@ -49,7 +36,8 @@ export default function NCMap({
     <MapContainer
       center={[35.0, -78.0]}
       zoom={8}
-      className="h-full w-full"
+      // Leaflet panes use z-index 400+; isolate them so overlays like the analysis panel stay on top.
+      className="isolate h-full w-full"
       scrollWheelZoom
     >
       <TileLayer

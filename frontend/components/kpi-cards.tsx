@@ -1,44 +1,39 @@
 "use client";
 
-import {
-  Building2,
-  ShieldCheck,
-  AlertTriangle,
-  CalendarClock,
-  TrendingUp,
-  TrendingDown,
-} from "lucide-react";
+import { Building2, ShieldAlert, AlertTriangle, BookOpen } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import type { Business, Alert as AlertType } from "@/lib/types";
 
 interface KpiCardsProps {
   businesses: Business[];
   alerts: AlertType[];
-  deadlineCount: number;
+  regulationCount: number;
 }
 
-export default function KpiCards({ businesses, alerts, deadlineCount }: KpiCardsProps) {
+export default function KpiCards({ businesses, alerts, regulationCount }: KpiCardsProps) {
   const total = businesses.length;
-  const compliant = businesses.filter((b) => b.latest_status === "compliant").length;
-  const rate = total > 0 ? Math.round((compliant / total) * 100) : 0;
+  const analyzed = businesses.filter((b) => b.latest_status !== "unknown").length;
+  const needsAttention = businesses.filter(
+    (b) => b.latest_status === "warning" || b.latest_status === "non_compliant"
+  ).length;
   const highAlerts = alerts.filter((a) => a.severity === "high").length;
 
   const cards = [
     {
-      label: "Total Facilities",
+      label: "Farms Monitored",
       value: total.toString(),
       icon: Building2,
       accent: "text-primary",
       bgAccent: "bg-primary/10",
-      sub: `${businesses.filter((b) => b.latest_status !== "unknown").length} analyzed`,
+      sub: `${analyzed} analyzed so far`,
     },
     {
-      label: "Compliance Rate",
-      value: `${rate}%`,
-      icon: rate >= 50 ? TrendingUp : TrendingDown,
-      accent: rate >= 50 ? "text-status-compliant" : "text-status-noncompliant",
-      bgAccent: rate >= 50 ? "bg-green-50 dark:bg-green-950/40" : "bg-red-50 dark:bg-red-950/40",
-      sub: `${compliant} of ${total} facilities`,
+      label: "Needs Attention",
+      value: needsAttention.toString(),
+      icon: ShieldAlert,
+      accent: needsAttention > 0 ? "text-status-warning" : "text-status-compliant",
+      bgAccent: needsAttention > 0 ? "bg-amber-50 dark:bg-amber-950/40" : "bg-green-50 dark:bg-green-950/40",
+      sub: "Farms with gaps or items to review",
     },
     {
       label: "Active Alerts",
@@ -49,17 +44,17 @@ export default function KpiCards({ businesses, alerts, deadlineCount }: KpiCards
       sub: highAlerts > 0 ? `${highAlerts} high severity` : "No high severity",
     },
     {
-      label: "Tracked Regulations",
-      value: deadlineCount.toString(),
-      icon: CalendarClock,
+      label: "Rules Tracked",
+      value: regulationCount.toString(),
+      icon: BookOpen,
       accent: "text-terracotta",
       bgAccent: "bg-amber-50 dark:bg-amber-950/40",
-      sub: "With upcoming effective dates",
+      sub: "Federal EPA rules for hog farms",
     },
   ];
 
   return (
-    <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
+    <div data-tour="kpis" className="grid grid-cols-1 gap-4 sm:grid-cols-2 xl:grid-cols-4">
       {cards.map((c, i) => (
         <Card key={c.label} className={`border-border/60 animate-fade-in-up stagger-${i + 1}`}>
           <CardContent className="flex items-start gap-4 p-5">

@@ -1,10 +1,11 @@
 "use client";
 
-import { useEffect, useState, useMemo } from "react";
+import { useEffect, useState } from "react";
 import dynamic from "next/dynamic";
 import Link from "next/link";
 import type { Business, Regulation, Alert as AlertType } from "@/lib/types";
 import { fetchBusinesses, fetchRegulations, fetchAlerts } from "@/lib/api";
+import { STATUS_COLORS, STATUS_LABELS, STATUS_ORDER } from "@/lib/status";
 import KpiCards from "@/components/kpi-cards";
 import { ComplianceDonut } from "@/components/compliance-charts";
 import RegulationTimeline from "@/components/regulation-timeline";
@@ -50,13 +51,6 @@ export default function DashboardPage() {
     }
   }
 
-  const upcomingRegCount = useMemo(() => {
-    const now = new Date();
-    return regulations.filter(
-      (r) => r.effective_date && new Date(r.effective_date) > now
-    ).length;
-  }, [regulations]);
-
   if (error) {
     return (
       <div className="flex h-full items-center justify-center p-8">
@@ -97,17 +91,17 @@ export default function DashboardPage() {
       <div>
         <h1 className="text-2xl font-bold text-foreground">Dashboard</h1>
         <p className="mt-0.5 text-sm text-muted-foreground">
-          NC CAFO compliance overview &middot; {businesses.length} facilities monitored
+          Compliance overview for {businesses.length} hog farms in eastern North Carolina
         </p>
       </div>
 
       <KpiCards
         businesses={businesses}
         alerts={alerts}
-        deadlineCount={upcomingRegCount}
+        regulationCount={regulations.length}
       />
 
-      <Card className="border-border/60 animate-fade-in-up stagger-5">
+      <Card data-tour="dashboard-map" className="border-border/60 animate-fade-in-up stagger-5">
         <CardContent className="p-0">
           <div className="h-[320px] overflow-hidden rounded-t-lg">
             <NCMap
@@ -115,10 +109,18 @@ export default function DashboardPage() {
               onMarkerClick={() => {}}
             />
           </div>
-          <div className="flex items-center justify-between border-t px-4 py-3">
-            <p className="text-xs font-medium text-muted-foreground">
-              {businesses.length} facilities across NC
-            </p>
+          <div className="flex flex-wrap items-center justify-between gap-3 border-t px-4 py-3">
+            <ul className="flex flex-wrap items-center gap-x-4 gap-y-1 text-xs text-muted-foreground">
+              {STATUS_ORDER.map((s) => (
+                <li key={s} className="flex items-center gap-1.5">
+                  <span
+                    className="inline-block h-2.5 w-2.5 rounded-full"
+                    style={{ backgroundColor: STATUS_COLORS[s] }}
+                  />
+                  {STATUS_LABELS[s]}
+                </li>
+              ))}
+            </ul>
             <Button variant="ghost" size="sm" className="h-7 text-xs" asChild>
               <Link href="/facilities">
                 View all facilities <ArrowRight className="ml-1 h-3 w-3" />
