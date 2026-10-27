@@ -1,10 +1,13 @@
 "use client";
 
 import Link from "next/link";
-import { Leaf, ArrowRight, ShieldCheck, Brain, MapPin, AlertTriangle, Users, Droplets } from "lucide-react";
+import { Leaf, ArrowRight, ShieldCheck, Brain, MapPin, AlertTriangle, Users, Droplets, Compass } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { useTour } from "@/components/tour";
 
 export default function LandingPage() {
+  const { start } = useTour();
+
   return (
     <div className="min-h-screen bg-[#1a3409] text-white">
       {/* ── Hero ─────────────────────────────────────────────────────── */}
@@ -48,12 +51,11 @@ export default function LandingPage() {
             <Button
               size="lg"
               variant="ghost"
-              className="border border-white/30 bg-transparent text-white hover:bg-white/10 font-semibold text-base px-8 h-12"
-              asChild
+              className="border border-white/30 bg-transparent text-white hover:bg-white/10 hover:text-white font-semibold text-base px-8 h-12 gap-2"
+              onClick={start}
             >
-              <Link href="#problem">
-                Learn More
-              </Link>
+              <Compass className="h-5 w-5" />
+              Take the guided tour
             </Button>
           </div>
         </div>
@@ -148,7 +150,7 @@ export default function LandingPage() {
             <StepCard
               step="01"
               title="Monitor Regulations"
-              description="We continuously track federal and state environmental regulations from the Federal Register and NC DEQ that affect CAFO operations."
+              description="RegRadar pulls the environmental rules that affect hog farms from the Federal Register, the official record of U.S. federal rules, and flags the farms each one touches."
             />
             <StepCard
               step="02"
