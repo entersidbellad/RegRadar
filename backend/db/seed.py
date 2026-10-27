@@ -22,7 +22,7 @@ backend_dir = Path(__file__).parent.parent
 if str(backend_dir) not in sys.path:
     sys.path.insert(0, str(backend_dir))
 
-from db.database import init_db, get_db
+from db.database import init_db, get_db, close_db
 from core.extraction import extract_text_from_html
 from core.chunking import chunk_document
 from core.indexing import index_chunks, get_collection_count
@@ -44,8 +44,7 @@ async def seed_regulations():
 
     print(f"  Found {len(regulations)} regulations in seed file")
 
-    db = await get_db()
-    try:
+    async with get_db() as db:
         inserted = 0
         skipped = 0
         for reg in regulations:
@@ -88,8 +87,6 @@ async def seed_regulations():
         await db.commit()
         print(f"  Inserted {inserted} regulations ({skipped} already existed)")
         return regulations
-    finally:
-        await db.close()
 
 
 async def seed_businesses():
@@ -105,8 +102,7 @@ async def seed_businesses():
 
     print(f"  Found {len(businesses)} business profiles in seed file")
 
-    db = await get_db()
-    try:
+    async with get_db() as db:
         inserted = 0
         skipped = 0
         for biz in businesses:
@@ -143,8 +139,6 @@ async def seed_businesses():
 
         await db.commit()
         print(f"  Inserted {inserted} businesses ({skipped} already existed)")
-    finally:
-        await db.close()
 
 
 def index_regulation_chunks(regulations: list[dict]):
@@ -227,5 +221,12 @@ async def run_seed():
     print("=" * 60)
 
 
+async def main():
+    try:
+        await run_seed()
+    finally:
+        await close_db()
+
+
 if __name__ == "__main__":
-    asyncio.run(run_seed())
+    asyncio.run(main())
