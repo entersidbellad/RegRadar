@@ -1,0 +1,17 @@
+{
+ "business_id": "1cde2b19-dd60-4fd0-bb0f-4d3597a477f8",
+ "regulation_id": "2026-18317",
+ "gap_analysis": {
+  "business_name": "Waters Farm 1-5  M&M Rivenbark",
+  "business_id": "1cde2b19-dd60-4fd0-bb0f-4d3597a477f8",
+  "regulation_name": "Updated Definition of \u201cWaters of the United States\u201d",
+  "regulation_id": "2026-18317",
+  "analysis_date": "2026-10-27T03:39:28.434918+00:00",
+  "overall_status": "compliant",
+  "confidence_score": 0.9,
+  "requirements": [],
+  "gaps": [],
+  "recommended_actions": [],
+  "summary": "Not applicable: Even if finalized, this proposed rule updating the definition of 'waters of the United States' does not directly create new obligations for state-permitted non-discharge swine operations."
+ }
+}

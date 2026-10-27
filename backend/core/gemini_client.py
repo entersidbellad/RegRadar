@@ -25,7 +25,11 @@ load_dotenv()
 # Configure logging for this module
 logger = logging.getLogger(__name__)
 
-GEMINI_MODEL = "gemini-2.5-flash"
+# Override with GEMINI_MODEL (e.g. "gemini-3.1-flash-lite") to run on a cheaper/newer model.
+GEMINI_MODEL = os.getenv("GEMINI_MODEL", "gemini-2.5-flash")
+
+# Running token/call totals (read by scripts/run_live_pipeline.py to report cost).
+USAGE = {"calls": 0, "input_tokens": 0, "output_tokens": 0}
 
 
 # ---- Pydantic models for structured output ----
@@ -104,6 +108,12 @@ async def _call_gemini(
                 "response_schema": response_schema,
                 "temperature": 0.2,
             },
+        )
+        um = getattr(response, "usage_metadata", None)
+        USAGE["calls"] += 1
+        USAGE["input_tokens"] += (getattr(um, "prompt_token_count", 0) or 0)
+        USAGE["output_tokens"] += (getattr(um, "candidates_token_count", 0) or 0) + (
+            getattr(um, "thoughts_token_count", 0) or 0
         )
         text = response.text
         if not text:

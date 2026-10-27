@@ -1,0 +1,17 @@
+{
+ "business_id": "9c1c16b2-47f0-48b0-a428-a8c70dbc91b6",
+ "regulation_id": "2026-11327",
+ "gap_analysis": {
+  "business_name": "Sullivan Farm",
+  "business_id": "9c1c16b2-47f0-48b0-a428-a8c70dbc91b6",
+  "regulation_name": "Proposed Revisions to the National Handbook of Conservation Practices",
+  "regulation_id": "2026-11327",
+  "analysis_date": "2026-10-27T03:39:28.434918+00:00",
+  "overall_status": "compliant",
+  "confidence_score": 0.9,
+  "requirements": [],
+  "gaps": [],
+  "recommended_actions": [],
+  "summary": "Not applicable: This notice proposes revisions to voluntary NRCS conservation practice standards and does not directly create new regulatory obligations for this facility."
+ }
+}

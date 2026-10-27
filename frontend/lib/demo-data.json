@@ -26,7 +26,7 @@
       "head_count": 3395,
       "permit_type": "general",
       "created_at": "2026-03-21T20:31:54.860316+00:00",
-      "latest_status": "unknown"
+      "latest_status": "warning"
     },
     {
       "id": "1cde2b19-dd60-4fd0-bb0f-4d3597a477f8",
@@ -40,7 +40,7 @@
       "head_count": 3452,
       "permit_type": "general",
       "created_at": "2026-03-21T20:31:54.860326+00:00",
-      "latest_status": "unknown"
+      "latest_status": "warning"
     },
     {
       "id": "6e252de9-55c6-4760-b91a-7f86aacba4f9",
@@ -54,7 +54,7 @@
       "head_count": 4569,
       "permit_type": "general",
       "created_at": "2026-03-21T20:31:54.860333+00:00",
-      "latest_status": "unknown"
+      "latest_status": "warning"
     },
     {
       "id": "5e053dcd-b4a9-463d-bc8d-2c0d8bd491b6",
@@ -68,7 +68,7 @@
       "head_count": 4965,
       "permit_type": "general",
       "created_at": "2026-03-21T20:31:54.860339+00:00",
-      "latest_status": "unknown"
+      "latest_status": "warning"
     },
     {
       "id": "9c1c16b2-47f0-48b0-a428-a8c70dbc91b6",
@@ -82,7 +82,7 @@
       "head_count": 2608,
       "permit_type": "general",
       "created_at": "2026-03-21T20:31:54.860344+00:00",
-      "latest_status": "unknown"
+      "latest_status": "warning"
     },
     {
       "id": "65f57072-4911-4f21-ad63-7b8a57aff05d",
@@ -96,7 +96,7 @@
       "head_count": 4798,
       "permit_type": "general",
       "created_at": "2026-03-21T20:31:54.860350+00:00",
-      "latest_status": "unknown"
+      "latest_status": "warning"
     },
     {
       "id": "6c695f67-8414-4441-b3cc-7332a473d72f",
@@ -110,7 +110,7 @@
       "head_count": 3314,
       "permit_type": "general",
       "created_at": "2026-03-21T20:31:54.860355+00:00",
-      "latest_status": "unknown"
+      "latest_status": "warning"
     },
     {
       "id": "d86503ce-7aeb-42ce-9025-20c9bcd479b7",
@@ -124,7 +124,7 @@
       "head_count": 4732,
       "permit_type": "general",
       "created_at": "2026-03-21T20:31:54.860360+00:00",
-      "latest_status": "unknown"
+      "latest_status": "warning"
     },
     {
       "id": "482a7f47-14d9-42d1-9c1c-058bda7ea206",
@@ -138,7 +138,7 @@
       "head_count": 4218,
       "permit_type": "general",
       "created_at": "2026-03-21T20:31:54.860365+00:00",
-      "latest_status": "unknown"
+      "latest_status": "warning"
     },
     {
       "id": "3f77cfc4-ccac-4f5d-8f0d-8baad5825661",
@@ -152,7 +152,7 @@
       "head_count": 3402,
       "permit_type": "general",
       "created_at": "2026-03-21T20:31:54.860370+00:00",
-      "latest_status": "unknown"
+      "latest_status": "warning"
     },
     {
       "id": "d84b9096-2206-4ebb-8aee-89a00bf5aa5f",
@@ -166,7 +166,7 @@
       "head_count": 1919,
       "permit_type": "general",
       "created_at": "2026-03-21T20:31:54.860376+00:00",
-      "latest_status": "unknown"
+      "latest_status": "compliant"
     },
     {
       "id": "e79fed7a-ef73-41ce-8c84-f0b53059b015",
@@ -180,7 +180,7 @@
       "head_count": 2206,
       "permit_type": "general",
       "created_at": "2026-03-21T20:31:54.860381+00:00",
-      "latest_status": "unknown"
+      "latest_status": "warning"
     },
     {
       "id": "a4431726-4534-4c5a-9047-681c743f6fe0",
@@ -194,7 +194,7 @@
       "head_count": 1569,
       "permit_type": "general",
       "created_at": "2026-03-21T20:31:54.860386+00:00",
-      "latest_status": "unknown"
+      "latest_status": "warning"
     },
     {
       "id": "8d3cad1a-848b-4fc0-97a9-7cf77ea77bc9",
@@ -208,10 +208,67 @@
       "head_count": 1013,
       "permit_type": "general",
       "created_at": "2026-03-21T20:31:54.860391+00:00",
-      "latest_status": "unknown"
+      "latest_status": "compliant"
     }
   ],
   "regulations": [
+    {
+      "id": "2026-11327",
+      "title": "Proposed Revisions to the National Handbook of Conservation Practices",
+      "agency": "Agriculture Department",
+      "document_type": "Notice",
+      "publication_date": "2026-06-05",
+      "effective_date": null,
+      "abstract": "The Natural Resources Conservation Service (NRCS) is revising specific conservation practice standard (CPS) in the National Handbook of Conservation Practices (NHCP). NRCS is also giving the public an opportunity to provide comments on the proposed changes to the specific CPSs.",
+      "raw_text_url": "https://www.federalregister.gov/documents/full_text/text/2026/06/05/2026-11327.txt",
+      "cfr_references": [],
+      "cafo_tier": "live-2026-10-26",
+      "ingested_at": "2026-10-27T03:39:28.434918+00:00"
+    },
+    {
+      "id": "2026-20849",
+      "title": "Clean Water Act Hazardous Substance Facility Response Plans: Compliance Date Delay and Changes To Reflect Administration Policy",
+      "agency": "EPA",
+      "document_type": "Rule",
+      "publication_date": "2026-10-13",
+      "effective_date": "2026-12-14",
+      "abstract": "The Environmental Protection Agency (EPA) is finalizing an extension to the compliance date for Facility Response Plans (FRPs) required by the Clean Water Act (CWA) addressing potential worst-case discharges of CWA hazardous substances. These requirements apply to onshore non-transportation-related facilities that could reasonably be expected to cause substantial harm to the environment from a CWA hazardous substance worst-case discharge to navigable waters, adjoining shorelines, or the exclusive economic zone. This action is also finalizing language modifications to remove references to climate change and environmental justice in the FRP requirements to align with Executive Order 14148 of January 20, 2025. EPA is revising the compliance deadlines in light of serious concerns that facilities may be unable to comply with the relevant requirements by the existing deadline. These changes are necessary to allow the Agency to consider implementation and compliance assistance tools that regulated facilities may be able to take advantage of when complying with the new requirements, and to ensure proper planning for all communities while promoting a science-based and risk-based approach to planning. EPA also recognizes that a delay would provide time for EPA to consider whether revisions are necessary before facilities must comply.",
+      "raw_text_url": "https://www.federalregister.gov/documents/full_text/text/2026/10/13/2026-20849.txt",
+      "cfr_references": [
+        "40 CFR 118"
+      ],
+      "cafo_tier": "live-2026-10-26",
+      "ingested_at": "2026-10-27T03:39:28.434918+00:00"
+    },
+    {
+      "id": "2026-13615",
+      "title": "Draft Guidance for Reducing Risk From Perfluorooctanoic Acid (PFOA) and Perfluorooctane Sulfonic Acid (PFOS) in Biosolids; Establishment of a Public Docket; Request for Feedback",
+      "agency": "EPA",
+      "document_type": "Notice",
+      "publication_date": "2026-07-06",
+      "effective_date": null,
+      "abstract": "The U.S. Environmental Protection Agency (EPA) is making available a draft memorandum that would, if finalized, provide guidance to operators of wastewater treatment plants (WWTPs) and related facilities, landowners and farmers, State and Tribal water agencies, and the public on ways to reduce potential risks posed by perfluorooctanoic acid (PFOA) and perfluorooctane sulfonic acid (PFOS) in biosolids, as well as seeking feedback on potential next steps. The EPA is soliciting public comments on the draft memorandum and next steps for 60 days. This draft guidance memorandum does not have the force and effect of law, nor does it bind the public in any way. This draft guidance memorandum cannot be relied on by any person in litigation against the United States. The intent of draft guidance memorandum is to provide non-binding or voluntary recommendations for how to mitigate risks from PFOA and PFOS in sewage sludge and biosolids based on information currently available to the EPA.",
+      "raw_text_url": "https://www.federalregister.gov/documents/full_text/text/2026/07/06/2026-13615.txt",
+      "cfr_references": [],
+      "cafo_tier": "live-2026-10-26",
+      "ingested_at": "2026-10-27T03:39:28.434918+00:00"
+    },
+    {
+      "id": "2026-18317",
+      "title": "Updated Definition of “Waters of the United States”",
+      "agency": "EPA",
+      "document_type": "Proposed Rule",
+      "publication_date": "2026-09-09",
+      "effective_date": null,
+      "abstract": "The purpose of this supplemental notice of proposed rulemaking is for the U.S. Environmental Protection Agency (EPA) and the Department of the Army (\"the agencies\") to supplement and seek additional comment on certain aspects of an earlier proposal, published on November 20, 2025, to revise the regulations defining the scope of waters federally covered under the Clean Water Act in light of the U.S. Supreme Court's 2023 decision in Sackett v. Environmental Protection Agency. As stated in the agencies' November 20, 2025 Notice of Proposed Rulemaking (NPRM), the agencies intend for this rulemaking to provide greater regulatory certainty and increase Clean Water Act program predictability and consistency by clarifying the definition of \"waters of the United States.\" After consideration of the public comments received on the NPRM, the agencies are issuing this notice to supplement the NPRM with additional regulatory options on certain aspects of the proposed rule.",
+      "raw_text_url": "https://www.federalregister.gov/documents/full_text/text/2026/09/09/2026-18317.txt",
+      "cfr_references": [
+        "33 CFR 328",
+        "40 CFR 120"
+      ],
+      "cafo_tier": "live-2026-10-26",
+      "ingested_at": "2026-10-27T03:39:28.434918+00:00"
+    },
     {
       "id": "E8-26620",
       "title": "Revised National Pollutant Discharge Elimination System Permit Regulation and Effluent Limitations Guidelines for Concentrated Animal Feeding Operations in Response to the Waterkeeper Decision",
@@ -420,21 +477,1356 @@
   ],
   "analyses": [
     {
+      "id": "file-cache-1cde2b19dd60_2019_12411",
+      "business_id": "1cde2b19-dd60-4fd0-bb0f-4d3597a477f8",
+      "regulation_id": "2019-12411",
+      "overall_status": "compliant",
+      "confidence": 0.95,
+      "summary": "Waters Farm 1-5 M&M Rivenbark is currently compliant with CERCLA and EPCRA reporting requirements, as there are no active hazardous substance releases reported for this 3452-head swine facility. The facility must remain prepared to immediately notify the National Response Center and local authorities if a lagoon breach or other reportable spill occurs.",
+      "created_at": "2026-10-27T03:41:52.014Z"
+    },
+    {
+      "id": "file-cache-1cde2b19dd60_2026_11327",
+      "business_id": "1cde2b19-dd60-4fd0-bb0f-4d3597a477f8",
+      "regulation_id": "2026-11327",
+      "overall_status": "compliant",
+      "confidence": 0.9,
+      "summary": "Not applicable: This notice proposes revisions to voluntary NRCS conservation practice standards and does not directly create new regulatory obligations for this facility.",
+      "created_at": "2026-10-27T03:39:28.434Z"
+    },
+    {
+      "id": "file-cache-1cde2b19dd60_2026_13615",
+      "business_id": "1cde2b19-dd60-4fd0-bb0f-4d3597a477f8",
+      "regulation_id": "2026-13615",
+      "overall_status": "compliant",
+      "confidence": 0.9,
+      "summary": "Not applicable: Even if finalized, the guidance provides only non-binding, voluntary recommendations regarding PFOA and PFOS in biosolids and creates no new obligations for hog farm operations.",
+      "created_at": "2026-10-27T03:39:28.434Z"
+    },
+    {
+      "id": "file-cache-1cde2b19dd60_2026_18317",
+      "business_id": "1cde2b19-dd60-4fd0-bb0f-4d3597a477f8",
+      "regulation_id": "2026-18317",
+      "overall_status": "compliant",
+      "confidence": 0.9,
+      "summary": "Not applicable: Even if finalized, this proposed rule updating the definition of 'waters of the United States' does not directly create new obligations for state-permitted non-discharge swine operations.",
+      "created_at": "2026-10-27T03:39:28.434Z"
+    },
+    {
+      "id": "file-cache-1cde2b19dd60_2026_20849",
+      "business_id": "1cde2b19-dd60-4fd0-bb0f-4d3597a477f8",
+      "regulation_id": "2026-20849",
+      "overall_status": "compliant",
+      "confidence": 0.9,
+      "summary": "Not applicable: The facility is a swine operation and does not typically store CWA hazardous substances at threshold quantities requiring a Facility Response Plan.",
+      "created_at": "2026-10-27T03:39:28.434Z"
+    },
+    {
+      "id": "file-cache-1cde2b19dd60_E8_26620",
+      "business_id": "1cde2b19-dd60-4fd0-bb0f-4d3597a477f8",
+      "regulation_id": "E8-26620",
+      "overall_status": "warning",
+      "confidence": 0.85,
+      "summary": "Waters Farm 1-5 M&M Rivenbark operates as a Large CAFO with 3,452 swine under a state general permit, making it subject to specific federal requirements for CAFOs without an NPDES permit. The facility has a 'warning' status because it must ensure it maintains on-site nutrient management documentation and installs depth markers in liquid impoundments, which cannot be verified from the provided profile. Additionally, while recent court rulings struck down annual reporting and certain testing requirements, voluntary compliance is recommended to minimize liability.",
+      "created_at": "2026-10-27T03:41:52.014Z"
+    },
+    {
+      "id": "file-cache-37be5459cbdc_2019_12411",
+      "business_id": "37be5459-cbdc-400c-b43a-b5da38c68f66",
+      "regulation_id": "2019-12411",
+      "overall_status": "compliant",
+      "confidence": 0.95,
+      "summary": "Not applicable: The CERCLA and EPCRA reporting requirements are conditional and only triggered in the event of a hazardous substance release, which is not indicated in the current profile for Kornegay Farms.",
+      "created_at": "2026-10-27T03:41:52.014Z"
+    },
+    {
+      "id": "file-cache-37be5459cbdc_2026_11327",
+      "business_id": "37be5459-cbdc-400c-b43a-b5da38c68f66",
+      "regulation_id": "2026-11327",
+      "overall_status": "compliant",
+      "confidence": 0.9,
+      "summary": "Not applicable: This notice proposes revisions to voluntary NRCS conservation practice standards and does not directly create new regulatory obligations for this facility.",
+      "created_at": "2026-10-27T03:39:28.434Z"
+    },
+    {
+      "id": "file-cache-37be5459cbdc_2026_13615",
+      "business_id": "37be5459-cbdc-400c-b43a-b5da38c68f66",
+      "regulation_id": "2026-13615",
+      "overall_status": "compliant",
+      "confidence": 0.9,
+      "summary": "Not applicable: Even if finalized, the guidance provides only non-binding, voluntary recommendations regarding PFOA and PFOS in biosolids and creates no new obligations for hog farm operations.",
+      "created_at": "2026-10-27T03:39:28.434Z"
+    },
+    {
+      "id": "file-cache-37be5459cbdc_2026_18317",
+      "business_id": "37be5459-cbdc-400c-b43a-b5da38c68f66",
+      "regulation_id": "2026-18317",
+      "overall_status": "compliant",
+      "confidence": 0.9,
+      "summary": "Not applicable: Even if finalized, this proposed rule updating the definition of 'waters of the United States' does not directly create new obligations for state-permitted non-discharge swine operations.",
+      "created_at": "2026-10-27T03:39:28.434Z"
+    },
+    {
+      "id": "file-cache-37be5459cbdc_2026_20849",
+      "business_id": "37be5459-cbdc-400c-b43a-b5da38c68f66",
+      "regulation_id": "2026-20849",
+      "overall_status": "compliant",
+      "confidence": 0.9,
+      "summary": "Not applicable: The facility is a swine operation and does not typically store CWA hazardous substances at threshold quantities requiring a Facility Response Plan.",
+      "created_at": "2026-10-27T03:39:28.434Z"
+    },
+    {
+      "id": "file-cache-37be5459cbdc_E8_26620",
+      "business_id": "37be5459-cbdc-400c-b43a-b5da38c68f66",
+      "regulation_id": "E8-26620",
+      "overall_status": "warning",
+      "confidence": 0.85,
+      "summary": "Kornegay Farms operates as a Large CAFO with 3,395 swine under a state general permit, subjecting it to specific operational and recordkeeping requirements. While the facility profile shows no direct non-compliance, its status is marked as a warning because it lacks documentation proving adherence to ongoing obligations like depth marker installation, NMP implementation, and permit renewal timelines. Note that while recent court rulings struck down mandatory annual reporting, voluntary compliance remains recommended for liability protection.",
+      "created_at": "2026-10-27T03:41:52.014Z"
+    },
+    {
+      "id": "file-cache-3f77cfc4ccac_2019_12411",
+      "business_id": "3f77cfc4-ccac-4f5d-8f0d-8baad5825661",
+      "regulation_id": "2019-12411",
+      "overall_status": "compliant",
+      "confidence": 0.95,
+      "summary": "J. Sullivan & Son Farm is currently compliant with CERCLA and EPCRA reporting requirements, as these are conditional obligations triggered only by an active hazardous substance release. With 3,402 head operating under a general Swine State COC permit, the facility is exempt from reporting routine air emissions from animal waste. However, the operator must remain prepared to immediately notify federal, state, and local authorities if a lagoon breach or chemical spill occurs.",
+      "created_at": "2026-10-27T03:41:52.014Z"
+    },
+    {
+      "id": "file-cache-3f77cfc4ccac_2026_11327",
+      "business_id": "3f77cfc4-ccac-4f5d-8f0d-8baad5825661",
+      "regulation_id": "2026-11327",
+      "overall_status": "compliant",
+      "confidence": 0.9,
+      "summary": "Not applicable: This notice proposes revisions to voluntary NRCS conservation practice standards and does not directly create new regulatory obligations for this facility.",
+      "created_at": "2026-10-27T03:39:28.434Z"
+    },
+    {
+      "id": "file-cache-3f77cfc4ccac_2026_13615",
+      "business_id": "3f77cfc4-ccac-4f5d-8f0d-8baad5825661",
+      "regulation_id": "2026-13615",
+      "overall_status": "compliant",
+      "confidence": 0.9,
+      "summary": "Not applicable: Even if finalized, the guidance provides only non-binding, voluntary recommendations regarding PFOA and PFOS in biosolids and creates no new obligations for hog farm operations.",
+      "created_at": "2026-10-27T03:39:28.434Z"
+    },
+    {
+      "id": "file-cache-3f77cfc4ccac_2026_18317",
+      "business_id": "3f77cfc4-ccac-4f5d-8f0d-8baad5825661",
+      "regulation_id": "2026-18317",
+      "overall_status": "compliant",
+      "confidence": 0.9,
+      "summary": "Not applicable: Even if finalized, this proposed rule updating the definition of 'waters of the United States' does not directly create new obligations for state-permitted non-discharge swine operations.",
+      "created_at": "2026-10-27T03:39:28.434Z"
+    },
+    {
+      "id": "file-cache-3f77cfc4ccac_2026_20849",
+      "business_id": "3f77cfc4-ccac-4f5d-8f0d-8baad5825661",
+      "regulation_id": "2026-20849",
+      "overall_status": "compliant",
+      "confidence": 0.9,
+      "summary": "Not applicable: The facility is a swine operation and does not typically store CWA hazardous substances at threshold quantities requiring a Facility Response Plan.",
+      "created_at": "2026-10-27T03:39:28.434Z"
+    },
+    {
+      "id": "file-cache-3f77cfc4ccac_E8_26620",
+      "business_id": "3f77cfc4-ccac-4f5d-8f0d-8baad5825661",
+      "regulation_id": "E8-26620",
+      "overall_status": "warning",
+      "confidence": 0.85,
+      "summary": "J. Sullivan & Son Farm is a Large CAFO operating under a state general permit (AWS820282) and is subject to specific federal non-discharge and recordkeeping requirements. The overall compliance status is a warning because the profile cannot confirm mandatory obligations, such as the installation of lagoon depth markers and the on-site retention of nutrient management documentation. The operator should verify these physical and administrative controls are in place to maintain compliance and protect their agricultural stormwater exemption.",
+      "created_at": "2026-10-27T03:41:52.014Z"
+    },
+    {
+      "id": "file-cache-482a7f4714d9_2019_12411",
+      "business_id": "482a7f47-14d9-42d1-9c1c-058bda7ea206",
+      "regulation_id": "2019-12411",
+      "overall_status": "compliant",
+      "confidence": 0.95,
+      "summary": "Facility 3111 is currently compliant with CERCLA and EPCRA release reporting requirements, as these are conditional obligations triggered only by a hazardous substance release. As a Swine State COC operation with 4,218 animals, the facility has no active reporting obligations under these specific sections unless a reportable spill, such as a lagoon breach into water, occurs.",
+      "created_at": "2026-10-27T03:41:52.014Z"
+    },
+    {
+      "id": "file-cache-482a7f4714d9_2026_11327",
+      "business_id": "482a7f47-14d9-42d1-9c1c-058bda7ea206",
+      "regulation_id": "2026-11327",
+      "overall_status": "compliant",
+      "confidence": 0.9,
+      "summary": "Not applicable: This notice proposes revisions to voluntary NRCS conservation practice standards and does not directly create new regulatory obligations for this facility.",
+      "created_at": "2026-10-27T03:39:28.434Z"
+    },
+    {
+      "id": "file-cache-482a7f4714d9_2026_13615",
+      "business_id": "482a7f47-14d9-42d1-9c1c-058bda7ea206",
+      "regulation_id": "2026-13615",
+      "overall_status": "compliant",
+      "confidence": 0.9,
+      "summary": "Not applicable: Even if finalized, the guidance provides only non-binding, voluntary recommendations regarding PFOA and PFOS in biosolids and creates no new obligations for hog farm operations.",
+      "created_at": "2026-10-27T03:39:28.434Z"
+    },
+    {
+      "id": "file-cache-482a7f4714d9_2026_18317",
+      "business_id": "482a7f47-14d9-42d1-9c1c-058bda7ea206",
+      "regulation_id": "2026-18317",
+      "overall_status": "compliant",
+      "confidence": 0.9,
+      "summary": "Not applicable: Even if finalized, this proposed rule updating the definition of 'waters of the United States' does not directly create new obligations for state-permitted non-discharge swine operations.",
+      "created_at": "2026-10-27T03:39:28.434Z"
+    },
+    {
+      "id": "file-cache-482a7f4714d9_2026_20849",
+      "business_id": "482a7f47-14d9-42d1-9c1c-058bda7ea206",
+      "regulation_id": "2026-20849",
+      "overall_status": "compliant",
+      "confidence": 0.9,
+      "summary": "Not applicable: The facility is a swine operation and does not typically store CWA hazardous substances at threshold quantities requiring a Facility Response Plan.",
+      "created_at": "2026-10-27T03:39:28.434Z"
+    },
+    {
+      "id": "file-cache-482a7f4714d9_E8_26620",
+      "business_id": "482a7f47-14d9-42d1-9c1c-058bda7ea206",
+      "regulation_id": "E8-26620",
+      "overall_status": "warning",
+      "confidence": 0.85,
+      "summary": "Facility 3111 is a Large Swine CAFO operating under general permit AWS820340, requiring strict adherence to nutrient management and infrastructure standards. The facility's compliance status is a warning because the profile cannot confirm the active implementation of its Nutrient Management Plan or the presence of required lagoon depth markers. Additionally, per the November 2025 NC Supreme Court ruling, annual reporting and phosphorus testing are no longer enforceable, but voluntary compliance is recommended for liability protection.",
+      "created_at": "2026-10-27T03:41:52.014Z"
+    },
+    {
+      "id": "file-cache-5e053dcdb4a9_2019_12411",
+      "business_id": "5e053dcd-b4a9-463d-bc8d-2c0d8bd491b6",
+      "regulation_id": "2019-12411",
+      "overall_status": "compliant",
+      "confidence": 0.95,
+      "summary": "W.D. Thigpen Farm, operating under a general Swine State COC permit with 4,965 animals, is currently compliant with CERCLA and EPCRA release reporting requirements because there is no indication of a reportable hazardous substance release. These obligations are conditional, meaning the facility only needs to act if a non-exempt release, such as a lagoon breach into surface water or an anhydrous ammonia leak, occurs.",
+      "created_at": "2026-10-27T03:41:52.014Z"
+    },
+    {
+      "id": "file-cache-5e053dcdb4a9_2026_11327",
+      "business_id": "5e053dcd-b4a9-463d-bc8d-2c0d8bd491b6",
+      "regulation_id": "2026-11327",
+      "overall_status": "compliant",
+      "confidence": 0.9,
+      "summary": "Not applicable: This notice proposes revisions to voluntary NRCS conservation practice standards and does not directly create new regulatory obligations for this facility.",
+      "created_at": "2026-10-27T03:39:28.434Z"
+    },
+    {
+      "id": "file-cache-5e053dcdb4a9_2026_13615",
+      "business_id": "5e053dcd-b4a9-463d-bc8d-2c0d8bd491b6",
+      "regulation_id": "2026-13615",
+      "overall_status": "compliant",
+      "confidence": 0.9,
+      "summary": "Not applicable: Even if finalized, the guidance provides only non-binding, voluntary recommendations regarding PFOA and PFOS in biosolids and creates no new obligations for hog farm operations.",
+      "created_at": "2026-10-27T03:39:28.434Z"
+    },
+    {
+      "id": "file-cache-5e053dcdb4a9_2026_18317",
+      "business_id": "5e053dcd-b4a9-463d-bc8d-2c0d8bd491b6",
+      "regulation_id": "2026-18317",
+      "overall_status": "compliant",
+      "confidence": 0.9,
+      "summary": "Not applicable: Even if finalized, this proposed rule updating the definition of 'waters of the United States' does not directly create new obligations for state-permitted non-discharge swine operations.",
+      "created_at": "2026-10-27T03:39:28.434Z"
+    },
+    {
+      "id": "file-cache-5e053dcdb4a9_2026_20849",
+      "business_id": "5e053dcd-b4a9-463d-bc8d-2c0d8bd491b6",
+      "regulation_id": "2026-20849",
+      "overall_status": "compliant",
+      "confidence": 0.9,
+      "summary": "Not applicable: The facility is a swine operation and does not typically store CWA hazardous substances at threshold quantities requiring a Facility Response Plan.",
+      "created_at": "2026-10-27T03:39:28.434Z"
+    },
+    {
+      "id": "file-cache-5e053dcdb4a9_E8_26620",
+      "business_id": "5e053dcd-b4a9-463d-bc8d-2c0d8bd491b6",
+      "regulation_id": "E8-26620",
+      "overall_status": "warning",
+      "confidence": 0.85,
+      "summary": "W.D. Thigpen Farm operates as a Large Swine CAFO with 4,965 animals under a state general permit (AWS310489) rather than a federal NPDES permit. Because it does not hold an NPDES permit, it must maintain specific nutrient management documentation on-site to qualify for the agricultural stormwater exemption and ensure depth markers are present in all liquid impoundments. The overall compliance status is a warning because the profile does not confirm these mandatory federal requirements are currently met.",
+      "created_at": "2026-10-27T03:41:52.014Z"
+    },
+    {
+      "id": "file-cache-65f570724911_2019_12411",
+      "business_id": "65f57072-4911-4f21-ad63-7b8a57aff05d",
+      "regulation_id": "2019-12411",
+      "overall_status": "compliant",
+      "confidence": 0.95,
+      "summary": "Reeves & Reeves, Inc. is currently compliant with CERCLA and EPCRA reporting requirements, as there are no documented releases of hazardous substances at this 4,798-head swine facility. Because the facility operates under a general Swine State COC permit, the operator must remain prepared to immediately notify the National Response Center and local authorities in the event of a lagoon breach or non-waste chemical spill.",
+      "created_at": "2026-10-27T03:41:52.014Z"
+    },
+    {
+      "id": "file-cache-65f570724911_2026_11327",
+      "business_id": "65f57072-4911-4f21-ad63-7b8a57aff05d",
+      "regulation_id": "2026-11327",
+      "overall_status": "compliant",
+      "confidence": 0.9,
+      "summary": "Not applicable: This notice proposes revisions to voluntary NRCS conservation practice standards and does not directly create new regulatory obligations for this facility.",
+      "created_at": "2026-10-27T03:39:28.434Z"
+    },
+    {
+      "id": "file-cache-65f570724911_2026_13615",
+      "business_id": "65f57072-4911-4f21-ad63-7b8a57aff05d",
+      "regulation_id": "2026-13615",
+      "overall_status": "compliant",
+      "confidence": 0.9,
+      "summary": "Not applicable: Even if finalized, the guidance provides only non-binding, voluntary recommendations regarding PFOA and PFOS in biosolids and creates no new obligations for hog farm operations.",
+      "created_at": "2026-10-27T03:39:28.434Z"
+    },
+    {
+      "id": "file-cache-65f570724911_2026_18317",
+      "business_id": "65f57072-4911-4f21-ad63-7b8a57aff05d",
+      "regulation_id": "2026-18317",
+      "overall_status": "compliant",
+      "confidence": 0.9,
+      "summary": "Not applicable: Even if finalized, this proposed rule updating the definition of 'waters of the United States' does not directly create new obligations for state-permitted non-discharge swine operations.",
+      "created_at": "2026-10-27T03:39:28.434Z"
+    },
+    {
+      "id": "file-cache-65f570724911_2026_20849",
+      "business_id": "65f57072-4911-4f21-ad63-7b8a57aff05d",
+      "regulation_id": "2026-20849",
+      "overall_status": "compliant",
+      "confidence": 0.9,
+      "summary": "Not applicable: The facility is a swine operation and does not typically store CWA hazardous substances at threshold quantities requiring a Facility Response Plan.",
+      "created_at": "2026-10-27T03:39:28.434Z"
+    },
+    {
+      "id": "file-cache-65f570724911_E8_26620",
+      "business_id": "65f57072-4911-4f21-ad63-7b8a57aff05d",
+      "regulation_id": "E8-26620",
+      "overall_status": "warning",
+      "confidence": 0.85,
+      "summary": "Reeves & Reeves, Inc. operates as a Large CAFO with 4,798 swine under a state general permit (AWS820233) and is generally compliant with federal NPDES permitting requirements by operating as a non-discharge facility. However, there are warnings regarding the need to verify on-site nutrient management documentation for the agricultural stormwater exemption and the installation of lagoon depth markers. Additionally, while recent November 2025 NC Supreme Court rulings struck down annual reporting and monitoring mandates, voluntary compliance is recommended for liability protection.",
+      "created_at": "2026-10-27T03:41:52.014Z"
+    },
+    {
+      "id": "file-cache-6c695f678414_2019_12411",
+      "business_id": "6c695f67-8414-4441-b3cc-7332a473d72f",
+      "regulation_id": "2019-12411",
+      "overall_status": "compliant",
+      "confidence": 0.95,
+      "summary": "Ellwell Lake is currently compliant with CERCLA and EPCRA reporting requirements, as there are no recorded hazardous substance releases at this 3,314-head swine facility. The facility must ensure it is prepared to immediately notify the National Response Center and local authorities if a lagoon breach or other non-exempt hazardous release occurs in the future.",
+      "created_at": "2026-10-27T03:41:52.014Z"
+    },
+    {
+      "id": "file-cache-6c695f678414_2026_11327",
+      "business_id": "6c695f67-8414-4441-b3cc-7332a473d72f",
+      "regulation_id": "2026-11327",
+      "overall_status": "compliant",
+      "confidence": 0.9,
+      "summary": "Not applicable: This notice proposes revisions to voluntary NRCS conservation practice standards and does not directly create new regulatory obligations for this facility.",
+      "created_at": "2026-10-27T03:39:28.434Z"
+    },
+    {
+      "id": "file-cache-6c695f678414_2026_13615",
+      "business_id": "6c695f67-8414-4441-b3cc-7332a473d72f",
+      "regulation_id": "2026-13615",
+      "overall_status": "compliant",
+      "confidence": 0.9,
+      "summary": "Not applicable: Even if finalized, the guidance provides only non-binding, voluntary recommendations regarding PFOA and PFOS in biosolids and creates no new obligations for hog farm operations.",
+      "created_at": "2026-10-27T03:39:28.434Z"
+    },
+    {
+      "id": "file-cache-6c695f678414_2026_18317",
+      "business_id": "6c695f67-8414-4441-b3cc-7332a473d72f",
+      "regulation_id": "2026-18317",
+      "overall_status": "compliant",
+      "confidence": 0.9,
+      "summary": "Not applicable: Even if finalized, this proposed rule updating the definition of 'waters of the United States' does not directly create new obligations for state-permitted non-discharge swine operations.",
+      "created_at": "2026-10-27T03:39:28.434Z"
+    },
+    {
+      "id": "file-cache-6c695f678414_2026_20849",
+      "business_id": "6c695f67-8414-4441-b3cc-7332a473d72f",
+      "regulation_id": "2026-20849",
+      "overall_status": "compliant",
+      "confidence": 0.9,
+      "summary": "Not applicable: The facility is a swine operation and does not typically store CWA hazardous substances at threshold quantities requiring a Facility Response Plan.",
+      "created_at": "2026-10-27T03:39:28.434Z"
+    },
+    {
+      "id": "file-cache-6c695f678414_E8_26620",
+      "business_id": "6c695f67-8414-4441-b3cc-7332a473d72f",
+      "regulation_id": "E8-26620",
+      "overall_status": "warning",
+      "confidence": 0.85,
+      "summary": "Ellwell Lake, operating as a permitted Swine CAFO with 3,314 animals under general permit AWS820156, is subject to several ongoing operational and maintenance requirements. While the facility holds the necessary permit, gaps exist regarding the verification of depth markers in lagoons, active implementation of the Nutrient Management Plan, and permit renewal timelines. Additionally, while the November 2025 NC Supreme Court ruling struck down annual reporting requirements, voluntary compliance is recommended to ensure liability protection.",
+      "created_at": "2026-10-27T03:41:52.014Z"
+    },
+    {
+      "id": "file-cache-6e252de955c6_2019_12411",
+      "business_id": "6e252de9-55c6-4760-b91a-7f86aacba4f9",
+      "regulation_id": "2019-12411",
+      "overall_status": "compliant",
+      "confidence": 0.95,
+      "summary": "Nobles Farm is currently compliant with CERCLA and EPCRA release reporting requirements, as these are conditional obligations triggered only in the event of a hazardous substance release. As a Swine State COC operation with 4,569 animals, the facility must remain prepared to immediately notify the National Response Center and local authorities if a lagoon breach or non-waste chemical spill exceeds reportable quantities. Air emissions from the animal waste itself remain exempt from these reporting rules.",
+      "created_at": "2026-10-27T03:41:52.014Z"
+    },
+    {
+      "id": "file-cache-6e252de955c6_2026_11327",
+      "business_id": "6e252de9-55c6-4760-b91a-7f86aacba4f9",
+      "regulation_id": "2026-11327",
+      "overall_status": "compliant",
+      "confidence": 0.9,
+      "summary": "Not applicable: This notice proposes revisions to voluntary NRCS conservation practice standards and does not directly create new regulatory obligations for this facility.",
+      "created_at": "2026-10-27T03:39:28.434Z"
+    },
+    {
+      "id": "file-cache-6e252de955c6_2026_13615",
+      "business_id": "6e252de9-55c6-4760-b91a-7f86aacba4f9",
+      "regulation_id": "2026-13615",
+      "overall_status": "compliant",
+      "confidence": 0.9,
+      "summary": "Not applicable: Even if finalized, the guidance provides only non-binding, voluntary recommendations regarding PFOA and PFOS in biosolids and creates no new obligations for hog farm operations.",
+      "created_at": "2026-10-27T03:39:28.434Z"
+    },
+    {
+      "id": "file-cache-6e252de955c6_2026_18317",
+      "business_id": "6e252de9-55c6-4760-b91a-7f86aacba4f9",
+      "regulation_id": "2026-18317",
+      "overall_status": "compliant",
+      "confidence": 0.9,
+      "summary": "Not applicable: Even if finalized, this proposed rule updating the definition of 'waters of the United States' does not directly create new obligations for state-permitted non-discharge swine operations.",
+      "created_at": "2026-10-27T03:39:28.434Z"
+    },
+    {
+      "id": "file-cache-6e252de955c6_2026_20849",
+      "business_id": "6e252de9-55c6-4760-b91a-7f86aacba4f9",
+      "regulation_id": "2026-20849",
+      "overall_status": "compliant",
+      "confidence": 0.9,
+      "summary": "Not applicable: The facility is a swine operation and does not typically store CWA hazardous substances at threshold quantities requiring a Facility Response Plan.",
+      "created_at": "2026-10-27T03:39:28.434Z"
+    },
+    {
+      "id": "file-cache-6e252de955c6_E8_26620",
+      "business_id": "6e252de9-55c6-4760-b91a-7f86aacba4f9",
+      "regulation_id": "E8-26620",
+      "overall_status": "warning",
+      "confidence": 0.85,
+      "summary": "Nobles Farm operates as a Swine State COC facility with 4,569 animals under a general permit, which classifies it as a Large CAFO subject to specific physical and operational requirements. The facility receives a 'warning' status because it must ensure mandatory conditions like lagoon depth markers and active Nutrient Management Plan implementation are met. Additionally, while the November 2025 NC Supreme Court ruling struck down annual reporting and phosphorus testing requirements, voluntary compliance remains advisable for liability protection.",
+      "created_at": "2026-10-27T03:41:52.014Z"
+    },
+    {
+      "id": "file-cache-8d3cad1a848b_2019_12411",
+      "business_id": "8d3cad1a-848b-4fc0-97a9-7cf77ea77bc9",
+      "regulation_id": "2019-12411",
+      "overall_status": "compliant",
+      "confidence": 0.95,
+      "summary": "Not applicable: The CERCLA and EPCRA reporting requirements are conditional and only impose obligations in the event of a hazardous substance release, which is not currently indicated for Farm 5579. As a Swine State COC operation with 1,013 animals, the facility remains compliant by default but should proactively maintain emergency contact protocols for the National Response Center and state/local authorities in case a reportable spill, such as a lagoon breach, occurs in the future.",
+      "created_at": "2026-10-27T03:41:52.014Z"
+    },
+    {
+      "id": "file-cache-8d3cad1a848b_2026_11327",
+      "business_id": "8d3cad1a-848b-4fc0-97a9-7cf77ea77bc9",
+      "regulation_id": "2026-11327",
+      "overall_status": "compliant",
+      "confidence": 0.9,
+      "summary": "Not applicable: This notice proposes revisions to voluntary NRCS conservation practice standards and does not directly create new regulatory obligations for this facility.",
+      "created_at": "2026-10-27T03:39:28.434Z"
+    },
+    {
+      "id": "file-cache-8d3cad1a848b_2026_13615",
+      "business_id": "8d3cad1a-848b-4fc0-97a9-7cf77ea77bc9",
+      "regulation_id": "2026-13615",
+      "overall_status": "compliant",
+      "confidence": 0.9,
+      "summary": "Not applicable: Even if finalized, the guidance provides only non-binding, voluntary recommendations regarding PFOA and PFOS in biosolids and creates no new obligations for hog farm operations.",
+      "created_at": "2026-10-27T03:39:28.434Z"
+    },
+    {
+      "id": "file-cache-8d3cad1a848b_2026_18317",
+      "business_id": "8d3cad1a-848b-4fc0-97a9-7cf77ea77bc9",
+      "regulation_id": "2026-18317",
+      "overall_status": "compliant",
+      "confidence": 0.9,
+      "summary": "Not applicable: Even if finalized, this proposed rule updating the definition of 'waters of the United States' does not directly create new obligations for state-permitted non-discharge swine operations.",
+      "created_at": "2026-10-27T03:39:28.434Z"
+    },
+    {
+      "id": "file-cache-8d3cad1a848b_2026_20849",
+      "business_id": "8d3cad1a-848b-4fc0-97a9-7cf77ea77bc9",
+      "regulation_id": "2026-20849",
+      "overall_status": "compliant",
+      "confidence": 0.9,
+      "summary": "Not applicable: The facility is a swine operation and does not typically store CWA hazardous substances at threshold quantities requiring a Facility Response Plan.",
+      "created_at": "2026-10-27T03:39:28.434Z"
+    },
+    {
+      "id": "file-cache-8d3cad1a848b_E8_26620",
+      "business_id": "8d3cad1a-848b-4fc0-97a9-7cf77ea77bc9",
+      "regulation_id": "E8-26620",
+      "overall_status": "compliant",
+      "confidence": 0.95,
+      "summary": "Not applicable: The federal NPDES CAFO regulations under 40 CFR Part 122 do not impose mandatory obligations on this facility because it operates as a non-discharging Medium CAFO (1013 head) under a North Carolina state general permit (AWS780009). As long as Farm 5579 maintains its non-discharging status, it remains exempt from these federal permitting, reporting, and nutrient management mandates.",
+      "created_at": "2026-10-27T03:41:52.014Z"
+    },
+    {
+      "id": "file-cache-9c1c16b247f0_2019_12411",
+      "business_id": "9c1c16b2-47f0-48b0-a428-a8c70dbc91b6",
+      "regulation_id": "2019-12411",
+      "overall_status": "compliant",
+      "confidence": 0.95,
+      "summary": "Sullivan Farm is currently compliant with CERCLA and EPCRA reporting requirements because there is no evidence of a hazardous substance release at the facility. As a 2,608-head swine operation under a general State COC permit, the facility is subject to these conditional obligations and must immediately notify the National Response Center and local authorities if a reportable release, such as a manure lagoon breach into water, occurs.",
+      "created_at": "2026-10-27T03:41:52.014Z"
+    },
+    {
+      "id": "file-cache-9c1c16b247f0_2026_11327",
+      "business_id": "9c1c16b2-47f0-48b0-a428-a8c70dbc91b6",
+      "regulation_id": "2026-11327",
+      "overall_status": "compliant",
+      "confidence": 0.9,
+      "summary": "Not applicable: This notice proposes revisions to voluntary NRCS conservation practice standards and does not directly create new regulatory obligations for this facility.",
+      "created_at": "2026-10-27T03:39:28.434Z"
+    },
+    {
+      "id": "file-cache-9c1c16b247f0_2026_13615",
+      "business_id": "9c1c16b2-47f0-48b0-a428-a8c70dbc91b6",
+      "regulation_id": "2026-13615",
+      "overall_status": "compliant",
+      "confidence": 0.9,
+      "summary": "Not applicable: Even if finalized, the guidance provides only non-binding, voluntary recommendations regarding PFOA and PFOS in biosolids and creates no new obligations for hog farm operations.",
+      "created_at": "2026-10-27T03:39:28.434Z"
+    },
+    {
+      "id": "file-cache-9c1c16b247f0_2026_18317",
+      "business_id": "9c1c16b2-47f0-48b0-a428-a8c70dbc91b6",
+      "regulation_id": "2026-18317",
+      "overall_status": "compliant",
+      "confidence": 0.9,
+      "summary": "Not applicable: Even if finalized, this proposed rule updating the definition of 'waters of the United States' does not directly create new obligations for state-permitted non-discharge swine operations.",
+      "created_at": "2026-10-27T03:39:28.434Z"
+    },
+    {
+      "id": "file-cache-9c1c16b247f0_2026_20849",
+      "business_id": "9c1c16b2-47f0-48b0-a428-a8c70dbc91b6",
+      "regulation_id": "2026-20849",
+      "overall_status": "compliant",
+      "confidence": 0.9,
+      "summary": "Not applicable: The facility is a swine operation and does not typically store CWA hazardous substances at threshold quantities requiring a Facility Response Plan.",
+      "created_at": "2026-10-27T03:39:28.434Z"
+    },
+    {
+      "id": "file-cache-9c1c16b247f0_E8_26620",
+      "business_id": "9c1c16b2-47f0-48b0-a428-a8c70dbc91b6",
+      "regulation_id": "E8-26620",
+      "overall_status": "warning",
+      "confidence": 0.85,
+      "summary": "Sullivan Farm is a Swine CAFO operating under a state general permit with 2,608 animals. The overall compliance status is a warning because the profile lacks confirmation that mandatory requirements, such as depth markers and an active Nutrient Management Plan, are met. Although the November 2025 NC Supreme Court ruling struck down annual reporting requirements, voluntary compliance is still advised for liability protection.",
+      "created_at": "2026-10-27T03:41:52.014Z"
+    },
+    {
+      "id": "file-cache-a44317264534_2019_12411",
+      "business_id": "a4431726-4534-4c5a-9047-681c743f6fe0",
+      "regulation_id": "2019-12411",
+      "overall_status": "compliant",
+      "confidence": 0.95,
+      "summary": "Not applicable: The CERCLA and EPCRA release reporting requirements currently impose no active obligations on Piggybank Sow because there is no record of a hazardous substance release, meaning this Swine State COC operation with 1,569 animals under a general permit is only required to notify authorities if a reportable event like a lagoon breach actually occurs.",
+      "created_at": "2026-10-27T03:41:52.014Z"
+    },
+    {
+      "id": "file-cache-a44317264534_2026_11327",
+      "business_id": "a4431726-4534-4c5a-9047-681c743f6fe0",
+      "regulation_id": "2026-11327",
+      "overall_status": "compliant",
+      "confidence": 0.9,
+      "summary": "Not applicable: This notice proposes revisions to voluntary NRCS conservation practice standards and does not directly create new regulatory obligations for this facility.",
+      "created_at": "2026-10-27T03:39:28.434Z"
+    },
+    {
+      "id": "file-cache-a44317264534_2026_13615",
+      "business_id": "a4431726-4534-4c5a-9047-681c743f6fe0",
+      "regulation_id": "2026-13615",
+      "overall_status": "compliant",
+      "confidence": 0.9,
+      "summary": "Not applicable: Even if finalized, the guidance provides only non-binding, voluntary recommendations regarding PFOA and PFOS in biosolids and creates no new obligations for hog farm operations.",
+      "created_at": "2026-10-27T03:39:28.434Z"
+    },
+    {
+      "id": "file-cache-a44317264534_2026_18317",
+      "business_id": "a4431726-4534-4c5a-9047-681c743f6fe0",
+      "regulation_id": "2026-18317",
+      "overall_status": "compliant",
+      "confidence": 0.9,
+      "summary": "Not applicable: Even if finalized, this proposed rule updating the definition of 'waters of the United States' does not directly create new obligations for state-permitted non-discharge swine operations.",
+      "created_at": "2026-10-27T03:39:28.434Z"
+    },
+    {
+      "id": "file-cache-a44317264534_2026_20849",
+      "business_id": "a4431726-4534-4c5a-9047-681c743f6fe0",
+      "regulation_id": "2026-20849",
+      "overall_status": "compliant",
+      "confidence": 0.9,
+      "summary": "Not applicable: The facility is a swine operation and does not typically store CWA hazardous substances at threshold quantities requiring a Facility Response Plan.",
+      "created_at": "2026-10-27T03:39:28.434Z"
+    },
+    {
+      "id": "file-cache-a44317264534_E8_26620",
+      "business_id": "a4431726-4534-4c5a-9047-681c743f6fe0",
+      "regulation_id": "E8-26620",
+      "overall_status": "warning",
+      "confidence": 0.9,
+      "summary": "Piggybank Sow operates as a Swine State COC facility with 1,569 head under a general permit (AWS960096), subjecting it to specific operational requirements. The overall status is a warning because the profile cannot confirm the installation of required depth markers in liquid impoundments, the active implementation of a Nutrient Management Plan, or the submission of annual reports. The operator should verify these physical and administrative controls are in place to ensure full compliance.",
+      "created_at": "2026-10-27T03:41:52.014Z"
+    },
+    {
+      "id": "file-cache-d84b90962206_2019_12411",
+      "business_id": "d84b9096-2206-4ebb-8aee-89a00bf5aa5f",
+      "regulation_id": "2019-12411",
+      "overall_status": "compliant",
+      "confidence": 0.95,
+      "summary": "The P-14C facility is currently compliant with CERCLA and EPCRA emergency reporting requirements, as there are no recorded hazardous substance releases in the profile. The 1,919-head swine operation must remain prepared to immediately notify the National Response Center and local authorities if a lagoon breach or other non-exempt hazardous release occurs.",
+      "created_at": "2026-10-27T03:41:52.014Z"
+    },
+    {
+      "id": "file-cache-d84b90962206_2026_11327",
+      "business_id": "d84b9096-2206-4ebb-8aee-89a00bf5aa5f",
+      "regulation_id": "2026-11327",
+      "overall_status": "compliant",
+      "confidence": 0.9,
+      "summary": "Not applicable: This notice proposes revisions to voluntary NRCS conservation practice standards and does not directly create new regulatory obligations for this facility.",
+      "created_at": "2026-10-27T03:39:28.434Z"
+    },
+    {
+      "id": "file-cache-d84b90962206_2026_13615",
+      "business_id": "d84b9096-2206-4ebb-8aee-89a00bf5aa5f",
+      "regulation_id": "2026-13615",
+      "overall_status": "compliant",
+      "confidence": 0.9,
+      "summary": "Not applicable: Even if finalized, the guidance provides only non-binding, voluntary recommendations regarding PFOA and PFOS in biosolids and creates no new obligations for hog farm operations.",
+      "created_at": "2026-10-27T03:39:28.434Z"
+    },
+    {
+      "id": "file-cache-d84b90962206_2026_18317",
+      "business_id": "d84b9096-2206-4ebb-8aee-89a00bf5aa5f",
+      "regulation_id": "2026-18317",
+      "overall_status": "compliant",
+      "confidence": 0.9,
+      "summary": "Not applicable: Even if finalized, this proposed rule updating the definition of 'waters of the United States' does not directly create new obligations for state-permitted non-discharge swine operations.",
+      "created_at": "2026-10-27T03:39:28.434Z"
+    },
+    {
+      "id": "file-cache-d84b90962206_2026_20849",
+      "business_id": "d84b9096-2206-4ebb-8aee-89a00bf5aa5f",
+      "regulation_id": "2026-20849",
+      "overall_status": "compliant",
+      "confidence": 0.9,
+      "summary": "Not applicable: The facility is a swine operation and does not typically store CWA hazardous substances at threshold quantities requiring a Facility Response Plan.",
+      "created_at": "2026-10-27T03:39:28.434Z"
+    },
+    {
+      "id": "file-cache-d84b90962206_E8_26620",
+      "business_id": "d84b9096-2206-4ebb-8aee-89a00bf5aa5f",
+      "regulation_id": "E8-26620",
+      "overall_status": "compliant",
+      "confidence": 0.95,
+      "summary": "Not applicable: The provided federal NPDES regulations apply to discharging or Large CAFOs, whereas this facility is a Medium CAFO (1,919 head) operating under a state non-discharge general permit (AWS090214). As long as the facility maintains its non-discharge status, it is not required to seek federal NPDES permit coverage or comply with the associated federal reporting mandates.",
+      "created_at": "2026-10-27T03:41:52.014Z"
+    },
+    {
+      "id": "file-cache-d86503ce7aeb_2019_12411",
+      "business_id": "d86503ce-7aeb-42ce-9025-20c9bcd479b7",
+      "regulation_id": "2019-12411",
+      "overall_status": "compliant",
+      "confidence": 0.95,
+      "summary": "Not applicable: The CERCLA and EPCRA reporting requirements are conditional and only apply in the event of a hazardous substance release, which is not indicated in the current profile for this 4,732-head swine operation. Young Nursery #1 & #2 is currently compliant as there are no active obligations triggered under its general permit.",
+      "created_at": "2026-10-27T03:41:52.014Z"
+    },
+    {
+      "id": "file-cache-d86503ce7aeb_2026_11327",
+      "business_id": "d86503ce-7aeb-42ce-9025-20c9bcd479b7",
+      "regulation_id": "2026-11327",
+      "overall_status": "compliant",
+      "confidence": 0.9,
+      "summary": "Not applicable: This notice proposes revisions to voluntary NRCS conservation practice standards and does not directly create new regulatory obligations for this facility.",
+      "created_at": "2026-10-27T03:39:28.434Z"
+    },
+    {
+      "id": "file-cache-d86503ce7aeb_2026_13615",
+      "business_id": "d86503ce-7aeb-42ce-9025-20c9bcd479b7",
+      "regulation_id": "2026-13615",
+      "overall_status": "compliant",
+      "confidence": 0.9,
+      "summary": "Not applicable: Even if finalized, the guidance provides only non-binding, voluntary recommendations regarding PFOA and PFOS in biosolids and creates no new obligations for hog farm operations.",
+      "created_at": "2026-10-27T03:39:28.434Z"
+    },
+    {
+      "id": "file-cache-d86503ce7aeb_2026_18317",
+      "business_id": "d86503ce-7aeb-42ce-9025-20c9bcd479b7",
+      "regulation_id": "2026-18317",
+      "overall_status": "compliant",
+      "confidence": 0.9,
+      "summary": "Not applicable: Even if finalized, this proposed rule updating the definition of 'waters of the United States' does not directly create new obligations for state-permitted non-discharge swine operations.",
+      "created_at": "2026-10-27T03:39:28.434Z"
+    },
+    {
+      "id": "file-cache-d86503ce7aeb_2026_20849",
+      "business_id": "d86503ce-7aeb-42ce-9025-20c9bcd479b7",
+      "regulation_id": "2026-20849",
+      "overall_status": "compliant",
+      "confidence": 0.9,
+      "summary": "Not applicable: The facility is a swine operation and does not typically store CWA hazardous substances at threshold quantities requiring a Facility Response Plan.",
+      "created_at": "2026-10-27T03:39:28.434Z"
+    },
+    {
+      "id": "file-cache-d86503ce7aeb_E8_26620",
+      "business_id": "d86503ce-7aeb-42ce-9025-20c9bcd479b7",
+      "regulation_id": "E8-26620",
+      "overall_status": "warning",
+      "confidence": 0.85,
+      "summary": "Young Nursery #1 & #2 operates under a general permit for 4,732 animals, making it subject to mandatory CAFO requirements including Nutrient Management Plan implementation and impoundment depth markers. While no direct violations are present in the profile, there is insufficient evidence to confirm compliance with these operational mandates. Note that while the November 2025 NC Supreme Court ruling struck down annual reporting requirements, voluntary compliance is still recommended for liability protection.",
+      "created_at": "2026-10-27T03:41:52.014Z"
+    },
+    {
+      "id": "file-cache-e681a8a33ae5_2019_12411",
+      "business_id": "e681a8a3-3ae5-4d4e-8fe7-4ff8d280dce2",
+      "regulation_id": "2019-12411",
+      "overall_status": "compliant",
+      "confidence": 0.95,
+      "summary": "The Calvin L. Rouse Farm is currently compliant with CERCLA and EPCRA release reporting requirements, as there are no recorded hazardous substance spills or lagoon breaches at this 2,883-head Swine State COC facility operating under general permit AWS310410. Because these regulations are conditional, the facility must ensure it remains prepared to immediately notify the National Response Center and local authorities if a reportable release into water or a non-waste air release occurs in the future.",
+      "created_at": "2026-10-27T03:41:52.014Z"
+    },
+    {
+      "id": "file-cache-e681a8a33ae5_2026_11327",
+      "business_id": "e681a8a3-3ae5-4d4e-8fe7-4ff8d280dce2",
+      "regulation_id": "2026-11327",
+      "overall_status": "compliant",
+      "confidence": 0.9,
+      "summary": "Not applicable: This notice proposes revisions to voluntary NRCS conservation practice standards and does not directly create new regulatory obligations for this facility.",
+      "created_at": "2026-10-27T03:39:28.434Z"
+    },
+    {
+      "id": "file-cache-e681a8a33ae5_2026_13615",
+      "business_id": "e681a8a3-3ae5-4d4e-8fe7-4ff8d280dce2",
+      "regulation_id": "2026-13615",
+      "overall_status": "compliant",
+      "confidence": 0.9,
+      "summary": "Not applicable: Even if finalized, the guidance provides only non-binding, voluntary recommendations regarding PFOA and PFOS in biosolids and creates no new obligations for hog farm operations.",
+      "created_at": "2026-10-27T03:39:28.434Z"
+    },
+    {
+      "id": "file-cache-e681a8a33ae5_2026_18317",
+      "business_id": "e681a8a3-3ae5-4d4e-8fe7-4ff8d280dce2",
+      "regulation_id": "2026-18317",
+      "overall_status": "compliant",
+      "confidence": 0.9,
+      "summary": "Not applicable: Even if finalized, this proposed rule updating the definition of 'waters of the United States' does not directly create new obligations for state-permitted non-discharge swine operations.",
+      "created_at": "2026-10-27T03:39:28.434Z"
+    },
+    {
+      "id": "file-cache-e681a8a33ae5_2026_20849",
+      "business_id": "e681a8a3-3ae5-4d4e-8fe7-4ff8d280dce2",
+      "regulation_id": "2026-20849",
+      "overall_status": "compliant",
+      "confidence": 0.9,
+      "summary": "Not applicable: The facility is a swine operation and does not typically store CWA hazardous substances at threshold quantities requiring a Facility Response Plan.",
+      "created_at": "2026-10-27T03:39:28.434Z"
+    },
+    {
       "id": "file-cache-e681a8a33ae5_E8_26620",
       "business_id": "e681a8a3-3ae5-4d4e-8fe7-4ff8d280dce2",
       "regulation_id": "E8-26620",
       "overall_status": "warning",
-      "confidence": 0.75,
-      "summary": "Calvin L. Rouse Farm, a Large Swine CAFO with a general NPDES permit, appears generally compliant with federal permitting requirements. However, several areas require verification, including permit renewal status, NMP update procedures, and the presence of required depth markers on impoundments. While annual reporting and phosphorus testing requirements were struck down by the NC Supreme Court, voluntary compliance is advisable for robust environmental management and liability protection.",
-      "created_at": "2026-03-22T01:27:26.000Z"
+      "confidence": 0.85,
+      "summary": "Calvin L. Rouse Farm operates as a Large CAFO with 2,883 swine under a state general permit (AWS310410). While the facility meets baseline permitting requirements, potential gaps exist regarding on-site documentation for federal unpermitted status and verification of lagoon depth markers. Note that following the November 2025 NC Supreme Court ruling, annual reporting and phosphorus testing are no longer enforceable, though voluntary compliance is advised for liability protection.",
+      "created_at": "2026-10-27T00:55:31.000Z"
+    },
+    {
+      "id": "file-cache-e79fed7aef73_2019_12411",
+      "business_id": "e79fed7a-ef73-41ce-8c84-f0b53059b015",
+      "regulation_id": "2019-12411",
+      "overall_status": "compliant",
+      "confidence": 0.95,
+      "summary": "Not applicable: The CERCLA and EPCRA reporting requirements are conditional upon an actual hazardous substance release, such as a lagoon breach, meaning there are no active reporting obligations for this 2,206-head swine facility under its general permit unless a reportable spill occurs.",
+      "created_at": "2026-10-27T03:41:52.014Z"
+    },
+    {
+      "id": "file-cache-e79fed7aef73_2026_11327",
+      "business_id": "e79fed7a-ef73-41ce-8c84-f0b53059b015",
+      "regulation_id": "2026-11327",
+      "overall_status": "compliant",
+      "confidence": 0.9,
+      "summary": "Not applicable: This notice proposes revisions to voluntary NRCS conservation practice standards and does not directly create new regulatory obligations for this facility.",
+      "created_at": "2026-10-27T03:39:28.434Z"
+    },
+    {
+      "id": "file-cache-e79fed7aef73_2026_13615",
+      "business_id": "e79fed7a-ef73-41ce-8c84-f0b53059b015",
+      "regulation_id": "2026-13615",
+      "overall_status": "compliant",
+      "confidence": 0.9,
+      "summary": "Not applicable: Even if finalized, the guidance provides only non-binding, voluntary recommendations regarding PFOA and PFOS in biosolids and creates no new obligations for hog farm operations.",
+      "created_at": "2026-10-27T03:39:28.434Z"
+    },
+    {
+      "id": "file-cache-e79fed7aef73_2026_18317",
+      "business_id": "e79fed7a-ef73-41ce-8c84-f0b53059b015",
+      "regulation_id": "2026-18317",
+      "overall_status": "compliant",
+      "confidence": 0.9,
+      "summary": "Not applicable: Even if finalized, this proposed rule updating the definition of 'waters of the United States' does not directly create new obligations for state-permitted non-discharge swine operations.",
+      "created_at": "2026-10-27T03:39:28.434Z"
+    },
+    {
+      "id": "file-cache-e79fed7aef73_2026_20849",
+      "business_id": "e79fed7a-ef73-41ce-8c84-f0b53059b015",
+      "regulation_id": "2026-20849",
+      "overall_status": "compliant",
+      "confidence": 0.9,
+      "summary": "Not applicable: The facility is a swine operation and does not typically store CWA hazardous substances at threshold quantities requiring a Facility Response Plan.",
+      "created_at": "2026-10-27T03:39:28.434Z"
+    },
+    {
+      "id": "file-cache-e79fed7aef73_E8_26620",
+      "business_id": "e79fed7a-ef73-41ce-8c84-f0b53059b015",
+      "regulation_id": "E8-26620",
+      "overall_status": "warning",
+      "confidence": 0.85,
+      "summary": "Farm 91 / Farm 3091 operates as a medium-sized swine facility with 2206 animals under a state general permit. Because it holds a general permit, it is subject to mandatory requirements for nutrient management plans and lagoon depth markers, which cannot be verified from the profile alone. The overall compliance status is a warning pending confirmation of these physical and administrative controls.",
+      "created_at": "2026-10-27T03:41:52.014Z"
     }
   ],
   "cachedAnalyses": [
+    {
+      "business_id": "1cde2b19-dd60-4fd0-bb0f-4d3597a477f8",
+      "business_name": "Waters Farm 1-5  M&M Rivenbark",
+      "regulation_id": "2019-12411",
+      "path": "/demo/analyses/1cde2b19dd60_2019_12411.json"
+    },
+    {
+      "business_id": "1cde2b19-dd60-4fd0-bb0f-4d3597a477f8",
+      "business_name": "Waters Farm 1-5  M&M Rivenbark",
+      "regulation_id": "2026-11327",
+      "path": "/demo/analyses/1cde2b19dd60_2026_11327.json"
+    },
+    {
+      "business_id": "1cde2b19-dd60-4fd0-bb0f-4d3597a477f8",
+      "business_name": "Waters Farm 1-5  M&M Rivenbark",
+      "regulation_id": "2026-13615",
+      "path": "/demo/analyses/1cde2b19dd60_2026_13615.json"
+    },
+    {
+      "business_id": "1cde2b19-dd60-4fd0-bb0f-4d3597a477f8",
+      "business_name": "Waters Farm 1-5  M&M Rivenbark",
+      "regulation_id": "2026-18317",
+      "path": "/demo/analyses/1cde2b19dd60_2026_18317.json"
+    },
+    {
+      "business_id": "1cde2b19-dd60-4fd0-bb0f-4d3597a477f8",
+      "business_name": "Waters Farm 1-5  M&M Rivenbark",
+      "regulation_id": "2026-20849",
+      "path": "/demo/analyses/1cde2b19dd60_2026_20849.json"
+    },
+    {
+      "business_id": "1cde2b19-dd60-4fd0-bb0f-4d3597a477f8",
+      "business_name": "Waters Farm 1-5  M&M Rivenbark",
+      "regulation_id": "E8-26620",
+      "path": "/demo/analyses/1cde2b19dd60_E8_26620.json"
+    },
+    {
+      "business_id": "37be5459-cbdc-400c-b43a-b5da38c68f66",
+      "business_name": "Kornegay Farms",
+      "regulation_id": "2019-12411",
+      "path": "/demo/analyses/37be5459cbdc_2019_12411.json"
+    },
+    {
+      "business_id": "37be5459-cbdc-400c-b43a-b5da38c68f66",
+      "business_name": "Kornegay Farms",
+      "regulation_id": "2026-11327",
+      "path": "/demo/analyses/37be5459cbdc_2026_11327.json"
+    },
+    {
+      "business_id": "37be5459-cbdc-400c-b43a-b5da38c68f66",
+      "business_name": "Kornegay Farms",
+      "regulation_id": "2026-13615",
+      "path": "/demo/analyses/37be5459cbdc_2026_13615.json"
+    },
+    {
+      "business_id": "37be5459-cbdc-400c-b43a-b5da38c68f66",
+      "business_name": "Kornegay Farms",
+      "regulation_id": "2026-18317",
+      "path": "/demo/analyses/37be5459cbdc_2026_18317.json"
+    },
+    {
+      "business_id": "37be5459-cbdc-400c-b43a-b5da38c68f66",
+      "business_name": "Kornegay Farms",
+      "regulation_id": "2026-20849",
+      "path": "/demo/analyses/37be5459cbdc_2026_20849.json"
+    },
+    {
+      "business_id": "37be5459-cbdc-400c-b43a-b5da38c68f66",
+      "business_name": "Kornegay Farms",
+      "regulation_id": "E8-26620",
+      "path": "/demo/analyses/37be5459cbdc_E8_26620.json"
+    },
+    {
+      "business_id": "3f77cfc4-ccac-4f5d-8f0d-8baad5825661",
+      "business_name": "J. Sullivan & Son Farm",
+      "regulation_id": "2019-12411",
+      "path": "/demo/analyses/3f77cfc4ccac_2019_12411.json"
+    },
+    {
+      "business_id": "3f77cfc4-ccac-4f5d-8f0d-8baad5825661",
+      "business_name": "J. Sullivan & Son Farm",
+      "regulation_id": "2026-11327",
+      "path": "/demo/analyses/3f77cfc4ccac_2026_11327.json"
+    },
+    {
+      "business_id": "3f77cfc4-ccac-4f5d-8f0d-8baad5825661",
+      "business_name": "J. Sullivan & Son Farm",
+      "regulation_id": "2026-13615",
+      "path": "/demo/analyses/3f77cfc4ccac_2026_13615.json"
+    },
+    {
+      "business_id": "3f77cfc4-ccac-4f5d-8f0d-8baad5825661",
+      "business_name": "J. Sullivan & Son Farm",
+      "regulation_id": "2026-18317",
+      "path": "/demo/analyses/3f77cfc4ccac_2026_18317.json"
+    },
+    {
+      "business_id": "3f77cfc4-ccac-4f5d-8f0d-8baad5825661",
+      "business_name": "J. Sullivan & Son Farm",
+      "regulation_id": "2026-20849",
+      "path": "/demo/analyses/3f77cfc4ccac_2026_20849.json"
+    },
+    {
+      "business_id": "3f77cfc4-ccac-4f5d-8f0d-8baad5825661",
+      "business_name": "J. Sullivan & Son Farm",
+      "regulation_id": "E8-26620",
+      "path": "/demo/analyses/3f77cfc4ccac_E8_26620.json"
+    },
+    {
+      "business_id": "482a7f47-14d9-42d1-9c1c-058bda7ea206",
+      "business_name": "3111",
+      "regulation_id": "2019-12411",
+      "path": "/demo/analyses/482a7f4714d9_2019_12411.json"
+    },
+    {
+      "business_id": "482a7f47-14d9-42d1-9c1c-058bda7ea206",
+      "business_name": "3111",
+      "regulation_id": "2026-11327",
+      "path": "/demo/analyses/482a7f4714d9_2026_11327.json"
+    },
+    {
+      "business_id": "482a7f47-14d9-42d1-9c1c-058bda7ea206",
+      "business_name": "3111",
+      "regulation_id": "2026-13615",
+      "path": "/demo/analyses/482a7f4714d9_2026_13615.json"
+    },
+    {
+      "business_id": "482a7f47-14d9-42d1-9c1c-058bda7ea206",
+      "business_name": "3111",
+      "regulation_id": "2026-18317",
+      "path": "/demo/analyses/482a7f4714d9_2026_18317.json"
+    },
+    {
+      "business_id": "482a7f47-14d9-42d1-9c1c-058bda7ea206",
+      "business_name": "3111",
+      "regulation_id": "2026-20849",
+      "path": "/demo/analyses/482a7f4714d9_2026_20849.json"
+    },
+    {
+      "business_id": "482a7f47-14d9-42d1-9c1c-058bda7ea206",
+      "business_name": "3111",
+      "regulation_id": "E8-26620",
+      "path": "/demo/analyses/482a7f4714d9_E8_26620.json"
+    },
+    {
+      "business_id": "5e053dcd-b4a9-463d-bc8d-2c0d8bd491b6",
+      "business_name": "W.D. Thigpen Farm",
+      "regulation_id": "2019-12411",
+      "path": "/demo/analyses/5e053dcdb4a9_2019_12411.json"
+    },
+    {
+      "business_id": "5e053dcd-b4a9-463d-bc8d-2c0d8bd491b6",
+      "business_name": "W.D. Thigpen Farm",
+      "regulation_id": "2026-11327",
+      "path": "/demo/analyses/5e053dcdb4a9_2026_11327.json"
+    },
+    {
+      "business_id": "5e053dcd-b4a9-463d-bc8d-2c0d8bd491b6",
+      "business_name": "W.D. Thigpen Farm",
+      "regulation_id": "2026-13615",
+      "path": "/demo/analyses/5e053dcdb4a9_2026_13615.json"
+    },
+    {
+      "business_id": "5e053dcd-b4a9-463d-bc8d-2c0d8bd491b6",
+      "business_name": "W.D. Thigpen Farm",
+      "regulation_id": "2026-18317",
+      "path": "/demo/analyses/5e053dcdb4a9_2026_18317.json"
+    },
+    {
+      "business_id": "5e053dcd-b4a9-463d-bc8d-2c0d8bd491b6",
+      "business_name": "W.D. Thigpen Farm",
+      "regulation_id": "2026-20849",
+      "path": "/demo/analyses/5e053dcdb4a9_2026_20849.json"
+    },
+    {
+      "business_id": "5e053dcd-b4a9-463d-bc8d-2c0d8bd491b6",
+      "business_name": "W.D. Thigpen Farm",
+      "regulation_id": "E8-26620",
+      "path": "/demo/analyses/5e053dcdb4a9_E8_26620.json"
+    },
+    {
+      "business_id": "65f57072-4911-4f21-ad63-7b8a57aff05d",
+      "business_name": "Reeves & Reeves, Inc.",
+      "regulation_id": "2019-12411",
+      "path": "/demo/analyses/65f570724911_2019_12411.json"
+    },
+    {
+      "business_id": "65f57072-4911-4f21-ad63-7b8a57aff05d",
+      "business_name": "Reeves & Reeves, Inc.",
+      "regulation_id": "2026-11327",
+      "path": "/demo/analyses/65f570724911_2026_11327.json"
+    },
+    {
+      "business_id": "65f57072-4911-4f21-ad63-7b8a57aff05d",
+      "business_name": "Reeves & Reeves, Inc.",
+      "regulation_id": "2026-13615",
+      "path": "/demo/analyses/65f570724911_2026_13615.json"
+    },
+    {
+      "business_id": "65f57072-4911-4f21-ad63-7b8a57aff05d",
+      "business_name": "Reeves & Reeves, Inc.",
+      "regulation_id": "2026-18317",
+      "path": "/demo/analyses/65f570724911_2026_18317.json"
+    },
+    {
+      "business_id": "65f57072-4911-4f21-ad63-7b8a57aff05d",
+      "business_name": "Reeves & Reeves, Inc.",
+      "regulation_id": "2026-20849",
+      "path": "/demo/analyses/65f570724911_2026_20849.json"
+    },
+    {
+      "business_id": "65f57072-4911-4f21-ad63-7b8a57aff05d",
+      "business_name": "Reeves & Reeves, Inc.",
+      "regulation_id": "E8-26620",
+      "path": "/demo/analyses/65f570724911_E8_26620.json"
+    },
+    {
+      "business_id": "6c695f67-8414-4441-b3cc-7332a473d72f",
+      "business_name": "Ellwell Lake",
+      "regulation_id": "2019-12411",
+      "path": "/demo/analyses/6c695f678414_2019_12411.json"
+    },
+    {
+      "business_id": "6c695f67-8414-4441-b3cc-7332a473d72f",
+      "business_name": "Ellwell Lake",
+      "regulation_id": "2026-11327",
+      "path": "/demo/analyses/6c695f678414_2026_11327.json"
+    },
+    {
+      "business_id": "6c695f67-8414-4441-b3cc-7332a473d72f",
+      "business_name": "Ellwell Lake",
+      "regulation_id": "2026-13615",
+      "path": "/demo/analyses/6c695f678414_2026_13615.json"
+    },
+    {
+      "business_id": "6c695f67-8414-4441-b3cc-7332a473d72f",
+      "business_name": "Ellwell Lake",
+      "regulation_id": "2026-18317",
+      "path": "/demo/analyses/6c695f678414_2026_18317.json"
+    },
+    {
+      "business_id": "6c695f67-8414-4441-b3cc-7332a473d72f",
+      "business_name": "Ellwell Lake",
+      "regulation_id": "2026-20849",
+      "path": "/demo/analyses/6c695f678414_2026_20849.json"
+    },
+    {
+      "business_id": "6c695f67-8414-4441-b3cc-7332a473d72f",
+      "business_name": "Ellwell Lake",
+      "regulation_id": "E8-26620",
+      "path": "/demo/analyses/6c695f678414_E8_26620.json"
+    },
+    {
+      "business_id": "6e252de9-55c6-4760-b91a-7f86aacba4f9",
+      "business_name": "Nobles Farm",
+      "regulation_id": "2019-12411",
+      "path": "/demo/analyses/6e252de955c6_2019_12411.json"
+    },
+    {
+      "business_id": "6e252de9-55c6-4760-b91a-7f86aacba4f9",
+      "business_name": "Nobles Farm",
+      "regulation_id": "2026-11327",
+      "path": "/demo/analyses/6e252de955c6_2026_11327.json"
+    },
+    {
+      "business_id": "6e252de9-55c6-4760-b91a-7f86aacba4f9",
+      "business_name": "Nobles Farm",
+      "regulation_id": "2026-13615",
+      "path": "/demo/analyses/6e252de955c6_2026_13615.json"
+    },
+    {
+      "business_id": "6e252de9-55c6-4760-b91a-7f86aacba4f9",
+      "business_name": "Nobles Farm",
+      "regulation_id": "2026-18317",
+      "path": "/demo/analyses/6e252de955c6_2026_18317.json"
+    },
+    {
+      "business_id": "6e252de9-55c6-4760-b91a-7f86aacba4f9",
+      "business_name": "Nobles Farm",
+      "regulation_id": "2026-20849",
+      "path": "/demo/analyses/6e252de955c6_2026_20849.json"
+    },
+    {
+      "business_id": "6e252de9-55c6-4760-b91a-7f86aacba4f9",
+      "business_name": "Nobles Farm",
+      "regulation_id": "E8-26620",
+      "path": "/demo/analyses/6e252de955c6_E8_26620.json"
+    },
+    {
+      "business_id": "8d3cad1a-848b-4fc0-97a9-7cf77ea77bc9",
+      "business_name": "Farm 5579",
+      "regulation_id": "2019-12411",
+      "path": "/demo/analyses/8d3cad1a848b_2019_12411.json"
+    },
+    {
+      "business_id": "8d3cad1a-848b-4fc0-97a9-7cf77ea77bc9",
+      "business_name": "Farm 5579",
+      "regulation_id": "2026-11327",
+      "path": "/demo/analyses/8d3cad1a848b_2026_11327.json"
+    },
+    {
+      "business_id": "8d3cad1a-848b-4fc0-97a9-7cf77ea77bc9",
+      "business_name": "Farm 5579",
+      "regulation_id": "2026-13615",
+      "path": "/demo/analyses/8d3cad1a848b_2026_13615.json"
+    },
+    {
+      "business_id": "8d3cad1a-848b-4fc0-97a9-7cf77ea77bc9",
+      "business_name": "Farm 5579",
+      "regulation_id": "2026-18317",
+      "path": "/demo/analyses/8d3cad1a848b_2026_18317.json"
+    },
+    {
+      "business_id": "8d3cad1a-848b-4fc0-97a9-7cf77ea77bc9",
+      "business_name": "Farm 5579",
+      "regulation_id": "2026-20849",
+      "path": "/demo/analyses/8d3cad1a848b_2026_20849.json"
+    },
+    {
+      "business_id": "8d3cad1a-848b-4fc0-97a9-7cf77ea77bc9",
+      "business_name": "Farm 5579",
+      "regulation_id": "E8-26620",
+      "path": "/demo/analyses/8d3cad1a848b_E8_26620.json"
+    },
+    {
+      "business_id": "9c1c16b2-47f0-48b0-a428-a8c70dbc91b6",
+      "business_name": "Sullivan Farm",
+      "regulation_id": "2019-12411",
+      "path": "/demo/analyses/9c1c16b247f0_2019_12411.json"
+    },
+    {
+      "business_id": "9c1c16b2-47f0-48b0-a428-a8c70dbc91b6",
+      "business_name": "Sullivan Farm",
+      "regulation_id": "2026-11327",
+      "path": "/demo/analyses/9c1c16b247f0_2026_11327.json"
+    },
+    {
+      "business_id": "9c1c16b2-47f0-48b0-a428-a8c70dbc91b6",
+      "business_name": "Sullivan Farm",
+      "regulation_id": "2026-13615",
+      "path": "/demo/analyses/9c1c16b247f0_2026_13615.json"
+    },
+    {
+      "business_id": "9c1c16b2-47f0-48b0-a428-a8c70dbc91b6",
+      "business_name": "Sullivan Farm",
+      "regulation_id": "2026-18317",
+      "path": "/demo/analyses/9c1c16b247f0_2026_18317.json"
+    },
+    {
+      "business_id": "9c1c16b2-47f0-48b0-a428-a8c70dbc91b6",
+      "business_name": "Sullivan Farm",
+      "regulation_id": "2026-20849",
+      "path": "/demo/analyses/9c1c16b247f0_2026_20849.json"
+    },
+    {
+      "business_id": "9c1c16b2-47f0-48b0-a428-a8c70dbc91b6",
+      "business_name": "Sullivan Farm",
+      "regulation_id": "E8-26620",
+      "path": "/demo/analyses/9c1c16b247f0_E8_26620.json"
+    },
+    {
+      "business_id": "a4431726-4534-4c5a-9047-681c743f6fe0",
+      "business_name": "Piggybank Sow",
+      "regulation_id": "2019-12411",
+      "path": "/demo/analyses/a44317264534_2019_12411.json"
+    },
+    {
+      "business_id": "a4431726-4534-4c5a-9047-681c743f6fe0",
+      "business_name": "Piggybank Sow",
+      "regulation_id": "2026-11327",
+      "path": "/demo/analyses/a44317264534_2026_11327.json"
+    },
+    {
+      "business_id": "a4431726-4534-4c5a-9047-681c743f6fe0",
+      "business_name": "Piggybank Sow",
+      "regulation_id": "2026-13615",
+      "path": "/demo/analyses/a44317264534_2026_13615.json"
+    },
+    {
+      "business_id": "a4431726-4534-4c5a-9047-681c743f6fe0",
+      "business_name": "Piggybank Sow",
+      "regulation_id": "2026-18317",
+      "path": "/demo/analyses/a44317264534_2026_18317.json"
+    },
+    {
+      "business_id": "a4431726-4534-4c5a-9047-681c743f6fe0",
+      "business_name": "Piggybank Sow",
+      "regulation_id": "2026-20849",
+      "path": "/demo/analyses/a44317264534_2026_20849.json"
+    },
+    {
+      "business_id": "a4431726-4534-4c5a-9047-681c743f6fe0",
+      "business_name": "Piggybank Sow",
+      "regulation_id": "E8-26620",
+      "path": "/demo/analyses/a44317264534_E8_26620.json"
+    },
+    {
+      "business_id": "d84b9096-2206-4ebb-8aee-89a00bf5aa5f",
+      "business_name": "P-14C",
+      "regulation_id": "2019-12411",
+      "path": "/demo/analyses/d84b90962206_2019_12411.json"
+    },
+    {
+      "business_id": "d84b9096-2206-4ebb-8aee-89a00bf5aa5f",
+      "business_name": "P-14C",
+      "regulation_id": "2026-11327",
+      "path": "/demo/analyses/d84b90962206_2026_11327.json"
+    },
+    {
+      "business_id": "d84b9096-2206-4ebb-8aee-89a00bf5aa5f",
+      "business_name": "P-14C",
+      "regulation_id": "2026-13615",
+      "path": "/demo/analyses/d84b90962206_2026_13615.json"
+    },
+    {
+      "business_id": "d84b9096-2206-4ebb-8aee-89a00bf5aa5f",
+      "business_name": "P-14C",
+      "regulation_id": "2026-18317",
+      "path": "/demo/analyses/d84b90962206_2026_18317.json"
+    },
+    {
+      "business_id": "d84b9096-2206-4ebb-8aee-89a00bf5aa5f",
+      "business_name": "P-14C",
+      "regulation_id": "2026-20849",
+      "path": "/demo/analyses/d84b90962206_2026_20849.json"
+    },
+    {
+      "business_id": "d84b9096-2206-4ebb-8aee-89a00bf5aa5f",
+      "business_name": "P-14C",
+      "regulation_id": "E8-26620",
+      "path": "/demo/analyses/d84b90962206_E8_26620.json"
+    },
+    {
+      "business_id": "d86503ce-7aeb-42ce-9025-20c9bcd479b7",
+      "business_name": "Young Nursery #1 & #2",
+      "regulation_id": "2019-12411",
+      "path": "/demo/analyses/d86503ce7aeb_2019_12411.json"
+    },
+    {
+      "business_id": "d86503ce-7aeb-42ce-9025-20c9bcd479b7",
+      "business_name": "Young Nursery #1 & #2",
+      "regulation_id": "2026-11327",
+      "path": "/demo/analyses/d86503ce7aeb_2026_11327.json"
+    },
+    {
+      "business_id": "d86503ce-7aeb-42ce-9025-20c9bcd479b7",
+      "business_name": "Young Nursery #1 & #2",
+      "regulation_id": "2026-13615",
+      "path": "/demo/analyses/d86503ce7aeb_2026_13615.json"
+    },
+    {
+      "business_id": "d86503ce-7aeb-42ce-9025-20c9bcd479b7",
+      "business_name": "Young Nursery #1 & #2",
+      "regulation_id": "2026-18317",
+      "path": "/demo/analyses/d86503ce7aeb_2026_18317.json"
+    },
+    {
+      "business_id": "d86503ce-7aeb-42ce-9025-20c9bcd479b7",
+      "business_name": "Young Nursery #1 & #2",
+      "regulation_id": "2026-20849",
+      "path": "/demo/analyses/d86503ce7aeb_2026_20849.json"
+    },
+    {
+      "business_id": "d86503ce-7aeb-42ce-9025-20c9bcd479b7",
+      "business_name": "Young Nursery #1 & #2",
+      "regulation_id": "E8-26620",
+      "path": "/demo/analyses/d86503ce7aeb_E8_26620.json"
+    },
+    {
+      "business_id": "e681a8a3-3ae5-4d4e-8fe7-4ff8d280dce2",
+      "business_name": "Calvin L. Rouse Farm",
+      "regulation_id": "2019-12411",
+      "path": "/demo/analyses/e681a8a33ae5_2019_12411.json"
+    },
+    {
+      "business_id": "e681a8a3-3ae5-4d4e-8fe7-4ff8d280dce2",
+      "business_name": "Calvin L. Rouse Farm",
+      "regulation_id": "2026-11327",
+      "path": "/demo/analyses/e681a8a33ae5_2026_11327.json"
+    },
+    {
+      "business_id": "e681a8a3-3ae5-4d4e-8fe7-4ff8d280dce2",
+      "business_name": "Calvin L. Rouse Farm",
+      "regulation_id": "2026-13615",
+      "path": "/demo/analyses/e681a8a33ae5_2026_13615.json"
+    },
+    {
+      "business_id": "e681a8a3-3ae5-4d4e-8fe7-4ff8d280dce2",
+      "business_name": "Calvin L. Rouse Farm",
+      "regulation_id": "2026-18317",
+      "path": "/demo/analyses/e681a8a33ae5_2026_18317.json"
+    },
+    {
+      "business_id": "e681a8a3-3ae5-4d4e-8fe7-4ff8d280dce2",
+      "business_name": "Calvin L. Rouse Farm",
+      "regulation_id": "2026-20849",
+      "path": "/demo/analyses/e681a8a33ae5_2026_20849.json"
+    },
     {
       "business_id": "e681a8a3-3ae5-4d4e-8fe7-4ff8d280dce2",
       "business_name": "Calvin L. Rouse Farm",
       "regulation_id": "E8-26620",
       "path": "/demo/analyses/e681a8a33ae5_E8_26620.json"
+    },
+    {
+      "business_id": "e79fed7a-ef73-41ce-8c84-f0b53059b015",
+      "business_name": "Farm 91 / Farm 3091",
+      "regulation_id": "2019-12411",
+      "path": "/demo/analyses/e79fed7aef73_2019_12411.json"
+    },
+    {
+      "business_id": "e79fed7a-ef73-41ce-8c84-f0b53059b015",
+      "business_name": "Farm 91 / Farm 3091",
+      "regulation_id": "2026-11327",
+      "path": "/demo/analyses/e79fed7aef73_2026_11327.json"
+    },
+    {
+      "business_id": "e79fed7a-ef73-41ce-8c84-f0b53059b015",
+      "business_name": "Farm 91 / Farm 3091",
+      "regulation_id": "2026-13615",
+      "path": "/demo/analyses/e79fed7aef73_2026_13615.json"
+    },
+    {
+      "business_id": "e79fed7a-ef73-41ce-8c84-f0b53059b015",
+      "business_name": "Farm 91 / Farm 3091",
+      "regulation_id": "2026-18317",
+      "path": "/demo/analyses/e79fed7aef73_2026_18317.json"
+    },
+    {
+      "business_id": "e79fed7a-ef73-41ce-8c84-f0b53059b015",
+      "business_name": "Farm 91 / Farm 3091",
+      "regulation_id": "2026-20849",
+      "path": "/demo/analyses/e79fed7aef73_2026_20849.json"
+    },
+    {
+      "business_id": "e79fed7a-ef73-41ce-8c84-f0b53059b015",
+      "business_name": "Farm 91 / Farm 3091",
+      "regulation_id": "E8-26620",
+      "path": "/demo/analyses/e79fed7aef73_E8_26620.json"
     }
   ]
 }
