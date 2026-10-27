@@ -19,6 +19,7 @@ Demo: the Vercel deployment of this branch (demo mode: sample data, no backend, 
 - Use a desktop browser at 100% zoom. The tour works on a phone, but the analysis panel is easier to read on a laptop.
 - Click through the tour once beforehand so the map tiles are cached.
 - Keep https://argon-aermod.vercel.app open in a second tab.
+- The tour opens with a one-screen **How RegRadar works** diagram. You can also open it any time from **How it works** in the top bar.
 - Tour controls: **Next**, **Back**, **Skip tour**, or the arrow keys. **Escape** closes the tour.
 - If you'd rather drive the app yourself, skip the tour and click in the same order. The steps below work either way.
 
@@ -28,7 +29,7 @@ Demo: the Vercel deployment of this branch (demo mode: sample data, no backend, 
 
 > North Carolina is the second-largest hog-producing state in the country. There are more than 2,300 animal feeding operations, and most of them sit in a handful of eastern counties like Duplin and Sampson.
 >
-> Every one of these farms runs under environmental permits, and the rules behind those permits change. They change through new EPA rules, court decisions, and deadline extensions. The rules are long, too: the core federal rule for these farms runs to about 80,000 words of legal text.
+> Every one of these farms runs under environmental permits, and the rules behind those permits change. They change through new EPA rules, court decisions, and deadline extensions. The rules are long, too: the core federal rule for these farms runs to over 70,000 words of legal text.
 >
 > Big operators have compliance teams and lawyers. A family farm with 3,000 hogs doesn't. When a rule changes, they find out late, or they have to pay someone to read it for them. Penalties can reach tens of thousands of dollars a day.
 >
@@ -41,6 +42,10 @@ Show the landing page while you say this, then click **Take the guided tour**.
 ## 2. Live demo (2:00–8:30)
 
 Follow the tour. Each step below says what's on screen and what to say. Don't read the tooltip out loud. Let him read it, and you add the color.
+
+**How RegRadar works** (the diagram before step 1, about 1 minute)
+- Left to right: "Rules and farm records come in. The AI reads each rule in two passes, first what it requires, then where this farm falls short. Each farm gets a risk level, gaps, actions and deadlines, and the alert names the farms it hits."
+- Point at the tags: "Amber means it runs in the full version with the server and AI key. This online demo shows a saved result from it. 'Next step' means it isn't built yet." Then click **Start the tour**.
 
 **Dashboard: what RegRadar watches** (steps 1–3, about 1 minute)
 - "These are 15 real hog farms taken from North Carolina's permit records, along with the 9 federal EPA rules that apply to them."
