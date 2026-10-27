@@ -44,8 +44,11 @@ Show the landing page while you say this, then click **Take the guided tour**.
 Follow the tour. Each step below says what's on screen and what to say. Don't read the tooltip out loud. Let him read it, and you add the color.
 
 **How RegRadar works** (the diagram before step 1, about 1 minute)
-- Left to right: "Rules and farm records come in. The AI reads each rule in two passes, first what it requires, then where this farm falls short. Each farm gets a risk level, gaps, actions and deadlines, and the alert names the farms it hits."
-- Point at the tags: "Amber means it runs in the full version with the server and AI key. This online demo shows a saved result from it. 'Next step' means it isn't built yet." Then click **Start the tour**.
+- Read it left to right, following the arrows: "Two things come in on the left: the federal rules from the Federal Register, and the permit profiles for 15 North Carolina hog farms."
+- Point at the green box: "In the middle is the AI workflow. It does three things: it finds the passages in each rule that matter, it pulls out every requirement with its legal citation, deadline and penalty, and it compares those against each farm."
+- Then the right column: "The output is a per-farm alert: the gaps, the actions and the deadlines in plain English. And a person reviews it and decides what to do."
+- The automation line at the bottom: "This is what makes it an automation. A rule changes, and it checks it against every farm on its own. The core rule alone is about 70,000 words, close to 300 pages, and nobody reads it by hand. Every finding cites the rule it came from, and a person makes the final call."
+- One honest aside if asked: the footnote says this online demo shows saved results; the live version runs it fresh with a server and an AI key. Then click **Start the tour**.
 
 **Dashboard: what RegRadar watches** (steps 1–3, about 1 minute)
 - "These are 15 real hog farms taken from North Carolina's permit records, along with the 9 federal EPA rules that apply to them."

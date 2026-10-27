@@ -3,200 +3,92 @@
 import { useEffect, useRef } from "react";
 import { createPortal } from "react-dom";
 import {
+  ArrowDown,
   ArrowRight,
-  BadgeCheck,
   Bell,
-  BookOpen,
-  Brain,
-  ClipboardCheck,
-  Database,
-  Gauge,
+  Building2,
+  FileText,
   ListChecks,
-  Newspaper,
-  Scissors,
   Search,
+  ShieldCheck,
+  Sparkles,
   Tractor,
-  CalendarClock,
-  Users,
+  UserCheck,
   X,
   Zap,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 
-type TagKind = "local" | "curated" | "next" | "partial";
+// ── The three steps inside the AI workflow ──────────────────────────────────
+const AI_STEPS: { icon: React.ComponentType<{ className?: string }>; title: string; detail: string }[] = [
+  {
+    icon: Search,
+    title: "Finds the relevant passages",
+    detail: "The parts of the rule that apply.",
+  },
+  {
+    icon: ListChecks,
+    title: "Pulls out each requirement",
+    detail: "With citation, deadline and penalty.",
+  },
+  {
+    icon: Building2,
+    title: "Compares against each farm",
+    detail: "Against its permit and herd size.",
+  },
+];
 
-const TAGS: Record<TagKind, { label: string; className: string }> = {
-  local: {
-    label: "Full local version",
-    className:
-      "border-amber-300 bg-amber-100 text-amber-900 dark:border-amber-800 dark:bg-amber-950/50 dark:text-amber-200",
-  },
-  curated: {
-    label: "Curated examples",
-    className:
-      "border-stone-300 bg-stone-100 text-stone-700 dark:border-stone-700 dark:bg-stone-900/60 dark:text-stone-300",
-  },
-  partial: {
-    label: "Partly built",
-    className:
-      "border-sky-300 bg-sky-100 text-sky-900 dark:border-sky-800 dark:bg-sky-950/50 dark:text-sky-200",
-  },
-  next: {
-    label: "Next step",
-    className:
-      "border-stone-300 bg-white text-stone-600 dark:border-stone-700 dark:bg-stone-900 dark:text-stone-300",
-  },
-};
-
-interface Item {
+// ── A labelled stage card in the flow ───────────────────────────────────────
+function Stage({
+  label,
+  icon: Icon,
+  title,
+  detail,
+  tone = "dark",
+  className,
+}: {
+  label: string;
   icon: React.ComponentType<{ className?: string }>;
   title: string;
-  body: string;
-  tag?: TagKind;
-}
-
-interface Column {
-  heading: string;
-  sub: string;
-  tag?: TagKind;
-  items: Item[];
-}
-
-const COLUMNS: Column[] = [
-  {
-    heading: "Where the information comes from",
-    sub: "Three inputs",
-    items: [
-      {
-        icon: BookOpen,
-        title: "Federal rules",
-        body: "9 EPA rules that affect hog farms, from the Federal Register, the official record of U.S. rules.",
-      },
-      {
-        icon: Tractor,
-        title: "Farm profiles",
-        body: "15 North Carolina hog farms from state permit records: herd size, county, permit type.",
-      },
-      {
-        icon: Newspaper,
-        title: "News and alerts",
-        body: "Rule changes and court rulings, each rated high, medium or low.",
-        tag: "curated",
-      },
-    ],
-  },
-  {
-    heading: "How it's processed",
-    sub: "The AI does the reading",
-    tag: "local",
-    items: [
-      {
-        icon: Scissors,
-        title: "Rules split into searchable pieces",
-        body: "Each rule is cut into short passages, indexed so it can be searched by meaning.",
-      },
-      {
-        icon: Brain,
-        title: "AI pass 1: what does the rule require?",
-        body: "It reads the whole rule and lists each requirement, with its citation, deadline and penalty.",
-      },
-      {
-        icon: Search,
-        title: "AI pass 2: where does this farm fall short?",
-        body: "It checks those requirements against one farm's details and flags what's missing.",
-      },
-      {
-        icon: Database,
-        title: "Saved for reuse",
-        body: "Each result is stored, so a farm and rule are never analyzed twice.",
-      },
-    ],
-  },
-  {
-    heading: "What comes out",
-    sub: "For each farm and rule",
-    items: [
-      { icon: Gauge, title: "Risk level", body: "Compliant, needs review or non-compliant, with the AI's confidence." },
-      { icon: ClipboardCheck, title: "Gaps", body: "Specific things to check at this farm." },
-      { icon: ListChecks, title: "Actions", body: "A checklist the farm can work through." },
-      { icon: CalendarClock, title: "Deadlines", body: "Due dates and penalties, in plain English." },
-    ],
-  },
-  {
-    heading: "Who gets alerted",
-    sub: "The people who act on it",
-    items: [
-      {
-        icon: Bell,
-        title: "Alerts name the affected farms",
-        body: "Ranked by severity, with a link to each farm, on the dashboard and alerts page.",
-      },
-      {
-        icon: Users,
-        title: "Farm operators and their consultants",
-        body: "They see what changed, which farms it hits, and what to do next.",
-      },
-      {
-        icon: Zap,
-        title: "Email and text alerts",
-        body: "Push notifications aren't built yet. Today everything shows in the app.",
-        tag: "next",
-      },
-    ],
-  },
-];
-
-const AUTOMATION_POINTS: Item[] = [
-  {
-    icon: Newspaper,
-    title: "Watches for new rules",
-    body: "Rules come straight from the Federal Register's public feed. Today the fetch runs on demand; putting it on a schedule is next.",
-    tag: "next",
-  },
-  {
-    icon: Users,
-    title: "Matches rules to affected farms",
-    body: "Each alert names the farms it applies to. Here those matches are curated; the AI prompt that does the matching is written but not yet switched on.",
-    tag: "partial",
-  },
-  {
-    icon: BadgeCheck,
-    title: "Drafts the compliance check",
-    body: "The AI reads the whole rule (the core one is over 70,000 words, close to 300 book pages) and drafts each farm's check. Nobody reads it by hand.",
-    tag: "local",
-  },
-];
-
-function Tag({ kind }: { kind: TagKind }) {
-  const tag = TAGS[kind];
+  detail: string;
+  tone?: "dark" | "human";
+  className?: string;
+}) {
   return (
-    <span
+    <div
       className={cn(
-        "inline-flex shrink-0 items-center rounded-full border px-1.5 py-px text-[10px] font-semibold leading-4",
-        tag.className
+        "flex h-full flex-col justify-center rounded-xl border border-border bg-card p-4 shadow-sm",
+        className
       )}
     >
-      {tag.label}
-    </span>
+      <p className="text-xs font-semibold uppercase tracking-wider text-primary dark:text-green-400">
+        {label}
+      </p>
+      <div className="mt-2 flex items-center gap-3">
+        <div
+          className={cn(
+            "flex h-10 w-10 shrink-0 items-center justify-center rounded-lg",
+            tone === "human"
+              ? "bg-green-100 text-green-700 dark:bg-green-500/15 dark:text-green-400"
+              : "bg-primary text-primary-foreground"
+          )}
+        >
+          <Icon className="h-5 w-5" />
+        </div>
+        <h3 className="text-base font-semibold leading-snug">{title}</h3>
+      </div>
+      <p className="mt-2 text-sm leading-snug text-muted-foreground">{detail}</p>
+    </div>
   );
 }
 
-function FlowArrow() {
+// Horizontal on desktop, pointing down when the flow stacks on small screens.
+function Connector() {
   return (
-    <div className="flex items-center justify-center py-1 lg:px-0.5 lg:py-0" aria-hidden="true">
-      <svg
-        viewBox="0 0 28 16"
-        className="h-4 w-7 rotate-90 text-primary/70 dark:text-green-400/80 lg:rotate-0"
-        fill="none"
-        stroke="currentColor"
-        strokeWidth="2.25"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      >
-        <path d="M2 8h22" />
-        <path d="M18 2l6 6-6 6" />
-      </svg>
+    <div className="flex items-center justify-center py-0.5 lg:py-0" aria-hidden="true">
+      <ArrowRight className="hidden h-6 w-6 text-green-500 dark:text-green-400 lg:block" />
+      <ArrowDown className="h-5 w-5 text-green-500 dark:text-green-400 lg:hidden" />
     </div>
   );
 }
@@ -251,108 +143,146 @@ export default function HowItWorks({ mode, onStart, onClose }: HowItWorksProps) 
         // Live regions are exempt from the aria-hidden the analysis panel applies to the rest of the page.
         aria-live="polite"
         data-tour-overview=""
-        className="relative w-full max-w-[1180px] overflow-hidden rounded-xl border border-border bg-card text-card-foreground shadow-2xl"
+        // flex-col + max-h keeps the header/footer pinned and lets only the middle scroll as a
+        // fallback on very short viewports, so the top (eyebrow, close, headline) is never clipped.
+        className="animate-fade-in-up relative flex max-h-[90vh] w-full max-w-[1060px] flex-col overflow-hidden rounded-2xl border border-border bg-background text-foreground shadow-2xl"
       >
-        <div className="h-1 bg-primary" />
+        <button
+          type="button"
+          onClick={onClose}
+          aria-label="Close overview"
+          className="absolute right-4 top-4 z-10 rounded-full p-1.5 text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+        >
+          <X className="h-5 w-5" />
+        </button>
 
-        <div className="flex items-start justify-between gap-4 px-6 pb-3 pt-4">
-          <div>
-            <p className="text-[11px] font-semibold uppercase tracking-wide text-primary dark:text-green-400">
-              How RegRadar works
-            </p>
-            <h2 id="how-it-works-title" className="mt-1 text-xl font-semibold leading-snug sm:text-2xl">
-              From a new rule to a farm&rsquo;s to-do list
-            </h2>
-            <p id="how-it-works-sub" className="mt-1 text-sm text-muted-foreground">
-              Information comes in on the left, the AI does the reading in the middle, and each farm gets a
-              clear answer on the right.
-            </p>
-          </div>
-          <button
-            type="button"
-            onClick={onClose}
-            aria-label="Close overview"
-            className="rounded p-1 text-muted-foreground transition-colors hover:text-foreground"
+        {/* ── Header ─────────────────────────────────────────────────────── */}
+        <div className="shrink-0 px-6 pb-3 pt-5 sm:px-8">
+          <p className="flex items-center gap-2 text-xs font-semibold uppercase tracking-wider text-primary dark:text-green-400">
+            <span className="h-px w-6 bg-current" aria-hidden="true" />
+            How RegRadar works
+          </p>
+          <h2
+            id="how-it-works-title"
+            className="mt-2 max-w-2xl pr-8 text-xl font-bold leading-tight tracking-tight sm:text-2xl"
           >
-            <X className="h-5 w-5" />
-          </button>
+            An AI workflow that reads every rule, so people don&rsquo;t have to.
+          </h2>
+          <p id="how-it-works-sub" className="mt-1.5 max-w-2xl text-sm leading-relaxed text-muted-foreground sm:text-[15px]">
+            From a new federal rule to a plain-English to-do list for each farm.
+          </p>
         </div>
 
-        <div className="px-6">
-          <ol className="grid grid-cols-1 gap-1 lg:grid-cols-[1fr_auto_1.3fr_auto_0.95fr_auto_1fr] lg:gap-0">
-            {COLUMNS.map((col, i) => (
-              <li key={col.heading} className="contents">
-                <section
-                  aria-labelledby={`hiw-col-${i}`}
-                  className="flex flex-col rounded-lg border border-border/70 bg-muted/40 p-3"
-                >
-                  <header className="mb-2 flex items-center gap-2">
-                    <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary text-xs font-bold text-primary-foreground">
-                      {i + 1}
-                    </span>
-                    <div className="min-w-0">
-                      <h3 id={`hiw-col-${i}`} className="text-sm font-semibold leading-tight">
-                        {col.heading}
-                      </h3>
-                      <p className="flex flex-wrap items-center gap-1.5 text-[11px] text-muted-foreground">
-                        {col.sub}
-                        {col.tag && <Tag kind={col.tag} />}
-                      </p>
-                    </div>
-                  </header>
-                  <ul className="flex flex-1 flex-col gap-1.5">
-                    {col.items.map((item) => (
-                      <li key={item.title} className="rounded-md border border-border/60 bg-card px-2.5 py-1.5">
-                        <div className="flex items-start gap-2">
-                          <item.icon className="mt-0.5 h-4 w-4 shrink-0 text-primary dark:text-green-400" />
-                          <div className="min-w-0">
-                            <p className="text-[13px] font-semibold leading-snug">{item.title}</p>
-                            <p className="mt-0.5 text-xs leading-snug text-muted-foreground">{item.body}</p>
-                            {item.tag && (
-                              <div className="mt-1">
-                                <Tag kind={item.tag} />
-                              </div>
-                            )}
-                          </div>
-                        </div>
-                      </li>
-                    ))}
-                  </ul>
-                </section>
-                {i < COLUMNS.length - 1 && <FlowArrow />}
-              </li>
-            ))}
-          </ol>
-
-          <section
-            aria-labelledby="hiw-automation"
-            className="mt-3 rounded-lg border-2 border-green-400/70 bg-green-50 p-3 dark:bg-green-950/30"
-          >
-            <h3 id="hiw-automation" className="flex items-center gap-2 text-sm font-semibold">
-              <Zap className="h-4 w-4 text-primary dark:text-green-400" />
-              What makes this an automation
-            </h3>
-            <ul className="mt-2 grid grid-cols-1 gap-2 md:grid-cols-3">
-              {AUTOMATION_POINTS.map((point) => (
-                <li key={point.title} className="flex items-start gap-2">
-                  <point.icon className="mt-0.5 h-4 w-4 shrink-0 text-primary dark:text-green-400" />
-                  <div className="min-w-0">
-                    <p className="flex flex-wrap items-center gap-1.5 text-[13px] font-semibold leading-snug">
-                      {point.title}
-                      {point.tag && <Tag kind={point.tag} />}
-                    </p>
-                    <p className="mt-0.5 text-xs leading-snug text-muted-foreground">{point.body}</p>
+        {/* ── Diagram (scrolls only as a fallback on tiny viewports) ─────── */}
+        <div className="min-h-0 flex-1 overflow-y-auto px-6 pb-4 pt-1 sm:px-8">
+          <div className="grid grid-cols-1 items-stretch gap-2.5 lg:grid-cols-[minmax(0,1fr)_auto_minmax(0,1.5fr)_auto_minmax(0,1fr)] lg:gap-2">
+            {/* Source */}
+            <div className="flex h-full flex-col rounded-xl border border-border bg-card p-4 shadow-sm">
+              <p className="text-xs font-semibold uppercase tracking-wider text-primary dark:text-green-400">
+                Source
+              </p>
+              <div className="mt-2 flex flex-1 flex-col gap-2.5">
+                <div className="flex flex-1 items-center gap-3 rounded-lg border border-border/70 bg-muted/40 px-3 py-2.5">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary text-primary-foreground">
+                    <FileText className="h-5 w-5" />
                   </div>
-                </li>
-              ))}
-            </ul>
-          </section>
+                  <div className="min-w-0">
+                    <p className="text-[15px] font-semibold leading-snug">Federal rules</p>
+                    <p className="text-sm leading-snug text-muted-foreground">From the Federal Register</p>
+                  </div>
+                </div>
+                <div className="flex flex-1 items-center gap-3 rounded-lg border border-border/70 bg-muted/40 px-3 py-2.5">
+                  <div className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-primary text-primary-foreground">
+                    <Tractor className="h-5 w-5" />
+                  </div>
+                  <div className="min-w-0">
+                    <p className="text-[15px] font-semibold leading-snug">Farm profiles</p>
+                    <p className="text-sm leading-snug text-muted-foreground">15 NC hog farms</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <Connector />
+
+            {/* AI workflow — the heart of the diagram */}
+            <div className="flex h-full flex-col rounded-xl border-2 border-green-400/70 bg-green-50 p-4 shadow-sm dark:bg-green-950/30">
+              <span className="inline-flex w-fit items-center gap-1.5 rounded-full bg-primary px-2.5 py-1 text-xs font-semibold uppercase tracking-wider text-primary-foreground">
+                <Sparkles className="h-3.5 w-3.5" />
+                AI workflow
+              </span>
+              <ol className="mt-2.5 flex flex-1 flex-col justify-between gap-1.5">
+                {AI_STEPS.map((step, i) => (
+                  <li key={step.title}>
+                    <div className="flex items-center gap-3 rounded-lg border border-border bg-card px-3 py-2">
+                      <span className="flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-primary text-xs font-bold text-primary-foreground">
+                        {i + 1}
+                      </span>
+                      <div className="min-w-0 flex-1">
+                        <p className="text-[15px] font-semibold leading-snug">{step.title}</p>
+                        <p className="text-sm leading-snug text-muted-foreground">{step.detail}</p>
+                      </div>
+                      <step.icon className="h-5 w-5 shrink-0 text-primary dark:text-green-400" />
+                    </div>
+                    {i < AI_STEPS.length - 1 && (
+                      <div className="flex justify-center py-px" aria-hidden="true">
+                        <ArrowDown className="h-4 w-4 text-green-500 dark:text-green-400" />
+                      </div>
+                    )}
+                  </li>
+                ))}
+              </ol>
+            </div>
+
+            <Connector />
+
+            {/* Output + person, stacked */}
+            <div className="flex flex-col gap-2.5">
+              <Stage
+                label="Output"
+                icon={Bell}
+                title="A per-farm alert"
+                detail="Gaps, actions and deadlines."
+                className="flex-1"
+              />
+              <div className="flex justify-center" aria-hidden="true">
+                <ArrowDown className="h-5 w-5 text-green-500 dark:text-green-400" />
+              </div>
+              <Stage
+                label="Person"
+                icon={UserCheck}
+                title="A person reviews and acts"
+                detail="Decides what to do next."
+                tone="human"
+                className="flex-1"
+              />
+            </div>
+          </div>
+
+          {/* ── What makes it an automation + trust ──────────────────────── */}
+          <div className="mt-3 rounded-xl border border-green-400/50 bg-green-50/60 px-4 py-3 dark:bg-green-950/20">
+            <p className="flex items-start gap-2.5 text-[15px] font-semibold leading-snug sm:items-center">
+              <Zap className="mt-0.5 h-5 w-5 shrink-0 text-primary dark:text-green-400 sm:mt-0" />
+              A new rule comes in and every farm gets checked automatically &mdash; nobody reads the ~300
+              pages by hand.
+            </p>
+            <div className="mt-2.5 flex flex-col gap-2 border-t border-green-400/30 pt-2.5 text-sm font-medium sm:flex-row sm:items-center sm:gap-6">
+              <span className="flex items-center gap-2">
+                <ShieldCheck className="h-4 w-4 shrink-0 text-primary dark:text-green-400" />
+                Every finding cites the rule it came from
+              </span>
+              <span className="flex items-center gap-2">
+                <UserCheck className="h-4 w-4 shrink-0 text-primary dark:text-green-400" />
+                A person makes the final call
+              </span>
+            </div>
+          </div>
         </div>
 
-        <div className="mt-3 flex flex-col-reverse items-stretch justify-between gap-3 border-t border-border/60 bg-muted/30 px-6 py-3 sm:flex-row sm:items-center">
-          <p className="text-[11px] leading-snug text-muted-foreground">
-            <Tag kind="local" /> runs when RegRadar is installed with its server and AI key. This online demo
-            shows a saved result from that version.
+        {/* ── Footer ─────────────────────────────────────────────────────── */}
+        <div className="flex shrink-0 flex-col-reverse items-stretch justify-between gap-3 border-t border-border bg-muted/40 px-6 py-3 sm:flex-row sm:items-center sm:px-8">
+          <p className="text-sm leading-snug text-muted-foreground">
+            This online demo shows saved results.
           </p>
           <div className="flex shrink-0 items-center justify-end gap-2">
             <Button type="button" variant="outline" size="sm" className="h-9" onClick={onClose}>
