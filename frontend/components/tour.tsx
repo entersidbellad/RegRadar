@@ -20,6 +20,10 @@ const WAIT_TIMEOUT_MS = 8000;
 const POLL_MS = 80;
 const SETTLE_MS = 350;
 const SPOTLIGHT_PAD = 8;
+// Keeps the highlight ring fully on screen when the target runs past the viewport edge.
+const RING_INSET = 6;
+const SETTLE_TIMEOUT_MS = 1500;
+const DIM = "rgba(12, 22, 8, 0.72)";
 const CARD_GAP = 14;
 const VIEWPORT_MARGIN = 12;
 const CARD_WIDTH = 360;
@@ -93,25 +97,64 @@ function closeOpenPanel() {
   document.querySelector<HTMLElement>('[role="dialog"] [data-sheet-close]')?.click();
 }
 
-function scrollTargetIntoView(el: HTMLElement) {
+function scrollTargetIntoView(el: HTMLElement, behavior: ScrollBehavior) {
   const narrow = window.innerWidth < NARROW_BREAKPOINT;
   const fitsWithCard = el.getBoundingClientRect().height + 2 * CARD_ROOM <= window.innerHeight;
-  el.scrollIntoView({ block: !narrow && fitsWithCard ? "center" : "start", behavior: "smooth" });
+  el.scrollIntoView({ block: !narrow && fitsWithCard ? "center" : "start", behavior });
+}
+
+function isInView(el: HTMLElement): boolean {
+  const r = el.getBoundingClientRect();
+  const visible = Math.min(r.bottom, window.innerHeight) - Math.max(r.top, 0);
+  return visible >= Math.min(r.height, window.innerHeight) / 2;
+}
+
+// Resolves once the element is on screen and smooth scrolling / panel slide-ins have stopped moving
+// it; if that hasn't happened by the deadline, jumps it into view instead.
+function waitUntilSettledInView(el: HTMLElement, cancelled: () => boolean): Promise<void> {
+  return new Promise((resolve) => {
+    const startedAt = Date.now();
+    const deadline = startedAt + SETTLE_TIMEOUT_MS;
+    let last = "";
+    let stableFrames = 0;
+    const tick = () => {
+      const r = el.getBoundingClientRect();
+      const key = `${Math.round(r.top)},${Math.round(r.left)},${Math.round(r.width)},${Math.round(r.height)}`;
+      stableFrames = key === last ? stableFrames + 1 : 0;
+      last = key;
+      const settled = stableFrames >= 4 && Date.now() - startedAt > 150 && isInView(el);
+      if (cancelled() || settled) return resolve();
+      if (Date.now() > deadline) {
+        if (!isInView(el)) scrollTargetIntoView(el, "instant");
+        return resolve();
+      }
+      requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  });
 }
 
 function visibleBox(el: HTMLElement, vw: number, vh: number): Box | null {
   const r = el.getBoundingClientRect();
-  const top = Math.max(r.top - SPOTLIGHT_PAD, 0);
-  const left = Math.max(r.left - SPOTLIGHT_PAD, 0);
-  const bottom = Math.min(r.bottom + SPOTLIGHT_PAD, vh);
-  const right = Math.min(r.right + SPOTLIGHT_PAD, vw);
-  if (bottom - top < 4 || right - left < 4) return null;
+  const top = Math.max(r.top - SPOTLIGHT_PAD, RING_INSET);
+  const left = Math.max(r.left - SPOTLIGHT_PAD, RING_INSET);
+  const bottom = Math.min(r.bottom + SPOTLIGHT_PAD, vh - RING_INSET);
+  const right = Math.min(r.right + SPOTLIGHT_PAD, vw - RING_INSET);
+  if (bottom - top < 16 || right - left < 16) return null;
   return {
     top: Math.round(top),
     left: Math.round(left),
     width: Math.round(right - left),
     height: Math.round(bottom - top),
   };
+}
+
+function keepClearOfDockedCard(spot: Box, cardHeight: number, vh: number, dockTop: boolean): Box {
+  const cardEdge = cardHeight + 2 * VIEWPORT_MARGIN;
+  const top = dockTop ? Math.max(spot.top, cardEdge) : spot.top;
+  const bottom = dockTop ? spot.top + spot.height : Math.min(spot.top + spot.height, vh - cardEdge);
+  if (bottom - top < 40) return spot;
+  return { ...spot, top, height: bottom - top };
 }
 
 function clamp(value: number, min: number, max: number) {
@@ -146,9 +189,11 @@ export function TourProvider({ children }: { children: React.ReactNode }) {
   const pathname = usePathname();
   const [stepIndex, setStepIndex] = useState<number | null>(null);
   const [session, setSession] = useState(0);
-  const [ready, setReady] = useState(false);
-  const [target, setTarget] = useState<HTMLElement | null>(null);
+  // Tagged with its step so the first render of a new step never reuses the previous step's target.
+  const [resolved, setResolved] = useState<{ step: number; session: number; el: HTMLElement | null } | null>(null);
   const runRef = useRef(0);
+  const ready = resolved !== null && resolved.step === stepIndex && resolved.session === session;
+  const target = ready ? resolved.el : null;
 
   const start = useCallback(() => {
     setStepIndex(0);
@@ -159,8 +204,7 @@ export function TourProvider({ children }: { children: React.ReactNode }) {
     rememberFinished();
     runRef.current += 1;
     setStepIndex(null);
-    setTarget(null);
-    setReady(false);
+    setResolved(null);
   }, []);
 
   const next = useCallback(() => {
@@ -182,8 +226,6 @@ export function TourProvider({ children }: { children: React.ReactNode }) {
     const step = TOUR_STEPS[stepIndex];
     const run = ++runRef.current;
     const cancelled = () => runRef.current !== run;
-    setReady(false);
-    setTarget(null);
 
     (async () => {
       if (!step.inPanel) closeOpenPanel();
@@ -201,9 +243,12 @@ export function TourProvider({ children }: { children: React.ReactNode }) {
 
       const el = step.target ? await waitFor(step.target, cancelled) : null;
       if (cancelled()) return;
-      if (el) scrollTargetIntoView(el);
-      setTarget(el);
-      setReady(true);
+      if (el) {
+        scrollTargetIntoView(el, "smooth");
+        await waitUntilSettledInView(el, cancelled);
+        if (cancelled()) return;
+      }
+      setResolved({ step: stepIndex, session, el });
     })();
   }, [stepIndex, session, router]);
 
@@ -302,28 +347,37 @@ function TourOverlay({ stepIndex, target, ready, onNext, onBack, onSkip }: TourO
   if (!measured) return null;
 
   const narrow = viewport.w < NARROW_BREAKPOINT;
-  // On narrow screens the card docks to the bottom, or to the top when the target can't scroll above it.
-  const dockTop = narrow && !!spot && spot.top + spot.height / 2 > viewport.h / 2;
+  // On narrow screens the card docks to the bottom, or to the top when the target sits low on screen.
+  const dockTop = narrow && !!spot && spot.top > viewport.h / 2;
+  const ring = narrow && spot ? keepClearOfDockedCard(spot, cardHeight, viewport.h, dockTop) : spot;
   const cardWidth = Math.min(CARD_WIDTH, viewport.w - 2 * VIEWPORT_MARGIN);
   const position = placeCard(spot, cardWidth, cardHeight, viewport.w, viewport.h);
   const progress = ((stepIndex + 1) / TOUR_STEPS.length) * 100;
 
   return createPortal(
     <div data-tour-ui="">
-      {spot ? (
+      {ring ? (
+        <>
+          <div
+            aria-hidden="true"
+            data-tour-dim="spotlight"
+            className="pointer-events-none fixed z-[10000] rounded-xl"
+            style={{ ...ring, boxShadow: `0 0 0 9999px ${DIM}` }}
+          />
+          <div
+            aria-hidden="true"
+            data-tour-highlight=""
+            className="tour-highlight-ring pointer-events-none fixed z-[10000] rounded-xl border-[3px] border-green-400"
+            style={ring}
+          />
+        </>
+      ) : (
         <div
           aria-hidden="true"
-          className="pointer-events-none fixed z-[10000] rounded-lg ring-2 ring-green-400 transition-all duration-200 ease-out"
-          style={{
-            top: spot.top,
-            left: spot.left,
-            width: spot.width,
-            height: spot.height,
-            boxShadow: "0 0 0 9999px rgba(12, 22, 8, 0.6)",
-          }}
+          data-tour-dim="full"
+          className="pointer-events-none fixed inset-0 z-[10000]"
+          style={{ backgroundColor: DIM }}
         />
-      ) : (
-        <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-[10000] bg-[rgba(12,22,8,0.6)]" />
       )}
 
       <div
