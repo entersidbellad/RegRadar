@@ -12,6 +12,7 @@ import { createPortal } from "react-dom";
 import { usePathname, useRouter } from "next/navigation";
 import { ArrowLeft, ArrowRight, Loader2, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import HowItWorks from "@/components/how-it-works";
 import { TOUR_STEPS } from "@/lib/tour-steps";
 
 const STORAGE_KEY = "regradar-tour";
@@ -33,10 +34,15 @@ const CARD_ROOM = 260;
 
 interface TourContextValue {
   start: () => void;
+  showOverview: () => void;
   active: boolean;
 }
 
-const TourContext = createContext<TourContextValue>({ start: () => {}, active: false });
+const TourContext = createContext<TourContextValue>({
+  start: () => {},
+  showOverview: () => {},
+  active: false,
+});
 
 export function useTour() {
   return useContext(TourContext);
@@ -191,21 +197,42 @@ export function TourProvider({ children }: { children: React.ReactNode }) {
   const [session, setSession] = useState(0);
   // Tagged with its step so the first render of a new step never reuses the previous step's target.
   const [resolved, setResolved] = useState<{ step: number; session: number; el: HTMLElement | null } | null>(null);
+  const [overview, setOverview] = useState<"tour" | "standalone" | null>(null);
   const runRef = useRef(0);
   const ready = resolved !== null && resolved.step === stepIndex && resolved.session === session;
   const target = ready ? resolved.el : null;
 
+  const stopSteps = useCallback(() => {
+    runRef.current += 1;
+    setStepIndex(null);
+    setResolved(null);
+  }, []);
+
   const start = useCallback(() => {
+    stopSteps();
+    setOverview("tour");
+  }, [stopSteps]);
+
+  const showOverview = useCallback(() => {
+    stopSteps();
+    setOverview("standalone");
+  }, [stopSteps]);
+
+  const beginSteps = useCallback(() => {
+    setOverview(null);
     setStepIndex(0);
     setSession((s) => s + 1);
   }, []);
 
   const end = useCallback(() => {
     rememberFinished();
-    runRef.current += 1;
-    setStepIndex(null);
-    setResolved(null);
-  }, []);
+    stopSteps();
+  }, [stopSteps]);
+
+  const closeOverview = useCallback(() => {
+    if (overview === "tour") rememberFinished();
+    setOverview(null);
+  }, [overview]);
 
   const next = useCallback(() => {
     if (stepIndex === null) return;
@@ -218,8 +245,8 @@ export function TourProvider({ children }: { children: React.ReactNode }) {
   }, [stepIndex]);
 
   useEffect(() => {
-    if (stepIndex === null && pathname === AUTO_START_PATH && !hasFinishedTour()) start();
-  }, [pathname, stepIndex, start]);
+    if (stepIndex === null && overview === null && pathname === AUTO_START_PATH && !hasFinishedTour()) start();
+  }, [pathname, stepIndex, overview, start]);
 
   useEffect(() => {
     if (stepIndex === null) return;
@@ -266,8 +293,9 @@ export function TourProvider({ children }: { children: React.ReactNode }) {
   }, [stepIndex, next, back, end]);
 
   return (
-    <TourContext.Provider value={{ start, active: stepIndex !== null }}>
+    <TourContext.Provider value={{ start, showOverview, active: stepIndex !== null || overview !== null }}>
       {children}
+      {overview !== null && <HowItWorks mode={overview} onStart={beginSteps} onClose={closeOverview} />}
       {stepIndex !== null && (
         <TourOverlay
           stepIndex={stepIndex}
