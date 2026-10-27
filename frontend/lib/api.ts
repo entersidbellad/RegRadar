@@ -9,12 +9,26 @@ import {
   mockBusinesses,
   mockRegulations,
   mockAlerts,
-  mockComplianceAnalysis,
+  mockCachedAnalyses,
   getMockBusinessDetail,
+  getMockCachedAnalysisPath,
 } from "./mock-data";
 
 const API_BASE = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
 const USE_MOCKS = process.env.NEXT_PUBLIC_USE_MOCKS === "true";
+
+// ─── Demo mode (NEXT_PUBLIC_USE_MOCKS=true, no backend) ─────────────────────
+
+export const DEMO_MODE = USE_MOCKS;
+
+export const DEMO_LIVE_ANALYSIS_NOTE =
+  "Live AI analysis runs in the full local version of RegRadar. This demo includes a saved analysis for " +
+  mockCachedAnalyses.map((c) => `${c.business_name} against rule ${c.regulation_id}`).join(", ") +
+  ".";
+
+export function hasDemoAnalysis(businessId: string, regulationId: string): boolean {
+  return getMockCachedAnalysisPath(businessId, regulationId) !== undefined;
+}
 
 // ─── Base fetch wrapper ─────────────────────────────────────────────────────
 
@@ -84,14 +98,11 @@ export async function runAnalysis(
   regulationId: string
 ): Promise<ComplianceGapAnalysis> {
   if (USE_MOCKS) {
-    // Simulate network delay
-    await new Promise((r) => setTimeout(r, 1500));
-    return {
-      ...mockComplianceAnalysis,
-      business_id: businessId,
-      regulation_id: regulationId,
-      analysis_date: new Date().toISOString(),
-    };
+    const cachedPath = getMockCachedAnalysisPath(businessId, regulationId);
+    if (!cachedPath) throw new Error(DEMO_LIVE_ANALYSIS_NOTE);
+    const res = await fetch(cachedPath);
+    if (!res.ok) throw new Error(`Failed to load cached analysis: ${res.status}`);
+    return res.json();
   }
   return apiFetch<ComplianceGapAnalysis>("/api/analyze", {
     method: "POST",

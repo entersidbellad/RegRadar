@@ -1,7 +1,7 @@
 "use client";
 
 import { useState, useEffect, useCallback, useRef } from "react";
-import { useRouter, usePathname } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { fetchBusinesses, fetchRegulations, fetchAlerts } from "@/lib/api";
 import type { Business, Regulation, Alert } from "@/lib/types";
 import {
@@ -29,7 +29,6 @@ const TYPE_CONFIG = {
 
 export default function CommandSearch() {
   const router = useRouter();
-  const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<SearchResult[]>([]);
@@ -140,13 +139,12 @@ export default function CommandSearch() {
     return () => document.removeEventListener("keydown", handleKeyDown);
   }, [open, results, activeIdx, handleOpen, handleClose, handleSelect]);
 
-  if (pathname === "/") return null;
-
   if (!open) {
     return (
       <button
         onClick={handleOpen}
-        className="fixed right-6 top-5 z-30 flex items-center gap-2 rounded-lg border border-border bg-card px-3 py-2 text-sm text-muted-foreground shadow-sm transition-colors hover:bg-muted/50"
+        aria-label="Search"
+        className="flex h-9 items-center gap-2 rounded-md border border-border bg-card px-3 text-sm text-muted-foreground transition-colors hover:bg-muted/50"
       >
         <Search className="h-4 w-4" />
         <span className="hidden sm:inline">Search...</span>

@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import { DM_Sans } from "next/font/google";
 import SidebarNav from "@/components/sidebar-nav";
-import CommandSearch from "@/components/command-search";
+import TopBar from "@/components/top-bar";
+import { TourProvider } from "@/components/tour";
 import { Toaster } from "@/components/ui/toaster";
 import "./globals.css";
 
@@ -21,12 +22,16 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={dmSans.className}>
-        <div className="flex h-screen">
-          <SidebarNav />
-          <main className="flex-1 overflow-auto">{children}</main>
-        </div>
-        <CommandSearch />
-        <Toaster />
+        <TourProvider>
+          <div className="flex h-screen">
+            <SidebarNav />
+            <div className="flex min-w-0 flex-1 flex-col">
+              <TopBar />
+              <main className="flex-1 overflow-auto">{children}</main>
+            </div>
+          </div>
+          <Toaster />
+        </TourProvider>
       </body>
     </html>
   );

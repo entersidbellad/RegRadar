@@ -28,8 +28,14 @@ function AgencyBadge({ agency }: { agency: string }) {
   return <Badge variant="secondary" className="text-xs">{agency}</Badge>;
 }
 
-function DocTypeBadge({ type }: { type: string }) {
-  const label = type === "PROPOSED_RULE" ? "Proposed" : type === "RULE" ? "Final Rule" : type;
+// Federal Register seed data uses "Rule"; older fixtures used "RULE".
+function normalizeDocType(type: string) {
+  return type.toUpperCase().replace(/\s+/g, "_");
+}
+
+function DocTypeBadge({ type: rawType }: { type: string }) {
+  const type = normalizeDocType(rawType);
+  const label = type === "PROPOSED_RULE" ? "Proposed" : type === "RULE" ? "Final Rule" : rawType;
   const cls = type === "PROPOSED_RULE"
     ? "border-amber-200 dark:border-amber-900 bg-amber-50 dark:bg-amber-950/30 text-amber-700 dark:text-amber-400"
     : "border-green-200 dark:border-green-900 bg-green-50 dark:bg-green-950/30 text-green-800 dark:text-green-400";
@@ -71,7 +77,7 @@ export default function RegulationsPage() {
       result = result.filter((r) => r.agency === agencyFilter);
     }
     if (typeFilter !== "all") {
-      result = result.filter((r) => r.document_type === typeFilter);
+      result = result.filter((r) => normalizeDocType(r.document_type) === typeFilter);
     }
     return result.sort(
       (a, b) => new Date(b.publication_date).getTime() - new Date(a.publication_date).getTime()
@@ -100,7 +106,7 @@ export default function RegulationsPage() {
         <div>
           <h1 className="text-2xl font-bold text-foreground">Regulations</h1>
           <p className="text-sm text-muted-foreground">
-            Federal and state environmental regulations for CAFO operations
+            Federal EPA rules that affect hog farms and other animal feeding operations
           </p>
         </div>
       </div>

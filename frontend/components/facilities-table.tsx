@@ -14,13 +14,7 @@ import {
 import { ArrowUpDown, Search } from "lucide-react";
 import Link from "next/link";
 import type { Business } from "@/lib/types";
-
-const STATUS_LABELS: Record<string, string> = {
-  compliant: "Compliant",
-  warning: "Warning",
-  non_compliant: "Non-Compliant",
-  unknown: "Unknown",
-};
+import { STATUS_LABELS, STATUS_ORDER } from "@/lib/status";
 
 const STATUS_CLASSES: Record<string, string> = {
   compliant: "bg-green-100 dark:bg-green-950/40 text-green-800 dark:text-green-300 border-green-200 dark:border-green-900",
@@ -129,10 +123,9 @@ export default function FacilitiesTable({ businesses, onRowClick }: FacilitiesTa
           </SelectTrigger>
           <SelectContent>
             <SelectItem value="all">All Statuses</SelectItem>
-            <SelectItem value="compliant">Compliant</SelectItem>
-            <SelectItem value="warning">Warning</SelectItem>
-            <SelectItem value="non_compliant">Non-Compliant</SelectItem>
-            <SelectItem value="unknown">Unknown</SelectItem>
+            {STATUS_ORDER.map((s) => (
+              <SelectItem key={s} value={s}>{STATUS_LABELS[s]}</SelectItem>
+            ))}
           </SelectContent>
         </Select>
         <span className="text-xs text-muted-foreground">

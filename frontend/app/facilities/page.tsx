@@ -5,6 +5,7 @@ import { useSearchParams } from "next/navigation";
 import dynamic from "next/dynamic";
 import type { Business, Regulation } from "@/lib/types";
 import { fetchBusinesses, fetchRegulations } from "@/lib/api";
+import { STATUS_COLORS, STATUS_LABELS, STATUS_ORDER } from "@/lib/status";
 import FacilitiesTable from "@/components/facilities-table";
 import BusinessDetail from "@/components/business-detail";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
@@ -86,7 +87,7 @@ function FacilitiesInner() {
         <div>
           <h1 className="text-2xl font-bold text-foreground">Facilities</h1>
           <p className="text-sm text-muted-foreground">
-            {businesses.length} NC CAFO facilities monitored
+            {businesses.length} hog farms monitored in eastern North Carolina
           </p>
         </div>
         <div className="flex items-center rounded-lg border bg-muted/40 p-0.5">
@@ -135,7 +136,7 @@ function FacilitiesInner() {
             <FacilitiesTable businesses={businesses} onRowClick={handleSelect} />
           </div>
         ) : (
-          <div className="relative h-full">
+          <div data-tour="facilities-map" className="relative h-full">
             <NCMap
               businesses={businesses}
               onMarkerClick={handleSelect}
@@ -147,18 +148,13 @@ function FacilitiesInner() {
                 Facility Status
               </p>
               <div className="space-y-1">
-                {[
-                  { color: "#16a34a", label: "Compliant" },
-                  { color: "#d97706", label: "Warning" },
-                  { color: "#dc2626", label: "Non-Compliant" },
-                  { color: "#78716c", label: "Unknown" },
-                ].map(({ color, label }) => (
-                  <div key={label} className="flex items-center gap-2">
+                {STATUS_ORDER.map((s) => (
+                  <div key={s} className="flex items-center gap-2">
                     <span
                       className="inline-block h-3 w-3 rounded-full"
-                      style={{ backgroundColor: color }}
+                      style={{ backgroundColor: STATUS_COLORS[s] }}
                     />
-                    <span className="text-xs">{label}</span>
+                    <span className="text-xs">{STATUS_LABELS[s]}</span>
                   </div>
                 ))}
               </div>
@@ -171,7 +167,7 @@ function FacilitiesInner() {
                       style={{ backgroundColor: "#dc2626" }}
                     />
                     <span className="text-xs font-medium text-red-600">
-                      Alert ({highlightedIds.length})
+                      Affected by alert ({highlightedIds.length})
                     </span>
                   </div>
                 </>

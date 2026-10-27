@@ -28,18 +28,18 @@ import {
   Loader2,
   Zap,
   Clock,
+  Info,
 } from "lucide-react";
-import { runAnalysis } from "@/lib/api";
+import {
+  runAnalysis,
+  DEMO_MODE,
+  DEMO_LIVE_ANALYSIS_NOTE,
+  hasDemoAnalysis,
+} from "@/lib/api";
+import { STATUS_LABELS } from "@/lib/status";
 import AnalysisResult from "./analysis-result";
 
 const CORE_REG_ID = "E8-26620";
-
-const STATUS_LABELS: Record<string, string> = {
-  compliant: "Compliant",
-  warning: "Warning",
-  non_compliant: "Non-Compliant",
-  unknown: "Unknown",
-};
 
 const STATUS_VARIANTS: Record<
   string,
@@ -97,6 +97,7 @@ interface BusinessDetailProps {
   regulations: Regulation[];
   open: boolean;
   onClose: () => void;
+  onAnalysisComplete?: () => void;
 }
 
 export default function BusinessDetail({
@@ -104,6 +105,7 @@ export default function BusinessDetail({
   regulations,
   open,
   onClose,
+  onAnalysisComplete,
 }: BusinessDetailProps) {
   const [selectedRegId, setSelectedRegId] = useState<string>(CORE_REG_ID);
   const [analyzing, setAnalyzing] = useState(false);
@@ -125,6 +127,7 @@ export default function BusinessDetail({
       const result = await runAnalysis(business.id, selectedRegId);
       setAnalysisResult(result);
       setWasFast(Date.now() - start < 3000);
+      onAnalysisComplete?.();
     } catch (err) {
       setAnalysisError(
         err instanceof Error ? err.message : "Analysis failed"
@@ -146,11 +149,21 @@ export default function BusinessDetail({
 
   if (!business) return null;
 
-  const isCachedReg = selectedRegId === CORE_REG_ID;
+  const isCached = (regId: string) =>
+    DEMO_MODE ? hasDemoAnalysis(business.id, regId) : regId === CORE_REG_ID;
+  const isCachedReg = isCached(selectedRegId);
+  const liveAnalysisUnavailable = DEMO_MODE && !isCachedReg;
 
   return (
     <Sheet open={open} onOpenChange={handleOpenChange}>
-      <SheetContent side="right" className="w-full sm:max-w-lg overflow-y-auto">
+      <SheetContent
+        side="right"
+        className="w-full sm:max-w-lg overflow-y-auto"
+        onInteractOutside={(e) => {
+          // Clicking the guided tour's card shouldn't dismiss the panel it is explaining.
+          if ((e.target as Element | null)?.closest?.("[data-tour-ui]")) e.preventDefault();
+        }}
+      >
         <SheetHeader>
           <SheetTitle className="text-xl">{business.name}</SheetTitle>
           <SheetDescription>
@@ -222,19 +235,25 @@ export default function BusinessDetail({
             </div>
           )}
 
-          <div className="space-y-3">
-            <h3 className="text-sm font-semibold">Run Compliance Analysis</h3>
+          <div data-tour="analysis-form" className="space-y-3">
+            <div>
+              <h3 className="text-sm font-semibold">Run Compliance Analysis</h3>
+              <p className="mt-0.5 text-xs text-muted-foreground">
+                Pick a rule. The AI reads the full rule and checks it against this farm&rsquo;s
+                permit, size and type of operation.
+              </p>
+            </div>
             <Select value={selectedRegId} onValueChange={setSelectedRegId}>
               <SelectTrigger>
                 <SelectValue placeholder="Select a regulation..." />
               </SelectTrigger>
               <SelectContent>
                 {[...regulations]
-                  .sort((a, b) => (a.id === CORE_REG_ID ? -1 : b.id === CORE_REG_ID ? 1 : 0))
+                  .sort((a, b) => Number(isCached(b.id)) - Number(isCached(a.id)))
                   .map((reg) => (
                   <SelectItem key={reg.id} value={reg.id}>
                     <span className="flex items-center gap-1.5">
-                      {reg.id === CORE_REG_ID ? (
+                      {isCached(reg.id) ? (
                         <Zap className="h-3 w-3 shrink-0 text-green-600" />
                       ) : (
                         <Clock className="h-3 w-3 shrink-0 text-muted-foreground" />
@@ -246,16 +265,25 @@ export default function BusinessDetail({
               </SelectContent>
             </Select>
 
-            {!isCachedReg && !analyzing && (
-              <p className="flex items-center gap-1.5 text-xs text-amber-600 dark:text-amber-400">
-                <Clock className="h-3 w-3" />
-                This regulation is not pre-cached. Analysis may take 2-3 minutes.
+            {liveAnalysisUnavailable ? (
+              <p className="flex items-start gap-1.5 rounded-md border border-border/60 bg-muted/40 p-2.5 text-xs text-muted-foreground">
+                <Info className="mt-0.5 h-3 w-3 shrink-0" />
+                {DEMO_LIVE_ANALYSIS_NOTE}
               </p>
+            ) : (
+              !isCachedReg &&
+              !analyzing && (
+                <p className="flex items-center gap-1.5 text-xs text-amber-600 dark:text-amber-400">
+                  <Clock className="h-3 w-3" />
+                  This regulation is not pre-cached. Analysis may take 2-3 minutes.
+                </p>
+              )
             )}
 
             <Button
+              data-tour="analyze-button"
               className="w-full"
-              disabled={!selectedRegId || analyzing}
+              disabled={!selectedRegId || analyzing || liveAnalysisUnavailable}
               onClick={handleAnalyze}
             >
               {analyzing ? (
@@ -293,7 +321,9 @@ export default function BusinessDetail({
               {wasFast && (
                 <div className="flex items-center gap-1.5 text-xs text-green-600 dark:text-green-400">
                   <Zap className="h-3 w-3" />
-                  Returned from cache — instant response
+                  {DEMO_MODE
+                    ? "Saved result: the AI produced this analysis earlier, so it loads instantly."
+                    : "Returned from cache — instant response"}
                 </div>
               )}
               <AnalysisResult analysis={analysisResult} />

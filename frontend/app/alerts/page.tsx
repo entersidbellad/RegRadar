@@ -3,7 +3,7 @@
 import { useEffect, useState, useMemo } from "react";
 import Link from "next/link";
 import type { Alert as AlertType } from "@/lib/types";
-import { fetchAlerts } from "@/lib/api";
+import { fetchAlerts, fetchBusinesses, DEMO_MODE } from "@/lib/api";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Alert, AlertTitle, AlertDescription } from "@/components/ui/alert";
@@ -63,6 +63,7 @@ export default function AlertsPage() {
   const [error, setError] = useState<string | null>(null);
   const [filter, setFilter] = useState<SeverityFilter>("all");
   const [acknowledged, setAcknowledged] = useState<Set<string>>(new Set());
+  const [farmNames, setFarmNames] = useState<Record<string, string>>({});
 
   useEffect(() => {
     loadAlerts();
@@ -72,7 +73,8 @@ export default function AlertsPage() {
     setError(null);
     setLoading(true);
     try {
-      const data = await fetchAlerts();
+      const [data, bizRes] = await Promise.all([fetchAlerts(), fetchBusinesses()]);
+      setFarmNames(Object.fromEntries(bizRes.items.map((b) => [b.id, b.name])));
       const sorted = [...data].sort(
         (a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
       );
@@ -113,14 +115,21 @@ export default function AlertsPage() {
             <Badge variant="secondary">{alerts.length} active</Badge>
           )}
         </div>
-        <div className="flex items-center gap-2 text-xs text-muted-foreground">
-          <Clock className="h-3 w-3" />
-          <span>Live monitoring active</span>
-          <span className="relative flex h-2 w-2">
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" />
-            <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500" />
-          </span>
-        </div>
+        {DEMO_MODE ? (
+          <div className="hidden items-center gap-2 text-xs text-muted-foreground sm:flex">
+            <Clock className="h-3 w-3" />
+            <span>Sample alerts for the demo</span>
+          </div>
+        ) : (
+          <div className="flex items-center gap-2 text-xs text-muted-foreground">
+            <Clock className="h-3 w-3" />
+            <span>Live monitoring active</span>
+            <span className="relative flex h-2 w-2">
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-green-400 opacity-75" />
+              <span className="relative inline-flex h-2 w-2 rounded-full bg-green-500" />
+            </span>
+          </div>
+        )}
       </div>
 
       {/* Severity summary + filter tabs */}
@@ -174,6 +183,7 @@ export default function AlertsPage() {
               return (
                 <Card
                   key={alert.id}
+                  data-alert-id={alert.id}
                   className={cn(
                     "border-l-4 transition-all duration-300",
                     sev.border,
@@ -190,7 +200,7 @@ export default function AlertsPage() {
                       </Badge>
                     </div>
                     <p className="text-xs text-muted-foreground">
-                      ID: {alert.regulation_id} &middot; {formatTimestamp(alert.timestamp)}
+                      {formatTimestamp(alert.timestamp)}
                     </p>
                   </CardHeader>
 
@@ -199,14 +209,25 @@ export default function AlertsPage() {
 
                     <Separator />
 
-                    <div className="flex items-center justify-between flex-wrap gap-2">
-                      <div className="flex items-center gap-2 text-xs text-muted-foreground">
-                        <Building2 className="h-3.5 w-3.5" />
-                        <span>
+                    <div data-tour="alert-affected" className="flex items-end justify-between flex-wrap gap-3">
+                      <div className="min-w-0 space-y-1.5">
+                        <p className="flex items-center gap-2 text-xs font-medium text-foreground">
+                          <Building2 className="h-3.5 w-3.5 text-muted-foreground" />
                           {alert.affected_business_ids.length}{" "}
-                          {alert.affected_business_ids.length === 1 ? "facility" : "facilities"}{" "}
-                          affected
-                        </span>
+                          {alert.affected_business_ids.length === 1 ? "farm" : "farms"} affected
+                        </p>
+                        <ul className="flex flex-wrap gap-1.5">
+                          {alert.affected_business_ids.map((id) => (
+                            <li key={id}>
+                              <Link
+                                href={`/facilities/${id}`}
+                                className="inline-flex rounded-full border border-border/70 bg-card px-2 py-0.5 text-xs text-foreground transition-colors hover:bg-muted"
+                              >
+                                {farmNames[id] ?? "Unknown farm"}
+                              </Link>
+                            </li>
+                          ))}
+                        </ul>
                       </div>
 
                       <div className="flex items-center gap-2">
@@ -235,7 +256,7 @@ export default function AlertsPage() {
                               href={`/facilities?highlight=${alert.affected_business_ids.join(",")}`}
                             >
                               <ExternalLink className="h-3 w-3" />
-                              View Facilities
+                              Show on map
                             </Link>
                           </Button>
                         )}
