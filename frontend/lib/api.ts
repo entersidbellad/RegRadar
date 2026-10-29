@@ -22,8 +22,8 @@ const USE_MOCKS = process.env.NEXT_PUBLIC_USE_MOCKS === "true";
 export const DEMO_MODE = USE_MOCKS;
 
 export const DEMO_LIVE_ANALYSIS_NOTE =
-  "Live AI analysis runs in the full local version of RegRadar. This demo includes a saved analysis for " +
-  mockCachedAnalyses.map((c) => `${c.business_name} against rule ${c.regulation_id}`).join(", ") +
+  "Live AI analysis runs in the full local version of RegRadar. This demo includes saved results (real run, Oct 26, 2026) for every farm against rules " +
+  Array.from(new Set(mockCachedAnalyses.map((c) => c.regulation_id))).join(", ") +
   ".";
 
 export function hasDemoAnalysis(businessId: string, regulationId: string): boolean {

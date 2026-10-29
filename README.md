@@ -1,6 +1,6 @@
 # RegRadar
 
-AI-powered environmental compliance monitoring for NC hog farm CAFOs. Scrapes federal regulations from the Federal Register, matches them against facility profiles, and generates plain-language compliance gap analyses using Google Gemini 2.5 Flash.
+AI-powered environmental compliance monitoring for NC hog farm CAFOs. Scrapes federal regulations from the Federal Register, matches them against facility profiles, and generates plain-language compliance gap analyses using Google Gemini (the live demo's data is a real run with Gemini 3.1 Pro on Oct 26, 2026; re-checked Oct 28, 2026).
 
 Built for **HackDuke: Code for Good**.
 
@@ -107,7 +107,7 @@ NEXT_PUBLIC_USE_MOCKS=false   # true = mock data, no backend needed
 | Layer | Technology | Notes |
 |-------|-----------|-------|
 | Backend | Python 3.13, FastAPI, aiosqlite | Fully async, CORS enabled |
-| LLM | Google Gemini 2.5 Flash | Two-pass analysis, structured JSON output, temperature 0.2 |
+| LLM | Google Gemini (default `gemini-2.5-flash`, set `GEMINI_MODEL`; demo data from `gemini-3.1-pro-preview`) | Two-pass analysis, structured JSON output, temperature 0.2 |
 | Vector DB | ChromaDB (embedded) | `all-MiniLM-L6-v2` embeddings, ~4,700 chunks |
 | Database | SQLite | 3 tables: businesses, regulations, analyses |
 | Frontend | Next.js 14, TypeScript, Tailwind CSS | App Router, shadcn/ui components |

@@ -19,6 +19,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import { WEEKLY_CHECK_NOTE } from "@/lib/data-snapshot";
 
 // ── The three steps inside the AI workflow ──────────────────────────────────
 const AI_STEPS: { icon: React.ComponentType<{ className?: string }>; title: string; detail: string }[] = [
@@ -282,7 +283,8 @@ export default function HowItWorks({ mode, onStart, onClose }: HowItWorksProps) 
         {/* ── Footer ─────────────────────────────────────────────────────── */}
         <div className="flex shrink-0 flex-col-reverse items-stretch justify-between gap-3 border-t border-border bg-muted/40 px-6 py-3 sm:flex-row sm:items-center sm:px-8">
           <p className="text-sm leading-snug text-muted-foreground">
-            This online demo shows saved results.
+            This online demo shows saved results from a real run on Oct 26, 2026.{" "}
+            <span className="font-medium text-foreground">{WEEKLY_CHECK_NOTE}</span>
           </p>
           <div className="flex shrink-0 items-center justify-end gap-2">
             <Button type="button" variant="outline" size="sm" className="h-9" onClick={onClose}>

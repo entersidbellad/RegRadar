@@ -38,7 +38,7 @@ export const TOUR_STEPS: TourStep[] = [
     route: "/dashboard",
     target: '[data-tour="kpis"]',
     title: "What RegRadar watches",
-    body: "15 real hog farms from North Carolina's permit records and the 9 federal EPA rules that apply to them. These cards give the big picture: farms monitored, farms needing attention, open alerts and rules tracked.",
+    body: "15 real hog farms from North Carolina's permit records and the 13 federal rules tracked for them. These cards give the big picture: farms monitored, farms needing attention, open alerts and rules tracked.",
     idc: "the same watcher tracks news and moves from P1 partners.",
   },
   {
@@ -46,7 +46,7 @@ export const TOUR_STEPS: TourStep[] = [
     route: "/dashboard",
     target: '[data-tour="dashboard-map"]',
     title: "Where the farms are",
-    body: "Each dot is a farm, colored by its latest check: green is compliant, amber needs review, red is non-compliant and gray hasn't been analyzed yet. In this demo, one farm has a saved analysis.",
+    body: "Each dot is a farm, colored by its latest check: green is compliant, amber needs review, red is non-compliant and gray hasn't been analyzed yet. In this demo, every farm has saved results from a real AI run on Oct 26, 2026.",
   },
   {
     id: "alert",
@@ -128,7 +128,7 @@ export const TOUR_STEPS: TourStep[] = [
     prepare: [OPEN_PANEL, RUN_ANALYSIS],
     inPanel: true,
     title: "The rule, in plain English",
-    body: "Every requirement the AI found, with the exact legal citation, a plain-English summary, and any deadline or penalty. This rule produced 76 of them.",
+    body: "Every requirement the AI found, with the exact legal citation, a plain-English summary, and any deadline or penalty. This rule produced 10 of them.",
     idc: "every partner signal is summarized with a link to its source.",
   },
   {
