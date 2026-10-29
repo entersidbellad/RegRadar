@@ -16,7 +16,8 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { AlertTriangle, BookOpen, Calendar, ChevronDown, ChevronUp } from "lucide-react";
+import { AlertTriangle, BookOpen, Calendar, CheckCircle2, ChevronDown, ChevronUp } from "lucide-react";
+import { SNAPSHOT_NOTE, WEEKLY_CHECK_NOTE } from "@/lib/data-snapshot";
 
 function AgencyBadge({ agency }: { agency: string }) {
   if (agency === "EPA") {
@@ -108,6 +109,14 @@ export default function RegulationsPage() {
           <p className="text-sm text-muted-foreground">
             Federal EPA rules that affect hog farms and other animal feeding operations
           </p>
+          <p
+            data-testid="weekly-check-note"
+            className="mt-2 flex flex-wrap items-center gap-x-1.5 gap-y-0.5 text-sm text-muted-foreground"
+          >
+            <CheckCircle2 className="h-4 w-4 shrink-0 text-primary dark:text-green-400" aria-hidden="true" />
+            <span className="font-medium text-foreground">{WEEKLY_CHECK_NOTE}</span>
+            <span>{SNAPSHOT_NOTE}</span>
+          </p>
         </div>
       </div>
 
@@ -160,7 +169,7 @@ export default function RegulationsPage() {
                       <DocTypeBadge type={reg.document_type} />
                       <span className="ml-auto flex items-center gap-1 text-xs text-muted-foreground">
                         <Calendar className="h-3 w-3" />
-                        {new Date(reg.publication_date).toLocaleDateString()}
+                        {new Date(reg.publication_date).toLocaleDateString(undefined, { timeZone: "UTC" })}
                       </span>
                     </div>
                     <CardTitle className="text-base font-semibold leading-snug text-foreground">
@@ -177,7 +186,7 @@ export default function RegulationsPage() {
                         <span>ID: {reg.id}</span>
                         {reg.effective_date && (
                           <span>
-                            Effective: {new Date(reg.effective_date).toLocaleDateString()}
+                            Effective: {new Date(reg.effective_date).toLocaleDateString(undefined, { timeZone: "UTC" })}
                           </span>
                         )}
                       </div>

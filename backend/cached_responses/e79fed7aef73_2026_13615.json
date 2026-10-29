@@ -1,0 +1,17 @@
+{
+ "business_id": "e79fed7a-ef73-41ce-8c84-f0b53059b015",
+ "regulation_id": "2026-13615",
+ "gap_analysis": {
+  "business_name": "Farm 91 / Farm 3091",
+  "business_id": "e79fed7a-ef73-41ce-8c84-f0b53059b015",
+  "regulation_name": "Draft Guidance for Reducing Risk From Perfluorooctanoic Acid (PFOA) and Perfluorooctane Sulfonic Acid (PFOS) in Biosolids; Establishment of a Public Docket; Request for Feedback",
+  "regulation_id": "2026-13615",
+  "analysis_date": "2026-10-27T03:39:28.434918+00:00",
+  "overall_status": "compliant",
+  "confidence_score": 0.9,
+  "requirements": [],
+  "gaps": [],
+  "recommended_actions": [],
+  "summary": "Not applicable: Even if finalized, the guidance provides only non-binding, voluntary recommendations regarding PFOA and PFOS in biosolids and creates no new obligations for hog farm operations."
+ }
+}

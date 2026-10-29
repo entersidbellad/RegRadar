@@ -1,0 +1,17 @@
+{
+ "business_id": "5e053dcd-b4a9-463d-bc8d-2c0d8bd491b6",
+ "regulation_id": "2026-20849",
+ "gap_analysis": {
+  "business_name": "W.D. Thigpen Farm",
+  "business_id": "5e053dcd-b4a9-463d-bc8d-2c0d8bd491b6",
+  "regulation_name": "Clean Water Act Hazardous Substance Facility Response Plans: Compliance Date Delay and Changes To Reflect Administration Policy",
+  "regulation_id": "2026-20849",
+  "analysis_date": "2026-10-27T03:39:28.434918+00:00",
+  "overall_status": "compliant",
+  "confidence_score": 0.9,
+  "requirements": [],
+  "gaps": [],
+  "recommended_actions": [],
+  "summary": "Not applicable: The facility is a swine operation and does not typically store CWA hazardous substances at threshold quantities requiring a Facility Response Plan."
+ }
+}

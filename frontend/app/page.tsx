@@ -155,7 +155,7 @@ export default function LandingPage() {
             <StepCard
               step="02"
               title="AI Gap Analysis"
-              description="Gemini 2.5 Flash extracts compliance requirements and matches them against each facility's profile, permits, and operation type."
+              description="Gemini 3.1 Pro extracts compliance requirements and matches them against each facility's profile, permits, and operation type."
             />
             <StepCard
               step="03"
@@ -173,7 +173,7 @@ export default function LandingPage() {
             Built With
           </p>
           <div className="mt-6 flex flex-wrap items-center justify-center gap-x-8 gap-y-3 text-sm text-[#78716c]">
-            {["Next.js 14", "FastAPI", "Gemini 2.5 Flash", "ChromaDB", "React Leaflet", "Tailwind CSS", "shadcn/ui"].map(
+            {["Next.js 14", "FastAPI", "Gemini 3.1 Pro", "ChromaDB", "React Leaflet", "Tailwind CSS", "shadcn/ui"].map(
               (tech) => (
                 <span key={tech} className="rounded-full border border-[#e7e5e4] px-4 py-1.5 font-medium">
                   {tech}

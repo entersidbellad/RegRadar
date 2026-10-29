@@ -107,10 +107,13 @@ for (const file of readdirSync(CACHE_DIR).filter((f) => f.endsWith(".json")).sor
 }
 
 const businesses: Business[] = profiles.map((profile) => {
-  const latest = analyses
+  // Roll up to the most severe status across all analyses of this farm, so a
+  // "not applicable" result for one rule never hides a gap found under another.
+  const rank = { non_compliant: 3, warning: 2, compliant: 1, unknown: 0 } as const;
+  const worst = analyses
     .filter((a) => a.business_id === profile.id)
-    .sort((a, b) => b.created_at.localeCompare(a.created_at))[0];
-  return { ...profile, latest_status: latest?.overall_status ?? "unknown" };
+    .sort((a, b) => rank[b.overall_status] - rank[a.overall_status])[0];
+  return { ...profile, latest_status: worst?.overall_status ?? "unknown" };
 });
 
 writeFileSync(
